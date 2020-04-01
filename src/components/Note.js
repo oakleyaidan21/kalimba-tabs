@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 class Note extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selected: false,
-      hovered: false
+      hovered: false,
+      time: 4
     };
   }
   render() {
@@ -21,8 +23,11 @@ class Note extends Component {
           alignItems: "center"
         }}
         onClick={() => {
-          this.setState({ selected: !this.state.selected });
-          this.props.onClick(this.state.selected);
+          this.setState({
+            selected: !this.state.selected,
+            time: this.props.selectedNote
+          });
+          this.props.onClick(this.state.selected, this.props.selectedNote);
         }}
         onMouseEnter={() => {
           this.setState({ hovered: true });
@@ -31,10 +36,16 @@ class Note extends Component {
           this.setState({ hovered: false });
         }}
       >
-        {this.state.selected ? this.props.noteName : ""}
+        {this.state.selected ? this.state.time : ""}
       </div>
     );
   }
 }
 
-export default Note;
+const mapStateToProps = state => {
+  return {
+    selectedNote: state.selectedNote
+  };
+};
+
+export default connect(mapStateToProps)(Note);

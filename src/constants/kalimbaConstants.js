@@ -27,5 +27,7 @@ export const initialState = {
     "C6",
     "E6"
   ],
-  song: array
+  song: array,
+  selectedNote: 4,
+  tempo: 155
 };

@@ -3,7 +3,7 @@ import Kalimba from "../components/Kalimba";
 import { connect } from "react-redux";
 import { getInstruments } from "mobx-music";
 import { delay } from "q";
-
+import NoteButton from "../components/NoteButton";
 const { dialog, app } = window.require("electron").remote;
 
 class TabCreator extends Component {
@@ -34,7 +34,7 @@ class TabCreator extends Component {
     for (let i = this.props.song[0].length - 1; i >= 0; i--) {
       if (this.state.isStopped) break;
       let notesToPlay = [];
-      let shortestInterval = 500; //will default to half a second one lines without any notes
+      let shortestInterval = 4; //will default quarter note
       for (let j = 0; j < 17; j++) {
         //get each valid note from the line
         if (this.props.song[j][i].note !== "") {
@@ -43,13 +43,15 @@ class TabCreator extends Component {
       }
       //play all the valid notes
       for (let k = 0; k < notesToPlay.length; k++) {
-        if (notesToPlay[k].time < shortestInterval) {
+        if (notesToPlay[k].time > shortestInterval) {
           shortestInterval = notesToPlay[k].time;
         }
         this.state.kalimba.play(notesToPlay[k].note);
       }
       this.setState({ currentNoteIndex: i });
-      await delay(shortestInterval);
+      //convert note time into milliseconds with the current tempo
+      let delayTime = (4 * (1000 / (this.props.tempo / 60))) / shortestInterval;
+      await delay(delayTime);
     }
 
     this.setState({ isStopped: false });
@@ -72,7 +74,20 @@ class TabCreator extends Component {
         <div style={{ flex: 1 }}></div>
         <div style={styles.controlPanelContainer}>
           {/* NOTE TOOLBAR */}
-          <div style={{ flex: 1 }}></div>
+          <div style={{ flex: 1 }}>
+            <NoteButton value={4} />
+            <NoteButton value={8} />
+            <NoteButton value={16} />
+            {/* <Button variant="outline-primary" style={styles.noteButtons}>
+              4
+            </Button>
+            <Button variant="outline-primary" style={styles.noteButtons}>
+              8
+            </Button>
+            <Button variant="outline-primary" style={styles.noteButtons}>
+              16
+            </Button> */}
+          </div>
           {/* TITLE INPUT */}
           <div style={{ flex: 1 }}></div>
           {/* SONG CONTROL */}
@@ -134,6 +149,10 @@ const styles = {
     boxShadow: "0px 5px 5px grey",
     height: 60,
     backgroundColor: "white"
+  },
+  noteButtons: {
+    margin: 5,
+    color: "green"
   }
 };
 
@@ -141,7 +160,8 @@ const mapStateToProps = state => {
   return {
     test: state.test,
     tineNotes: state.tineNotes,
-    song: state.song
+    song: state.song,
+    tempo: state.tempo
   };
 };
 

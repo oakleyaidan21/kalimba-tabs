@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Note from "./Note";
 import { connect } from "react-redux";
 
+const coloredTines = [2, 5, 8, 11, 14];
 class Kalimba extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +32,9 @@ class Kalimba extends Component {
             <div
               style={{
                 margin: 4,
-                backgroundColor: tineIndex % 2 ? "lightgrey" : "blue",
+                backgroundColor: !coloredTines.includes(tineIndex)
+                  ? "lightgrey"
+                  : "blue",
                 flex: 17,
                 height:
                   50 * this.props.song[0].length +
@@ -45,7 +48,7 @@ class Kalimba extends Component {
                 (note, noteIndex) => (
                   <Note
                     noteName={tine}
-                    onClick={wasClicked => {
+                    onClick={(wasClicked, time) => {
                       console.log(
                         "tine index:",
                         tineIndex,
@@ -57,6 +60,7 @@ class Kalimba extends Component {
                         tineIndex,
                         noteIndex,
                         tine,
+                        time,
                         wasClicked
                       });
                       //play note

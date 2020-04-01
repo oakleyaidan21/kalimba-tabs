@@ -14,10 +14,12 @@ export const reducer = (state = initialState, action) => {
         //add to song
         newSong[action.noteDetails.tineIndex][action.noteDetails.noteIndex] = {
           note: action.noteDetails.tine,
-          time: 500
+          time: action.noteDetails.time
         };
       }
       return { ...state, song: newSong };
+    case "CHANGENOTEVALUE":
+      return { ...state, selectedNote: action.value };
     default:
       return state;
   }
