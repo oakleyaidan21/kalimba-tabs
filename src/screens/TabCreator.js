@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { getInstruments } from "mobx-music";
 import { delay } from "q";
 
+const { dialog, app } = window.require("electron").remote;
+
 class TabCreator extends Component {
   constructor(props) {
     super(props);
@@ -69,16 +71,39 @@ class TabCreator extends Component {
         </div>
         <div style={{ flex: 1 }}></div>
         <div style={styles.controlPanelContainer}>
-          {/* PLAY BUTTON */}
-          <div
-            onClick={() => {
-              this.state.playing ? this.stopSong() : this.playSong();
-            }}
-          >
-            {this.state.playing ? "Stop" : "Play"}
+          {/* NOTE TOOLBAR */}
+          <div style={{ flex: 1 }}></div>
+          {/* TITLE INPUT */}
+          <div style={{ flex: 1 }}></div>
+          {/* SONG CONTROL */}
+          <div style={{ flex: 1 }}>
+            {/* PLAY BUTTON */}
+            <div
+              onClick={() => {
+                this.state.playing ? this.stopSong() : this.playSong();
+              }}
+            >
+              {this.state.playing ? "Stop" : "Play"}
+            </div>
+            {/* Save */}
+            <div
+              onClick={() => {
+                // temp save function to demonstrate electron functions
+                console.log(
+                  dialog.showOpenDialog({
+                    defaultPath: app.getPath("documents") + "/KalimbaTabs",
+                    properties: [
+                      "openFile",
+                      "multiSelectrons",
+                      "promptToCreate"
+                    ]
+                  })
+                );
+              }}
+            >
+              Save
+            </div>
           </div>
-          {/* Save */}
-          <div onClick={() => {}}>Save</div>
         </div>
       </div>
     );
@@ -104,10 +129,10 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    left: -10,
+    left: "-5%",
     width: "110%",
     boxShadow: "0px 5px 5px grey",
-    height: 70,
+    height: 60,
     backgroundColor: "white"
   }
 };
