@@ -7,9 +7,6 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.4.1",
-    "concurrently": "^5.1.0",
-    "electron": "^8.2.0",
-    "electron-builder": "^22.4.1",
     "electron-is-dev": "^1.1.0",
     "mobx": "^5.15.4",
     "mobx-music": "^1.1.1",
@@ -17,17 +14,32 @@
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
-    "redux": "^4.0.5",
-    "wait-on": "^4.0.1"
+    "redux": "^4.0.5"
   },
   "main": "public/electron.js",
+  "build": {
+    "appId": "com.example.electron-cra",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\""
+    "electron-dev": "concurrently \"BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-pack": "electron-builder -c.extraMetadata.main=build/electron.js",
+    "preelectron-pack": "npm run build"
   },
+  "author": {
+    "name": "CarrotCake"
+  },
+  "homepage": "./",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -42,5 +54,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "electron": "^8.2.0",
+    "electron-builder": "^22.4.1",
+    "wait-on": "^4.0.1"
   }
 }
