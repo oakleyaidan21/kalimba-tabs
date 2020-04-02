@@ -75,6 +75,12 @@ class Kalimba extends Component {
             </div>
           ))}
         </div>
+        {/* NOTE SELECTOR */}
+        <div style={styles.noteSelectorContainer}>
+          {this.props.tineNotes.map((tine, tineIndex) => (
+            <div style={{ flex: 17, textAlign: "center" }}>{tine}</div>
+          ))}
+        </div>
         {/* DUMMY DIV TO SCROLL TO BOTTOM */}
         <div
           style={styles.dummyDiv}
@@ -98,6 +104,18 @@ const styles = {
   note: {
     height: 45,
     marginTop: 5
+  },
+  noteSelectorContainer: {
+    position: "absolute",
+    bottom: 0,
+    width: "50%",
+    display: "flex",
+    flexDirection: "row",
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderTop: "2px solid grey"
   },
   dummyDiv: {
     float: "left",
