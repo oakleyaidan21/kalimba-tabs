@@ -5,9 +5,10 @@ import { getInstruments } from "mobx-music";
 import { delay } from "q";
 import NoteButton from "../components/NoteButton";
 import AccidentalButton from "../components/AccidentalButton";
-import { FaPlay, FaStop, FaSave } from "react-icons/fa";
+import { FaPlay, FaStop, FaSave, FaFolderOpen } from "react-icons/fa";
 import { Button } from "react-bootstrap";
 
+var fs = require("fs");
 const { dialog, app } = window.require("electron").remote;
 
 class TabCreator extends Component {
@@ -20,6 +21,39 @@ class TabCreator extends Component {
       isStopped: false
     };
   }
+
+  saveSong = () => {
+    dialog.showSaveDialog(fileName => {
+      if (fileName === undefined) {
+        console.log("You didn't save the file!");
+        return;
+      }
+
+      fs.writeFile(fileName, this.props.song.toString(), err => {
+        if (err) {
+          alert("An error occurred while saving" + err.message);
+        }
+        alert("The file has been successfully saved");
+      });
+    });
+  };
+
+  openSong = () => {
+    dialog.showOpenDialog(fileNames => {
+      if (fileNames === undefined) {
+        console.log("No file selected");
+        return;
+      }
+
+      fs.readFile(app.getPath("documents"), "utf-8", (err, data) => {
+        if (err) {
+          alert("An error occurred reading the file(s)" + err.message);
+          return;
+        }
+        console.log("The file content is:", data);
+      });
+    });
+  };
 
   componentDidMount = async () => {
     //set up kalimba
@@ -96,20 +130,18 @@ class TabCreator extends Component {
             <div
               style={{ margin: 10 }}
               onClick={() => {
-                // temp save function to demonstrate electron functions
-                console.log(
-                  dialog.showOpenDialog({
-                    defaultPath: app.getPath("documents") + "/KalimbaTabs",
-                    properties: [
-                      "openFile",
-                      "multiSelectrons",
-                      "promptToCreate"
-                    ]
-                  })
-                );
+                this.saveSong();
               }}
             >
               <FaSave size={30} />
+            </div>
+            <div
+              style={{ margin: 10 }}
+              onClick={() => {
+                this.openSong();
+              }}
+            >
+              <FaFolderOpen size={30} />
             </div>
           </div>
           {/* TITLE INPUT */}

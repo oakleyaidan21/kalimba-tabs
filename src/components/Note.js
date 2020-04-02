@@ -12,6 +12,8 @@ class Note extends Component {
     };
   }
   render() {
+    let wasClicked =
+      this.props.song[this.props.tineIndex][this.props.noteIndex].note !== "";
     return (
       <div
         style={{
@@ -25,11 +27,11 @@ class Note extends Component {
         }}
         onClick={() => {
           this.setState({
-            selected: !this.state.selected,
+            // selected: !this.state.selected,
             time: this.props.selectedNote,
             accidental: this.props.selectedAccidental
           });
-          this.props.onClick(this.state.selected, this.props.selectedNote);
+          this.props.onClick(wasClicked, this.props.selectedNote);
         }}
         onMouseEnter={() => {
           this.setState({ hovered: true });
@@ -38,7 +40,7 @@ class Note extends Component {
           this.setState({ hovered: false });
         }}
       >
-        {this.state.selected
+        {wasClicked
           ? this.state.accidental !== "None"
             ? this.state.time + this.state.accidental
             : this.state.time
@@ -51,7 +53,8 @@ class Note extends Component {
 const mapStateToProps = state => {
   return {
     selectedNote: state.selectedNote,
-    selectedAccidental: state.selectedAccidental
+    selectedAccidental: state.selectedAccidental,
+    song: state.song
   };
 };
 

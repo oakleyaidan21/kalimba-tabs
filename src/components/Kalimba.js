@@ -47,6 +47,7 @@ class Kalimba extends Component {
               {Array.from(Array(this.props.song[0].length).keys()).map(
                 (note, noteIndex) => (
                   <Note
+                    key={tine + noteIndex.toString()}
                     noteName={tine}
                     onClick={(wasClicked, time) => {
                       console.log(
@@ -55,6 +56,7 @@ class Kalimba extends Component {
                         "noteIndex:",
                         noteIndex
                       );
+
                       //add or remove redux song
                       this.props.clickedNote({
                         tineIndex,
@@ -81,6 +83,8 @@ class Kalimba extends Component {
                       }
                     }}
                     isHighlighted={this.props.currentNote === noteIndex}
+                    noteIndex={noteIndex}
+                    tineIndex={tineIndex}
                   />
                 )
               )}
@@ -90,7 +94,9 @@ class Kalimba extends Component {
         {/* NOTE SELECTOR */}
         <div style={styles.noteSelectorContainer}>
           {this.props.tineNotes.map(tine => (
-            <div style={{ flex: 17, textAlign: "center" }}>{tine}</div>
+            <div style={{ flex: 17, textAlign: "center" }} key={tine}>
+              {tine}
+            </div>
           ))}
         </div>
         {/* DUMMY DIV TO SCROLL TO BOTTOM */}

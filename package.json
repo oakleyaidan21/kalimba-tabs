@@ -8,6 +8,8 @@
     "@testing-library/user-event": "^7.2.1",
     "bootstrap": "^4.4.1",
     "electron-is-dev": "^1.1.0",
+    "electron-json-storage": "^4.1.8",
+    "fs": "0.0.1-security",
     "jquery": "^3.4.1",
     "mobx": "^5.15.4",
     "mobx-music": "^1.1.1",
