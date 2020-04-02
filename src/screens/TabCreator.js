@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { getInstruments } from "mobx-music";
 import { delay } from "q";
 import NoteButton from "../components/NoteButton";
+import { FaPlay, FaStop, FaSave } from "react-icons/fa";
+import { Button } from "react-bootstrap";
 const { dialog, app } = window.require("electron").remote;
 
 class TabCreator extends Component {
@@ -74,34 +76,36 @@ class TabCreator extends Component {
         <div style={{ flex: 1 }}></div>
         <div style={styles.controlPanelContainer}>
           {/* NOTE TOOLBAR */}
-          <div style={{ flex: 1 }}>
+          <div style={styles.noteToolbarContainer}>
             <NoteButton value={4} />
             <NoteButton value={8} />
             <NoteButton value={16} />
-            {/* <Button variant="outline-primary" style={styles.noteButtons}>
-              4
+            <div
+              style={{ height: 50, width: 2, backgroundColor: "lightgrey" }}
+            />
+            <Button variant="outline-primary" style={{ margin: 5 }}>
+              #
             </Button>
-            <Button variant="outline-primary" style={styles.noteButtons}>
-              8
+            <Button variant="outline-primary" style={{ margin: 5 }}>
+              ♭
             </Button>
-            <Button variant="outline-primary" style={styles.noteButtons}>
-              16
-            </Button> */}
           </div>
           {/* TITLE INPUT */}
           <div style={{ flex: 1 }}></div>
           {/* SONG CONTROL */}
-          <div style={{ flex: 1 }}>
+          <div style={styles.songControlContainer}>
             {/* PLAY BUTTON */}
             <div
               onClick={() => {
                 this.state.playing ? this.stopSong() : this.playSong();
               }}
+              style={{ margin: 10 }}
             >
-              {this.state.playing ? "Stop" : "Play"}
+              {this.state.playing ? <FaStop /> : <FaPlay />}
             </div>
             {/* Save */}
             <div
+              style={{ margin: 10 }}
               onClick={() => {
                 // temp save function to demonstrate electron functions
                 console.log(
@@ -116,7 +120,7 @@ class TabCreator extends Component {
                 );
               }}
             >
-              Save
+              <FaSave />
             </div>
           </div>
         </div>
@@ -142,6 +146,7 @@ const styles = {
     position: "absolute",
     top: 0,
     display: "flex",
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     left: "-5%",
@@ -150,9 +155,19 @@ const styles = {
     height: 60,
     backgroundColor: "white"
   },
-  noteButtons: {
-    margin: 5,
-    color: "green"
+  noteToolbarContainer: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  songControlContainer: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
   }
 };
 
