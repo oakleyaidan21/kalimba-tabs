@@ -32,6 +32,9 @@ export const reducer = (state = initialState, action) => {
     case "CHANGENOTEVALUE":
       return { ...state, selectedNote: action.value };
     case "CHANGEACCIDENTAL":
+      if (state.selectedAccidental === action.accidental) {
+        return { ...state, selectedAccidental: "None" };
+      }
       return { ...state, selectedAccidental: action.accidental };
     case "TOGGLEDOTTED": {
       return { ...state, dotted: !state.dotted };

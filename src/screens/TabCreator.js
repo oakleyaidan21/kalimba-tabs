@@ -128,7 +128,6 @@ class TabCreator extends Component {
             <AccidentalButton value="♯" />
             <AccidentalButton value="♭" />
             <AccidentalButton value="♮" />
-            <AccidentalButton value="None" />
             <div style={styles.noteToolbarDivider} />
             <Button
               variant="outline-primary"
