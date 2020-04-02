@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Note from "./Note";
 import { connect } from "react-redux";
-
+import NoteChanger from "./NoteChanger";
 const coloredTines = [2, 5, 8, 11, 14];
 class Kalimba extends Component {
   constructor(props) {
@@ -95,9 +95,7 @@ class Kalimba extends Component {
         {/* NOTE SELECTOR */}
         <div style={styles.noteSelectorContainer}>
           {this.props.tineNotes.map(tine => (
-            <div style={{ flex: 17, textAlign: "center" }} key={tine}>
-              {tine}
-            </div>
+            <NoteChanger tine={tine} />
           ))}
         </div>
         {/* DUMMY DIV TO SCROLL TO BOTTOM */}

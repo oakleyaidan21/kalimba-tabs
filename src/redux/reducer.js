@@ -45,6 +45,29 @@ export const reducer = (state = initialState, action) => {
     case "CHANGETITLE": {
       return { ...state, songTitle: action.title };
     }
+    case "ADDACCIDENTAL": {
+      //find note index in tine notes, then change accidental
+      let indexOfTine = state.tineNotes.indexOf(action.tine);
+      if (indexOfTine === -1) {
+        console.log("error finding tine");
+        return { ...state };
+      }
+      console.log(indexOfTine);
+      let newNote = state.tineNotes[indexOfTine];
+      console.log(newNote);
+      newNote.replace("#", "").replace("b", "");
+      if (action.accidental === "♯") {
+        newNote = newNote[0] + "#" + newNote[1];
+      }
+      if (action.accidental === "♭") {
+        newNote = newNote[0] + "b" + newNote[1];
+      }
+      console.log(newNote);
+      let newTines = state.tineNotes;
+      newTines[indexOfTine] = newNote;
+      console.log(newTines);
+      return { ...state, tineNotes: newTines };
+    }
     default:
       return state;
   }
