@@ -29,7 +29,7 @@ export const initialState = {
   ],
   song: array,
   selectedNote: 4,
-  tempo: 155,
+  tempo: 145,
   songTitle: "Title",
   selectedAccidental: "None",
   dotted: false

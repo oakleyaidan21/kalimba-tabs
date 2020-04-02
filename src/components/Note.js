@@ -14,6 +14,9 @@ class Note extends Component {
   render() {
     let wasClicked =
       this.props.song[this.props.tineIndex][this.props.noteIndex].note !== "";
+    let displayTime = this.props.song[this.props.tineIndex][
+      this.props.noteIndex
+    ].time;
     return (
       <div
         style={{
@@ -42,8 +45,8 @@ class Note extends Component {
       >
         {wasClicked
           ? this.state.accidental !== "None"
-            ? this.state.time + this.state.accidental
-            : this.state.time
+            ? displayTime + this.state.accidental
+            : displayTime
           : ""}
       </div>
     );
