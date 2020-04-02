@@ -54,7 +54,7 @@ class TabCreator extends Component {
           alert("An error occurred reading the file(s)" + err.message);
           return;
         }
-        console.log("The file content is:", JSON.parse(data));
+        // console.log("The file content is:", JSON.parse(data));
         this.props.openSong(JSON.parse(data));
       }
     );
@@ -73,18 +73,28 @@ class TabCreator extends Component {
 
   playSong = async () => {
     this.setState({ playing: true });
-    //go through each tine and play each note, then go up the notes
+    let kalimbaElement = document.getElementById("kalimbaContainer");
+    kalimbaElement.scrollTop = kalimbaElement.scrollHeight;
 
+    //go through each tine and play each note, then go up the notes
     for (let i = this.props.song[0].length - 1; i >= 0; i--) {
       if (this.state.isStopped) break;
+
+      //scroll to current note
+      kalimbaElement.scrollTop =
+        kalimbaElement.scrollHeight -
+        50 * (this.props.song[0].length - i) -
+        (window.innerHeight - 100);
       let notesToPlay = [];
       let shortestInterval = 4; //will default quarter note
+
       for (let j = 0; j < 17; j++) {
         //get each valid note from the line
         if (this.props.song[j][i].note !== "") {
           notesToPlay.push(this.props.song[j][i]);
         }
       }
+
       //play all the valid notes
       for (let k = 0; k < notesToPlay.length; k++) {
         if (notesToPlay[k].time > shortestInterval) {
@@ -93,6 +103,7 @@ class TabCreator extends Component {
         this.state.kalimba.play(notesToPlay[k].note);
       }
       this.setState({ currentNoteIndex: i });
+
       //convert note time into milliseconds with the current tempo
       let delayTime = (4 * (1000 / (this.props.tempo / 60))) / shortestInterval;
       await delay(delayTime);
@@ -106,7 +117,7 @@ class TabCreator extends Component {
       <div style={styles.tabCreatorContainer}>
         <div style={{ flex: 1 }}></div>
         {/* KALIMBA */}
-        <div style={styles.kalimbaContainer}>
+        <div style={styles.kalimbaContainer} id="kalimbaContainer">
           {/* wait for kalimba to load */}
           {this.state.kalimba !== null && (
             <Kalimba

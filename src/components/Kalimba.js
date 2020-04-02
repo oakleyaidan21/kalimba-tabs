@@ -20,6 +20,7 @@ class Kalimba extends Component {
   render() {
     return (
       <div
+        id="kalimba"
         style={{
           width: "100%",
           overflow: "auto",
