@@ -4,8 +4,10 @@ import { connect } from "react-redux";
 import { getInstruments } from "mobx-music";
 import { delay } from "q";
 import NoteButton from "../components/NoteButton";
+import AccidentalButton from "../components/AccidentalButton";
 import { FaPlay, FaStop, FaSave } from "react-icons/fa";
 import { Button } from "react-bootstrap";
+
 const { dialog, app } = window.require("electron").remote;
 
 class TabCreator extends Component {
@@ -75,23 +77,6 @@ class TabCreator extends Component {
         </div>
         <div style={{ flex: 1 }}></div>
         <div style={styles.controlPanelContainer}>
-          {/* NOTE TOOLBAR */}
-          <div style={styles.noteToolbarContainer}>
-            <NoteButton value={4} />
-            <NoteButton value={8} />
-            <NoteButton value={16} />
-            <div
-              style={{ height: 50, width: 2, backgroundColor: "lightgrey" }}
-            />
-            <Button variant="outline-primary" style={{ margin: 5 }}>
-              #
-            </Button>
-            <Button variant="outline-primary" style={{ margin: 5 }}>
-              ♭
-            </Button>
-          </div>
-          {/* TITLE INPUT */}
-          <div style={{ flex: 1 }}></div>
           {/* SONG CONTROL */}
           <div style={styles.songControlContainer}>
             {/* PLAY BUTTON */}
@@ -101,7 +86,11 @@ class TabCreator extends Component {
               }}
               style={{ margin: 10 }}
             >
-              {this.state.playing ? <FaStop /> : <FaPlay />}
+              {this.state.playing ? (
+                <FaStop color="red" size={30} />
+              ) : (
+                <FaPlay color="blue" size={30} />
+              )}
             </div>
             {/* Save */}
             <div
@@ -120,14 +109,59 @@ class TabCreator extends Component {
                 );
               }}
             >
-              <FaSave />
+              <FaSave size={30} />
             </div>
+          </div>
+          {/* TITLE INPUT */}
+          <div style={styles.titleContainer}>
+            <input
+              placeholder={this.props.songTitle}
+              style={styles.titleInput}
+            ></input>
+          </div>
+          {/* NOTE TOOLBAR */}
+          <div style={styles.noteToolbarContainer}>
+            <NoteButton value={4} />
+            <NoteButton value={8} />
+            <NoteButton value={16} />
+            <div style={styles.noteToolbarDivider} />
+            <AccidentalButton value="♯" />
+            <AccidentalButton value="♭" />
+            <AccidentalButton value="♮" />
+            <AccidentalButton value="None" />
+            <div style={styles.noteToolbarDivider} />
+            <Button
+              variant="outline-primary"
+              style={{
+                margin: 5,
+                backgroundColor: this.props.dotted ? "blue" : "white"
+              }}
+              onClick={() => {
+                this.props.toggleDotted();
+              }}
+            >
+              <div
+                style={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: 5,
+                  backgroundColor: this.props.dotted ? "white" : "blue"
+                }}
+              ></div>
+            </Button>
           </div>
         </div>
       </div>
     );
   }
 }
+
+const divCenteredContent = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "row"
+};
 
 const styles = {
   tabCreatorContainer: {
@@ -145,10 +179,7 @@ const styles = {
   controlPanelContainer: {
     position: "absolute",
     top: 0,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    ...divCenteredContent,
     left: "-5%",
     width: "110%",
     boxShadow: "0px 5px 5px grey",
@@ -157,17 +188,26 @@ const styles = {
   },
   noteToolbarContainer: {
     flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center"
+    ...divCenteredContent
+  },
+  noteToolbarDivider: {
+    height: 50,
+    width: 2,
+    backgroundColor: "lightgrey",
+    margin: 5
   },
   songControlContainer: {
     flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center"
+    ...divCenteredContent
+  },
+  titleContainer: {
+    flex: 1,
+    ...divCenteredContent
+  },
+  titleInput: {
+    textAlign: "center",
+    borderRadius: 3,
+    border: "3px solid lightgrey"
   }
 };
 
@@ -176,12 +216,16 @@ const mapStateToProps = state => {
     test: state.test,
     tineNotes: state.tineNotes,
     song: state.song,
-    tempo: state.tempo
+    tempo: state.tempo,
+    songTitle: state.songTitle,
+    dotted: state.dotted
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    toggleDotted: () => dispatch({ type: "TOGGLEDOTTED" })
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabCreator);

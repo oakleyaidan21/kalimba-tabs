@@ -65,7 +65,19 @@ class Kalimba extends Component {
                       });
                       //play note
                       if (!wasClicked) {
-                        this.props.kalimba.play(tine, 500);
+                        let noteToPlay = tine;
+                        if (this.props.selectedAccidental === "♯") {
+                          noteToPlay = noteToPlay[0] + "#" + noteToPlay[1];
+                        }
+                        if (this.props.selectedAccidental === "♭") {
+                          noteToPlay = noteToPlay[0] + "b" + noteToPlay[1];
+                        }
+                        if (this.props.selectedAccidental === "♮") {
+                          noteToPlay = noteToPlay
+                            .replace("#", "")
+                            .replace("b", "");
+                        }
+                        this.props.kalimba.play(noteToPlay, 500);
                       }
                     }}
                     isHighlighted={this.props.currentNote === noteIndex}
@@ -77,7 +89,7 @@ class Kalimba extends Component {
         </div>
         {/* NOTE SELECTOR */}
         <div style={styles.noteSelectorContainer}>
-          {this.props.tineNotes.map((tine, tineIndex) => (
+          {this.props.tineNotes.map(tine => (
             <div style={{ flex: 17, textAlign: "center" }}>{tine}</div>
           ))}
         </div>
@@ -127,7 +139,8 @@ const styles = {
 const mapStateToProps = state => {
   return {
     tineNotes: state.tineNotes,
-    song: state.song
+    song: state.song,
+    selectedAccidental: state.selectedAccidental
   };
 };
 

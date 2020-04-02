@@ -12,14 +12,30 @@ export const reducer = (state = initialState, action) => {
         };
       } else {
         //add to song
+        //check accidental
+        let noteToAdd = action.noteDetails.tine;
+        if (state.selectedAccidental === "♯") {
+          noteToAdd = noteToAdd[0] + "#" + noteToAdd[1];
+        }
+        if (state.selectedAccidental === "♭") {
+          noteToAdd = noteToAdd[0] + "b" + noteToAdd[1];
+        }
+        if (state.selectedAccidental === "♮") {
+          noteToAdd = noteToAdd.replace("#", "").replace("b", "");
+        }
         newSong[action.noteDetails.tineIndex][action.noteDetails.noteIndex] = {
-          note: action.noteDetails.tine,
+          note: noteToAdd,
           time: action.noteDetails.time
         };
       }
       return { ...state, song: newSong };
     case "CHANGENOTEVALUE":
       return { ...state, selectedNote: action.value };
+    case "CHANGEACCIDENTAL":
+      return { ...state, selectedAccidental: action.accidental };
+    case "TOGGLEDOTTED": {
+      return { ...state, dotted: !state.dotted };
+    }
     default:
       return state;
   }
