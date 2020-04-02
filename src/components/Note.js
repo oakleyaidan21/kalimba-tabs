@@ -7,7 +7,8 @@ class Note extends Component {
     this.state = {
       selected: false,
       hovered: false,
-      time: 4
+      time: 4,
+      accidental: "None"
     };
   }
   render() {
@@ -25,7 +26,8 @@ class Note extends Component {
         onClick={() => {
           this.setState({
             selected: !this.state.selected,
-            time: this.props.selectedNote
+            time: this.props.selectedNote,
+            accidental: this.props.selectedAccidental
           });
           this.props.onClick(this.state.selected, this.props.selectedNote);
         }}
@@ -36,7 +38,11 @@ class Note extends Component {
           this.setState({ hovered: false });
         }}
       >
-        {this.state.selected ? this.state.time : ""}
+        {this.state.selected
+          ? this.state.accidental !== "None"
+            ? this.state.time + this.state.accidental
+            : this.state.time
+          : ""}
       </div>
     );
   }
@@ -44,7 +50,8 @@ class Note extends Component {
 
 const mapStateToProps = state => {
   return {
-    selectedNote: state.selectedNote
+    selectedNote: state.selectedNote,
+    selectedAccidental: state.selectedAccidental
   };
 };
 
