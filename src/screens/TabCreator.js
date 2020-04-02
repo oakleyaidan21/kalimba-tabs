@@ -24,41 +24,33 @@ class TabCreator extends Component {
     };
   }
 
-  saveSong = () => {
-    fs.writeFile(
-      app.app.getPath("documents") + "/" + this.props.songTitle + ".kal",
-      JSON.stringify(this.props.song),
-      err => {
+  saveSong = async () => {
+    app.dialog.showSaveDialog().then(file => {
+      if (file.cancelled) {
+        return;
+      }
+      console.log(file);
+      fs.writeFile(file.filePath, JSON.stringify(this.props.song), err => {
         if (err) {
           alert("An error occurred while saving" + err.message);
         } else {
-          alert("The file has been successfully saved");
+          alert("Successfully saved '" + this.props.songTitle + "'");
         }
-      }
-    );
-    // console.log(JSON.stringify(this.props.song));
+      });
+    });
   };
 
   openSong = () => {
-    // app.dialog.showOpenDialog(fileNames => {
-    //   if (fileNames === undefined) {
-    //     console.log("No file selected");
-    //     return;
-    //   }
-
-    fs.readFile(
-      app.app.getPath("documents") + "/" + this.props.songTitle + ".kal",
-      "utf-8",
-      (err, data) => {
+    app.dialog.showOpenDialog().then(files => {
+      fs.readFile(files.filePaths[0], "utf-8", (err, data) => {
         if (err) {
           alert("An error occurred reading the file(s)" + err.message);
           return;
         }
         // console.log("The file content is:", JSON.parse(data));
         this.props.openSong(JSON.parse(data));
-      }
-    );
-    // });
+      });
+    });
   };
 
   componentDidMount = async () => {
