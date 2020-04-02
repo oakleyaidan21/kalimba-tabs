@@ -25,14 +25,21 @@ class TabCreator extends Component {
   }
 
   saveSong = async () => {
-    app.dialog.showSaveDialog().then(file => {
-      if (file.cancelled) {
+    //create kalimba folder if it doesn't exist
+    if (!fs.existsSync(app.app.getPath("documents") + "/KalimbaTabs")) {
+      fs.mkdir(app.app.getPath("documents") + "/KalimbaTabs");
+    }
+    let options = {
+      title: this.props.songTitle,
+      defaultPath: app.app.getPath("documents") + "/KalimbaTabs"
+    };
+    app.dialog.showSaveDialog(options).then(file => {
+      if (file.canceled) {
         return;
       }
-      console.log(file);
       fs.writeFile(file.filePath, JSON.stringify(this.props.song), err => {
         if (err) {
-          alert("An error occurred while saving" + err.message);
+          alert("An error occurred while saving " + err.message);
         } else {
           alert("Successfully saved '" + this.props.songTitle + "'");
         }
@@ -41,7 +48,10 @@ class TabCreator extends Component {
   };
 
   openSong = () => {
-    app.dialog.showOpenDialog().then(files => {
+    let options = {
+      defaultPath: app.app.getPath("documents") + "/KalimbaTabs"
+    };
+    app.dialog.showOpenDialog(options).then(files => {
       fs.readFile(files.filePaths[0], "utf-8", (err, data) => {
         if (err) {
           alert("An error occurred reading the file(s)" + err.message);
