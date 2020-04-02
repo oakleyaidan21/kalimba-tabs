@@ -37,7 +37,13 @@ class TabCreator extends Component {
       if (file.canceled) {
         return;
       }
-      fs.writeFile(file.filePath, JSON.stringify(this.props.song), err => {
+      let contentToSave = {
+        songTitle: this.props.songTitle,
+        tempo: this.props.tempo,
+        tineNotes: this.props.tineNotes,
+        song: this.props.song
+      };
+      fs.writeFile(file.filePath, JSON.stringify(contentToSave), err => {
         if (err) {
           alert("An error occurred while saving " + err.message);
         } else {
@@ -57,7 +63,6 @@ class TabCreator extends Component {
           alert("An error occurred reading the file(s)" + err.message);
           return;
         }
-        // console.log("The file content is:", JSON.parse(data));
         this.props.openSong(JSON.parse(data));
       });
     });

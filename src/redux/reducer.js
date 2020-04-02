@@ -40,7 +40,13 @@ export const reducer = (state = initialState, action) => {
       return { ...state, dotted: !state.dotted };
     }
     case "OPENSONG": {
-      return { ...state, song: action.data };
+      return {
+        ...state,
+        song: action.data.song,
+        songTitle: action.data.songTitle,
+        tempo: action.data.tempo,
+        tineNotes: action.data.tineNotes
+      };
     }
     case "CHANGETITLE": {
       return { ...state, songTitle: action.title };
@@ -63,7 +69,7 @@ export const reducer = (state = initialState, action) => {
         newNote = newNote[0] + "b" + newNote[1];
       }
       console.log(newNote);
-      let newTines = state.tineNotes;
+      let newTines = [...state.tineNotes];
       newTines[indexOfTine] = newNote;
       console.log(newTines);
       return { ...state, tineNotes: newTines };
