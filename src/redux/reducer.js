@@ -42,6 +42,9 @@ export const reducer = (state = initialState, action) => {
     case "OPENSONG": {
       return { ...state, song: action.data };
     }
+    case "CHANGETITLE": {
+      return { ...state, songTitle: action.title };
+    }
     default:
       return state;
   }

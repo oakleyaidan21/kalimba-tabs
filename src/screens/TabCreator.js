@@ -164,9 +164,12 @@ class TabCreator extends Component {
           {/* TITLE INPUT */}
           <div style={styles.titleContainer}>
             <input
-              placeholder={this.props.songTitle}
+              placeholder={"Untitled"}
               style={styles.titleInput}
-            ></input>
+              onChange={e => {
+                this.props.changeTitle(e.target.value);
+              }}
+            />
           </div>
           {/* NOTE TOOLBAR */}
           <div style={styles.noteToolbarContainer}>
@@ -273,7 +276,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     toggleDotted: () => dispatch({ type: "TOGGLEDOTTED" }),
-    openSong: data => dispatch({ type: "OPENSONG", data: data })
+    openSong: data => dispatch({ type: "OPENSONG", data: data }),
+    changeTitle: title => dispatch({ type: "CHANGETITLE", title: title })
   };
 };
 
