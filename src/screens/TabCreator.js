@@ -8,8 +8,10 @@ import AccidentalButton from "../components/AccidentalButton";
 import { FaPlay, FaStop, FaSave, FaFolderOpen } from "react-icons/fa";
 import { Button } from "react-bootstrap";
 
-var fs = require("fs");
-const { dialog, app } = window.require("electron").remote;
+// const { dialog, app } = window.require("electron").remote;
+// var fs = app.require("fs");
+var app = window.require("electron").remote;
+const fs = app.require("fs");
 
 class TabCreator extends Component {
   constructor(props) {
@@ -23,36 +25,40 @@ class TabCreator extends Component {
   }
 
   saveSong = () => {
-    dialog.showSaveDialog(fileName => {
-      if (fileName === undefined) {
-        console.log("You didn't save the file!");
-        return;
-      }
-
-      fs.writeFile(fileName, this.props.song.toString(), err => {
+    fs.writeFile(
+      app.app.getPath("documents") + "/" + this.props.songTitle + ".kal",
+      JSON.stringify(this.props.song),
+      err => {
         if (err) {
           alert("An error occurred while saving" + err.message);
+        } else {
+          alert("The file has been successfully saved");
         }
-        alert("The file has been successfully saved");
-      });
-    });
+      }
+    );
+    // console.log(JSON.stringify(this.props.song));
   };
 
   openSong = () => {
-    dialog.showOpenDialog(fileNames => {
-      if (fileNames === undefined) {
-        console.log("No file selected");
-        return;
-      }
+    // app.dialog.showOpenDialog(fileNames => {
+    //   if (fileNames === undefined) {
+    //     console.log("No file selected");
+    //     return;
+    //   }
 
-      fs.readFile(app.getPath("documents"), "utf-8", (err, data) => {
+    fs.readFile(
+      app.app.getPath("documents") + "/" + this.props.songTitle + ".kal",
+      "utf-8",
+      (err, data) => {
         if (err) {
           alert("An error occurred reading the file(s)" + err.message);
           return;
         }
-        console.log("The file content is:", data);
-      });
-    });
+        console.log("The file content is:", JSON.parse(data));
+        this.props.openSong(JSON.parse(data));
+      }
+    );
+    // });
   };
 
   componentDidMount = async () => {
@@ -255,7 +261,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggleDotted: () => dispatch({ type: "TOGGLEDOTTED" })
+    toggleDotted: () => dispatch({ type: "TOGGLEDOTTED" }),
+    openSong: data => dispatch({ type: "OPENSONG", data: data })
   };
 };
 

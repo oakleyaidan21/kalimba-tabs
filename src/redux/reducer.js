@@ -39,6 +39,9 @@ export const reducer = (state = initialState, action) => {
     case "TOGGLEDOTTED": {
       return { ...state, dotted: !state.dotted };
     }
+    case "OPENSONG": {
+      return { ...state, song: action.data };
+    }
     default:
       return state;
   }
