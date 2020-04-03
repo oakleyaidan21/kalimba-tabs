@@ -20,7 +20,9 @@ class TabCreator extends Component {
       currentNoteIndex: -1,
       kalimba: null,
       playing: false,
-      isStopped: false
+      isStopped: false,
+      editTitle: false,
+      editTempo: false
     };
   }
 
@@ -63,6 +65,7 @@ class TabCreator extends Component {
           alert("An error occurred reading the file(s)" + err.message);
           return;
         }
+        this.setState({ editTitle: false, editTempo: false });
         this.props.openSong(JSON.parse(data));
       });
     });
@@ -82,7 +85,7 @@ class TabCreator extends Component {
     this.setState({ playing: true });
     let kalimbaElement = document.getElementById("kalimbaContainer");
     kalimbaElement.scrollTop = kalimbaElement.scrollHeight;
-
+    let delayConstant = 4 * (1000 / (this.props.tempo / 60));
     let optimizedSong = [];
 
     //go through the song array and pick out only the notes that need to be played
@@ -105,14 +108,11 @@ class TabCreator extends Component {
       optimizedSong.push(notesToPlay);
     }
 
-    console.log(optimizedSong);
-
     //go through optimizedSong
     for (let i = 0; i < optimizedSong.length; i++) {
       if (this.state.isStopped) break;
       kalimbaElement.scrollTop =
         kalimbaElement.scrollHeight - 50 * i - (window.innerHeight - 200);
-      let delayConstant = 4 * (1000 / (this.props.tempo / 60));
       for (let j = 0; j < optimizedSong[i].notes.length; j++) {
         if (optimizedSong[i].notes[j] !== "rest") {
           this.state.kalimba.play(optimizedSong[i].notes[j]);
@@ -176,28 +176,42 @@ class TabCreator extends Component {
           </div>
           {/* TITLE INPUT */}
           <div style={styles.titleContainer}>
-            <input
-              placeholder={"Untitled"}
-              style={styles.titleInput}
-              onChange={e => {
-                this.props.changeTitle(e.target.value);
-              }}
-            />
-            <input
-              placeholder="145"
-              style={{
-                textAlign: "center",
-                borderRadius: 3,
-                border: "3px solid lightgrey",
-                width: 50,
-                margin: 5
-              }}
-              type="number"
-              min="0"
-              onChange={e => {
-                this.props.changeTempo(e.target.value);
-              }}
-            ></input>
+            {!this.state.editTitle ? (
+              <div
+                onClick={() => {
+                  this.setState({ editTitle: true });
+                }}
+              >
+                {this.props.songTitle}
+              </div>
+            ) : (
+              <input
+                placeholder={"Untitled"}
+                style={styles.titleInput}
+                onChange={e => {
+                  this.props.changeTitle(e.target.value);
+                }}
+              />
+            )}
+            {!this.state.editTempo ? (
+              <div
+                onClick={() => {
+                  this.setState({ editTempo: true });
+                }}
+              >
+                {this.props.tempo}
+              </div>
+            ) : (
+              <input
+                placeholder="145"
+                style={styles.tempoInput}
+                type="number"
+                min="0"
+                onChange={e => {
+                  this.props.changeTempo(e.target.value);
+                }}
+              />
+            )}
           </div>
           {/* NOTE TOOLBAR */}
           <div style={styles.noteToolbarContainer}>
@@ -229,7 +243,7 @@ class TabCreator extends Component {
                   borderRadius: 5,
                   backgroundColor: this.props.dotted ? "white" : "blue"
                 }}
-              ></div>
+              />
               {/* REST BUTTON */}
             </Button>
             <Button
@@ -304,6 +318,13 @@ const styles = {
     textAlign: "center",
     borderRadius: 3,
     border: "3px solid lightgrey"
+  },
+  tempoInput: {
+    textAlign: "center",
+    borderRadius: 3,
+    border: "3px solid lightgrey",
+    width: 50,
+    margin: 5
   }
 };
 
