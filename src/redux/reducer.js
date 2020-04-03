@@ -27,6 +27,9 @@ export const reducer = (state = initialState, action) => {
         if (state.dotted) {
           timeToAdd = (timeToAdd / 2 + timeToAdd) / 2;
         }
+        if (action.noteDetails.rest) {
+          noteToAdd = "rest";
+        }
         newSong[action.noteDetails.tineIndex][action.noteDetails.noteIndex] = {
           note: noteToAdd,
           time: timeToAdd
@@ -77,6 +80,9 @@ export const reducer = (state = initialState, action) => {
       newTines[indexOfTine] = newNote;
       console.log(newTines);
       return { ...state, tineNotes: newTines };
+    }
+    case "TOGGLEREST": {
+      return { ...state, rest: !state.rest };
     }
     default:
       return state;

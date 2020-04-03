@@ -32,5 +32,6 @@ export const initialState = {
   tempo: 145,
   songTitle: "Title",
   selectedAccidental: "None",
-  dotted: false
+  dotted: false,
+  rest: false
 };

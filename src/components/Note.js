@@ -17,6 +17,12 @@ class Note extends Component {
     let displayTime = this.props.song[this.props.tineIndex][
       this.props.noteIndex
     ].time;
+    if (
+      this.props.song[this.props.tineIndex][this.props.noteIndex].note ===
+      "rest"
+    ) {
+      displayTime += "R";
+    }
     return (
       <div
         style={{
@@ -34,7 +40,11 @@ class Note extends Component {
             time: this.props.selectedNote,
             accidental: this.props.selectedAccidental
           });
-          this.props.onClick(wasClicked, this.props.selectedNote);
+          this.props.onClick(
+            wasClicked,
+            this.props.selectedNote,
+            this.props.rest
+          );
         }}
         onMouseEnter={() => {
           this.setState({ hovered: true });
@@ -57,7 +67,8 @@ const mapStateToProps = state => {
   return {
     selectedNote: state.selectedNote,
     selectedAccidental: state.selectedAccidental,
-    song: state.song
+    song: state.song,
+    rest: state.rest
   };
 };
 

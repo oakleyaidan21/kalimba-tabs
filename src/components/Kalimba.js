@@ -50,7 +50,7 @@ class Kalimba extends Component {
                   <Note
                     key={tine + noteIndex.toString()}
                     noteName={tine}
-                    onClick={(wasClicked, time) => {
+                    onClick={(wasClicked, time, rest) => {
                       console.log(
                         "tine index:",
                         tineIndex,
@@ -64,7 +64,8 @@ class Kalimba extends Component {
                         noteIndex,
                         tine,
                         time,
-                        wasClicked
+                        wasClicked,
+                        rest
                       });
                       //play note
                       if (!wasClicked) {
@@ -80,7 +81,8 @@ class Kalimba extends Component {
                             .replace("#", "")
                             .replace("b", "");
                         }
-                        this.props.kalimba.play(noteToPlay, 500);
+                        if (!this.props.rest)
+                          this.props.kalimba.play(noteToPlay, 500);
                       }
                     }}
                     isHighlighted={this.props.currentNote === noteIndex}
@@ -145,7 +147,8 @@ const mapStateToProps = state => {
   return {
     tineNotes: state.tineNotes,
     song: state.song,
-    selectedAccidental: state.selectedAccidental
+    selectedAccidental: state.selectedAccidental,
+    rest: state.rest
   };
 };
 

@@ -107,7 +107,8 @@ class TabCreator extends Component {
         if (notesToPlay[k].time > shortestInterval) {
           shortestInterval = notesToPlay[k].time;
         }
-        this.state.kalimba.play(notesToPlay[k].note);
+        if (notesToPlay[k].note !== "rest")
+          this.state.kalimba.play(notesToPlay[k].note);
       }
       this.setState({ currentNoteIndex: i });
 
@@ -193,6 +194,7 @@ class TabCreator extends Component {
             <AccidentalButton value="♭" />
             <AccidentalButton value="♮" />
             <div style={styles.noteToolbarDivider} />
+            {/* DOTTED BUTTON */}
             <Button
               variant="outline-primary"
               style={{
@@ -211,6 +213,20 @@ class TabCreator extends Component {
                   backgroundColor: this.props.dotted ? "white" : "blue"
                 }}
               ></div>
+              {/* REST BUTTON */}
+            </Button>
+            <Button
+              variant="outline-primary"
+              style={{
+                margin: 5,
+                backgroundColor: this.props.rest ? "blue" : "white",
+                color: this.props.rest ? "white" : "blue"
+              }}
+              onClick={() => {
+                this.props.toggleRest();
+              }}
+            >
+              Rest
             </Button>
           </div>
         </div>
@@ -281,7 +297,8 @@ const mapStateToProps = state => {
     song: state.song,
     tempo: state.tempo,
     songTitle: state.songTitle,
-    dotted: state.dotted
+    dotted: state.dotted,
+    rest: state.rest
   };
 };
 
@@ -289,7 +306,8 @@ const mapDispatchToProps = dispatch => {
   return {
     toggleDotted: () => dispatch({ type: "TOGGLEDOTTED" }),
     openSong: data => dispatch({ type: "OPENSONG", data: data }),
-    changeTitle: title => dispatch({ type: "CHANGETITLE", title: title })
+    changeTitle: title => dispatch({ type: "CHANGETITLE", title: title }),
+    toggleRest: () => dispatch({ type: "TOGGLEREST" })
   };
 };
 
