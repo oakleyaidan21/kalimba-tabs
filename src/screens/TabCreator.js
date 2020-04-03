@@ -83,48 +83,49 @@ class TabCreator extends Component {
     let kalimbaElement = document.getElementById("kalimbaContainer");
     kalimbaElement.scrollTop = kalimbaElement.scrollHeight;
 
-    //go through each tine and play each note, then go up the notes
+    let optimizedSong = [];
+
+    //go through the song array and pick out only the notes that need to be played
     for (let i = this.props.song[0].length - 1; i >= 0; i--) {
-      if (this.state.isStopped) break;
-
-      //scroll to current note
-      kalimbaElement.scrollTop =
-        kalimbaElement.scrollHeight -
-        50 * (this.props.song[0].length - i) -
-        (window.innerHeight - 100);
-      let notesToPlay = [];
+      let notesToPlay = { notes: [], time: 4 };
       let shortestInterval = -1;
-
       for (let j = 0; j < 17; j++) {
-        //get each valid note from the line
+        let noteToAdd = "";
         if (this.props.song[j][i].note !== "") {
-          notesToPlay.push(this.props.song[j][i]);
+          noteToAdd = this.props.song[j][i].note;
+        } else {
+          continue;
+        }
+        if (shortestInterval < this.props.song[j][i].time) {
+          shortestInterval = this.props.song[j][i].time;
+        }
+        notesToPlay.notes.push(noteToAdd);
+        notesToPlay.time = shortestInterval;
+      }
+      optimizedSong.push(notesToPlay);
+    }
+
+    console.log(optimizedSong);
+
+    //go through optimizedSong
+    for (let i = 0; i < optimizedSong.length; i++) {
+      if (this.state.isStopped) break;
+      kalimbaElement.scrollTop =
+        kalimbaElement.scrollHeight - 50 * i - (window.innerHeight - 200);
+      let delayConstant = 4 * (1000 / (this.props.tempo / 60));
+      for (let j = 0; j < optimizedSong[i].notes.length; j++) {
+        if (optimizedSong[i].notes[j] !== "rest") {
+          this.state.kalimba.play(optimizedSong[i].notes[j]);
         }
       }
-
-      //play all the valid notes
-      for (let k = 0; k < notesToPlay.length; k++) {
-        if (notesToPlay[k].time > shortestInterval) {
-          shortestInterval = notesToPlay[k].time;
-        }
-        if (notesToPlay[k].note !== "rest")
-          this.state.kalimba.play(notesToPlay[k].note);
-      }
-      this.setState({ currentNoteIndex: i });
-
-      //convert note time into milliseconds with the current tempo
-      if (shortestInterval === -1) {
-        shortestInterval = 4; //defaults to quarter note
-      }
-      let delayTime = (4 * (1000 / (this.props.tempo / 60))) / shortestInterval;
-      await delay(delayTime);
+      this.setState({ currentNoteIndex: optimizedSong.length - 1 - i });
+      await delay(delayConstant / optimizedSong[i].time);
     }
 
     this.setState({ isStopped: false });
   };
 
   render() {
-    console.log(this.props.tempo);
     return (
       <div style={styles.tabCreatorContainer}>
         <div style={{ flex: 1 }}></div>
