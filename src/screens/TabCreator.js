@@ -124,6 +124,7 @@ class TabCreator extends Component {
   };
 
   render() {
+    console.log(this.props.tempo);
     return (
       <div style={styles.tabCreatorContainer}>
         <div style={{ flex: 1 }}></div>
@@ -181,6 +182,21 @@ class TabCreator extends Component {
                 this.props.changeTitle(e.target.value);
               }}
             />
+            <input
+              placeholder="145"
+              style={{
+                textAlign: "center",
+                borderRadius: 3,
+                border: "3px solid lightgrey",
+                width: 50,
+                margin: 5
+              }}
+              type="number"
+              min="0"
+              onChange={e => {
+                this.props.changeTempo(e.target.value);
+              }}
+            ></input>
           </div>
           {/* NOTE TOOLBAR */}
           <div style={styles.noteToolbarContainer}>
@@ -307,7 +323,8 @@ const mapDispatchToProps = dispatch => {
     toggleDotted: () => dispatch({ type: "TOGGLEDOTTED" }),
     openSong: data => dispatch({ type: "OPENSONG", data: data }),
     changeTitle: title => dispatch({ type: "CHANGETITLE", title: title }),
-    toggleRest: () => dispatch({ type: "TOGGLEREST" })
+    toggleRest: () => dispatch({ type: "TOGGLEREST" }),
+    changeTempo: tempo => dispatch({ type: "CHANGETEMPO", tempo: tempo })
   };
 };
 

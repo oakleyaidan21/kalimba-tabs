@@ -84,6 +84,9 @@ export const reducer = (state = initialState, action) => {
     case "TOGGLEREST": {
       return { ...state, rest: !state.rest };
     }
+    case "CHANGETEMPO": {
+      return { ...state, tempo: action.tempo };
+    }
     default:
       return state;
   }
