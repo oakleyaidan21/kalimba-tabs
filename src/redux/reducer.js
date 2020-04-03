@@ -14,6 +14,7 @@ export const reducer = (state = initialState, action) => {
         //add to song
         //check accidental
         let noteToAdd = action.noteDetails.tine;
+        let timeToAdd = action.noteDetails.time;
         if (state.selectedAccidental === "♯") {
           noteToAdd = noteToAdd[0] + "#" + noteToAdd[1];
         }
@@ -23,9 +24,12 @@ export const reducer = (state = initialState, action) => {
         if (state.selectedAccidental === "♮") {
           noteToAdd = noteToAdd.replace("#", "").replace("b", "");
         }
+        if (state.dotted) {
+          timeToAdd = (timeToAdd / 2 + timeToAdd) / 2;
+        }
         newSong[action.noteDetails.tineIndex][action.noteDetails.noteIndex] = {
           note: noteToAdd,
-          time: action.noteDetails.time
+          time: timeToAdd
         };
       }
       return { ...state, song: newSong };

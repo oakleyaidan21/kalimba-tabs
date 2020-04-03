@@ -93,7 +93,7 @@ class TabCreator extends Component {
         50 * (this.props.song[0].length - i) -
         (window.innerHeight - 100);
       let notesToPlay = [];
-      let shortestInterval = 4; //will default quarter note
+      let shortestInterval = -1;
 
       for (let j = 0; j < 17; j++) {
         //get each valid note from the line
@@ -112,6 +112,9 @@ class TabCreator extends Component {
       this.setState({ currentNoteIndex: i });
 
       //convert note time into milliseconds with the current tempo
+      if (shortestInterval === -1) {
+        shortestInterval = 4; //defaults to quarter note
+      }
       let delayTime = (4 * (1000 / (this.props.tempo / 60))) / shortestInterval;
       await delay(delayTime);
     }
@@ -180,6 +183,8 @@ class TabCreator extends Component {
           </div>
           {/* NOTE TOOLBAR */}
           <div style={styles.noteToolbarContainer}>
+            <NoteButton value={1} />
+            <NoteButton value={2} />
             <NoteButton value={4} />
             <NoteButton value={8} />
             <NoteButton value={16} />
