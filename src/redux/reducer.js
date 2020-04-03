@@ -25,7 +25,7 @@ export const reducer = (state = initialState, action) => {
           noteToAdd = noteToAdd.replace("#", "").replace("b", "");
         }
         if (state.dotted) {
-          timeToAdd = (timeToAdd / 2 + timeToAdd) / 2;
+          timeToAdd = (timeToAdd * 2) / 3;
         }
         if (action.noteDetails.rest) {
           noteToAdd = "rest";
