@@ -8,7 +8,7 @@ export const reducer = (state = initialState, action) => {
         //remove from song
         newSong[action.noteDetails.tineIndex][action.noteDetails.noteIndex] = {
           note: "",
-          time: 0
+          time: 0,
         };
       } else {
         //add to song
@@ -25,14 +25,14 @@ export const reducer = (state = initialState, action) => {
           noteToAdd = noteToAdd.replace("#", "").replace("b", "");
         }
         if (state.dotted) {
-          timeToAdd = (timeToAdd * 2) / 3;
+          timeToAdd = (timeToAdd + timeToAdd) / 3;
         }
         if (action.noteDetails.rest) {
           noteToAdd = "rest";
         }
         newSong[action.noteDetails.tineIndex][action.noteDetails.noteIndex] = {
           note: noteToAdd,
-          time: timeToAdd
+          time: timeToAdd,
         };
       }
       return { ...state, song: newSong };
@@ -52,7 +52,7 @@ export const reducer = (state = initialState, action) => {
         song: action.data.song,
         songTitle: action.data.songTitle,
         tempo: action.data.tempo,
-        tineNotes: action.data.tineNotes
+        tineNotes: action.data.tineNotes,
       };
     }
     case "CHANGETITLE": {
