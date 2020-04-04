@@ -22,7 +22,7 @@ class TabCreator extends Component {
       playing: false,
       isStopped: false,
       editTitle: false,
-      editTempo: false
+      editTempo: false,
     };
   }
 
@@ -33,9 +33,9 @@ class TabCreator extends Component {
     }
     let options = {
       title: this.props.songTitle,
-      defaultPath: app.app.getPath("documents") + "/KalimbaTabs"
+      defaultPath: app.app.getPath("documents") + "/KalimbaTabs",
     };
-    app.dialog.showSaveDialog(options).then(file => {
+    app.dialog.showSaveDialog(options).then((file) => {
       if (file.canceled) {
         return;
       }
@@ -43,9 +43,9 @@ class TabCreator extends Component {
         songTitle: this.props.songTitle,
         tempo: this.props.tempo,
         tineNotes: this.props.tineNotes,
-        song: this.props.song
+        song: this.props.song,
       };
-      fs.writeFile(file.filePath, JSON.stringify(contentToSave), err => {
+      fs.writeFile(file.filePath, JSON.stringify(contentToSave), (err) => {
         if (err) {
           alert("An error occurred while saving " + err.message);
         } else {
@@ -57,9 +57,9 @@ class TabCreator extends Component {
 
   openSong = () => {
     let options = {
-      defaultPath: app.app.getPath("documents") + "/KalimbaTabs"
+      defaultPath: app.app.getPath("documents") + "/KalimbaTabs",
     };
-    app.dialog.showOpenDialog(options).then(files => {
+    app.dialog.showOpenDialog(options).then((files) => {
       fs.readFile(files.filePaths[0], "utf-8", (err, data) => {
         if (err) {
           alert("An error occurred reading the file(s)" + err.message);
@@ -181,14 +181,15 @@ class TabCreator extends Component {
                 onClick={() => {
                   this.setState({ editTitle: true });
                 }}
+                style={{ margin: 5, fontSize: 30, fontWeight: "bold" }}
               >
                 {this.props.songTitle}
               </div>
             ) : (
               <input
-                placeholder={"Untitled"}
+                placeholder={this.props.songTitle}
                 style={styles.titleInput}
-                onChange={e => {
+                onChange={(e) => {
                   this.props.changeTitle(e.target.value);
                 }}
               />
@@ -198,16 +199,17 @@ class TabCreator extends Component {
                 onClick={() => {
                   this.setState({ editTempo: true });
                 }}
+                style={{ margin: 5 }}
               >
                 {this.props.tempo}
               </div>
             ) : (
               <input
-                placeholder="145"
+                placeholder={this.props.tempo}
                 style={styles.tempoInput}
                 type="number"
                 min="0"
-                onChange={e => {
+                onChange={(e) => {
                   this.props.changeTempo(e.target.value);
                 }}
               />
@@ -230,7 +232,7 @@ class TabCreator extends Component {
               variant="outline-primary"
               style={{
                 margin: 5,
-                backgroundColor: this.props.dotted ? "blue" : "white"
+                backgroundColor: this.props.dotted ? "blue" : "white",
               }}
               onClick={() => {
                 this.props.toggleDotted();
@@ -241,7 +243,7 @@ class TabCreator extends Component {
                   width: 10,
                   height: 10,
                   borderRadius: 5,
-                  backgroundColor: this.props.dotted ? "white" : "blue"
+                  backgroundColor: this.props.dotted ? "white" : "blue",
                 }}
               />
               {/* REST BUTTON */}
@@ -251,7 +253,7 @@ class TabCreator extends Component {
               style={{
                 margin: 5,
                 backgroundColor: this.props.rest ? "blue" : "white",
-                color: this.props.rest ? "white" : "blue"
+                color: this.props.rest ? "white" : "blue",
               }}
               onClick={() => {
                 this.props.toggleRest();
@@ -270,21 +272,21 @@ const divCenteredContent = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  flexDirection: "row"
+  flexDirection: "row",
 };
 
 const styles = {
   tabCreatorContainer: {
     minHeight: "100vh",
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
   },
   kalimbaContainer: {
     flex: 2,
     display: "flex",
     height: window.innerHeight,
     overflow: "auto",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   controlPanelContainer: {
     position: "absolute",
@@ -294,41 +296,41 @@ const styles = {
     width: "110%",
     boxShadow: "0px 5px 5px grey",
     height: 60,
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   noteToolbarContainer: {
     flex: 1,
-    ...divCenteredContent
+    ...divCenteredContent,
   },
   noteToolbarDivider: {
     height: 50,
     width: 2,
     backgroundColor: "lightgrey",
-    margin: 5
+    margin: 5,
   },
   songControlContainer: {
     flex: 1,
-    ...divCenteredContent
+    ...divCenteredContent,
   },
   titleContainer: {
     flex: 1,
-    ...divCenteredContent
+    ...divCenteredContent,
   },
   titleInput: {
     textAlign: "center",
     borderRadius: 3,
-    border: "3px solid lightgrey"
+    border: "3px solid lightgrey",
   },
   tempoInput: {
     textAlign: "center",
     borderRadius: 3,
     border: "3px solid lightgrey",
     width: 50,
-    margin: 5
-  }
+    margin: 5,
+  },
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     test: state.test,
     tineNotes: state.tineNotes,
@@ -336,17 +338,17 @@ const mapStateToProps = state => {
     tempo: state.tempo,
     songTitle: state.songTitle,
     dotted: state.dotted,
-    rest: state.rest
+    rest: state.rest,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     toggleDotted: () => dispatch({ type: "TOGGLEDOTTED" }),
-    openSong: data => dispatch({ type: "OPENSONG", data: data }),
-    changeTitle: title => dispatch({ type: "CHANGETITLE", title: title }),
+    openSong: (data) => dispatch({ type: "OPENSONG", data: data }),
+    changeTitle: (title) => dispatch({ type: "CHANGETITLE", title: title }),
     toggleRest: () => dispatch({ type: "TOGGLEREST" }),
-    changeTempo: tempo => dispatch({ type: "CHANGETEMPO", tempo: tempo })
+    changeTempo: (tempo) => dispatch({ type: "CHANGETEMPO", tempo: tempo }),
   };
 };
 
