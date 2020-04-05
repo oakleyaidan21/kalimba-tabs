@@ -7,6 +7,8 @@ import NoteButton from "../components/NoteButton";
 import AccidentalButton from "../components/AccidentalButton";
 import { FaPlay, FaStop, FaSave, FaFolderOpen } from "react-icons/fa";
 import { Button } from "react-bootstrap";
+import * as html2canvas from "html2canvas";
+import * as jsPDF from "jspdf";
 
 // const { dialog, app } = window.require("electron").remote;
 // var fs = app.require("fs");
@@ -125,6 +127,27 @@ class TabCreator extends Component {
     this.setState({ isStopped: false });
   };
 
+  exportToPDF = async () => {
+    let input = document.getElementById("kalimbaContainer");
+    let pdf = new jsPDF();
+    input.scrollTop = input.scrollHeight;
+
+    while (input.scrollTop !== 0) {
+      //take pic
+      html2canvas(input).then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, 0);
+      });
+      //scroll up
+      input.scrollTop -= input.offsetHeight;
+      await delay(1);
+    }
+    input.scrollTop = input.scrollHeight;
+    //save pdf
+    pdf.save("test.pdf");
+  };
+
   render() {
     return (
       <div style={styles.tabCreatorContainer}>
@@ -156,7 +179,7 @@ class TabCreator extends Component {
                 <FaPlay color="blue" size={30} />
               )}
             </div>
-            {/* Save */}
+            {/* SAVE */}
             <div
               style={{ margin: 10 }}
               onClick={() => {
@@ -165,10 +188,20 @@ class TabCreator extends Component {
             >
               <FaSave size={30} />
             </div>
+            {/* OPEN */}
             <div
               style={{ margin: 10 }}
               onClick={() => {
                 this.openSong();
+              }}
+            >
+              <FaFolderOpen size={30} />
+            </div>
+            {/* EXPORT */}
+            <div
+              style={{ margin: 10 }}
+              onClick={() => {
+                this.exportToPDF();
               }}
             >
               <FaFolderOpen size={30} />
