@@ -37,6 +37,17 @@
   }
 }
 
+#menu-bar {
+  -webkit-app-region: drag;
+}
+
+#menu-bar > div {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

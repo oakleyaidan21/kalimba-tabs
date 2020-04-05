@@ -20,6 +20,7 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
     },
     frame: false,
+    titleBarStyle: "hidden",
   });
 
   // and load the index.html of the app.
