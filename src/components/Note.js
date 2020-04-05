@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { images } from "../constants/kalimbaConstants";
+import { noteImages, restImages } from "../constants/kalimbaConstants";
 
 class Note extends Component {
   constructor(props) {
@@ -13,12 +13,21 @@ class Note extends Component {
     };
   }
 
-  getImage = (time) => {
-    for (let i = 0; i < images.length; i++) {
-      if (time === images[i].time) {
-        return images[i].image;
+  getImage = (time, isRest) => {
+    if (!isRest) {
+      for (let i = 0; i < noteImages.length; i++) {
+        if (time === noteImages[i].time) {
+          return noteImages[i].image;
+        }
+      }
+    } else {
+      for (let i = 0; i < restImages.length; i++) {
+        if (time === restImages[i].time) {
+          return restImages[i].image;
+        }
       }
     }
+
     return false;
   };
 
@@ -30,7 +39,11 @@ class Note extends Component {
       this.props.noteIndex
     ].time;
 
-    let imgsrc = this.getImage(displayTime);
+    let imgsrc = this.getImage(
+      displayTime,
+      this.props.song[this.props.tineIndex][this.props.noteIndex].note ===
+        "rest"
+    );
     let noteImage = displayTime;
     if (imgsrc) {
       noteImage = (

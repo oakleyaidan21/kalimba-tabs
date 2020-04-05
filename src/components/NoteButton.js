@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import { images } from "../constants/kalimbaConstants";
+import { noteImages } from "../constants/kalimbaConstants";
 
 class NoteButton extends Component {
   constructor(props) {
@@ -10,9 +10,9 @@ class NoteButton extends Component {
   }
 
   getImage = (time) => {
-    for (let i = 0; i < images.length; i++) {
-      if (time === images[i].time) {
-        return images[i].image;
+    for (let i = 0; i < noteImages.length; i++) {
+      if (time === noteImages[i].time) {
+        return noteImages[i].image;
       }
     }
     return false;
