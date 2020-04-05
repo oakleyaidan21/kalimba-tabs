@@ -5,9 +5,20 @@ import Sixteenth from "../kalimbaImages/noteImages/sixteenth_note.png";
 import D_Half from "../kalimbaImages/noteImages/dotted_half.png";
 import D_Eighth from "../kalimbaImages/noteImages/dotted_eighth.png";
 import D_Quarter from "../kalimbaImages/noteImages/dotted_quarter.png";
+import D_Sixteenth from "../kalimbaImages/noteImages/dotted_sixteenth_note.png";
+import D_Whole from "../kalimbaImages/noteImages/dotted_whole_note.png";
 import Whole from "../kalimbaImages/noteImages/whole_note.png";
 
 import R_Quarter from "../kalimbaImages/restImages/quarter_rest.png";
+import R_Eighth from "../kalimbaImages/restImages/eighth_rest.png";
+import R_Half from "../kalimbaImages/restImages/half_rest.png";
+import R_Whole from "../kalimbaImages/restImages/whole_rest.png";
+import R_Sixteenth from "../kalimbaImages/restImages/sixteenth_rest.png";
+import R_D_Whole from "../kalimbaImages/restImages/dotted_whole_rest.png";
+import R_D_Quarter from "../kalimbaImages/restImages/dotted_quarter_rest.png";
+import R_D_Half from "../kalimbaImages/restImages/dotted_half_rest.png";
+import R_D_Eighth from "../kalimbaImages/restImages/dotted_eighth_rest.png";
+import R_D_Sixteenth from "../kalimbaImages/restImages/dotted_sixteenth_rest.png";
 
 let array = [];
 
@@ -50,6 +61,7 @@ export const initialState = {
 
 //note images
 export const noteImages = [
+  { time: 2 / 3, image: D_Whole },
   { time: 1, image: Whole },
   { time: 4 / 3, image: D_Half },
   { time: 2, image: Half },
@@ -57,17 +69,20 @@ export const noteImages = [
   { time: 4, image: Quarter },
   { time: 16 / 3, image: D_Eighth },
   { time: 8, image: Eighth },
+  { time: 32 / 3, image: D_Sixteenth },
   { time: 16, image: Sixteenth },
 ];
 
 //rest images
 export const restImages = [
-  { time: 1, image: Whole },
-  { time: 4 / 3, image: D_Half },
-  { time: 2, image: Half },
-  { time: 8 / 3, image: D_Quarter },
+  { time: 2 / 3, image: R_D_Whole },
+  { time: 1, image: R_Whole },
+  { time: 4 / 3, image: R_D_Half },
+  { time: 2, image: R_Half },
+  { time: 8 / 3, image: R_D_Quarter },
   { time: 4, image: R_Quarter },
-  { time: 16 / 3, image: D_Eighth },
-  { time: 8, image: Eighth },
-  { time: 16, image: Sixteenth },
+  { time: 16 / 3, image: R_D_Eighth },
+  { time: 8, image: R_Eighth },
+  { time: 32 / 3, image: R_D_Sixteenth },
+  { time: 16, image: R_Sixteenth },
 ];
