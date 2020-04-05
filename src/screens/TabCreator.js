@@ -177,6 +177,12 @@ class TabCreator extends Component {
     this.setState({ exporting: false });
   };
 
+  titleKeyPressed = (event) => {
+    if (event.key === "Enter") {
+      this.setState({ editTitle: false });
+    }
+  };
+
   render() {
     return (
       <div style={styles.tabCreatorContainer}>
@@ -257,6 +263,11 @@ class TabCreator extends Component {
             ) : (
               <input
                 placeholder={this.props.songTitle}
+                onKeyPress={(event) => {
+                  if (event.key === "Enter") {
+                    this.setState({ editTitle: false });
+                  }
+                }}
                 style={styles.titleInput}
                 onChange={(e) => {
                   this.props.changeTitle(e.target.value);
@@ -274,6 +285,11 @@ class TabCreator extends Component {
               </div>
             ) : (
               <input
+                onKeyPress={(event) => {
+                  if (event.key === "Enter") {
+                    this.setState({ editTempo: false });
+                  }
+                }}
                 placeholder={this.props.tempo}
                 style={styles.tempoInput}
                 type="number"
