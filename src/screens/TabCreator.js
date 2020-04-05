@@ -15,7 +15,7 @@ import {
 import { Button } from "react-bootstrap";
 import * as html2canvas from "html2canvas";
 import * as jsPDF from "jspdf";
-import ClipLoader from "react-spinners/ClipLoader";
+// import ClipLoader from "react-spinners/ClipLoader";
 
 var app = window.require("electron").remote;
 const fs = app.require("fs");
@@ -184,12 +184,12 @@ class TabCreator extends Component {
         {/* KALIMBA */}
         <div style={styles.kalimbaContainer} id="kalimbaContainer">
           {/* EXPORTING MODAL */}
-          {this.state.exporting && (
+          {/* {this.state.exporting && (
             <div style={styles.exportingModal}>
               <ClipLoader />
               Exporting...
             </div>
-          )}
+          )} */}
           {/* wait for kalimba to load */}
           {this.state.kalimba !== null && (
             <Kalimba
@@ -395,7 +395,7 @@ const styles = {
     backgroundColor: "white",
   },
   noteToolbarContainer: {
-    flex: 1,
+    flex: 2,
     ...divCenteredContent,
   },
   noteToolbarDivider: {
@@ -405,7 +405,7 @@ const styles = {
     margin: 5,
   },
   songControlContainer: {
-    flex: 1,
+    flex: 2,
     ...divCenteredContent,
   },
   titleContainer: {
