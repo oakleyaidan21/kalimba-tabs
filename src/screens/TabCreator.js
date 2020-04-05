@@ -5,10 +5,17 @@ import { getInstruments } from "mobx-music";
 import { delay } from "q";
 import NoteButton from "../components/NoteButton";
 import AccidentalButton from "../components/AccidentalButton";
-import { FaPlay, FaStop, FaSave, FaFolderOpen } from "react-icons/fa";
+import {
+  FaPlay,
+  FaStop,
+  FaSave,
+  FaFolderOpen,
+  FaFileExport,
+} from "react-icons/fa";
 import { Button } from "react-bootstrap";
 import * as html2canvas from "html2canvas";
 import * as jsPDF from "jspdf";
+import ClipLoader from "react-spinners/ClipLoader";
 
 var app = window.require("electron").remote;
 const fs = app.require("fs");
@@ -23,6 +30,7 @@ class TabCreator extends Component {
       isStopped: false,
       editTitle: false,
       editTempo: false,
+      exporting: false,
     };
   }
 
@@ -148,6 +156,7 @@ class TabCreator extends Component {
    * the element.
    */
   exportToPDF = async () => {
+    this.setState({ exporting: true });
     let input = document.getElementById("kalimbaContainer");
     let pdf = new jsPDF();
     input.scrollTop = input.scrollHeight; //go to bottom of kalimba
@@ -165,6 +174,7 @@ class TabCreator extends Component {
     input.scrollTop = input.scrollHeight;
     //save pdf
     pdf.save(this.props.songTitle + ".pdf");
+    this.setState({ exporting: false });
   };
 
   render() {
@@ -173,6 +183,13 @@ class TabCreator extends Component {
         <div style={{ flex: 1 }}></div>
         {/* KALIMBA */}
         <div style={styles.kalimbaContainer} id="kalimbaContainer">
+          {/* EXPORTING MODAL */}
+          {this.state.exporting && (
+            <div style={styles.exportingModal}>
+              <ClipLoader />
+              Exporting...
+            </div>
+          )}
           {/* wait for kalimba to load */}
           {this.state.kalimba !== null && (
             <Kalimba
@@ -223,7 +240,7 @@ class TabCreator extends Component {
                 this.exportToPDF();
               }}
             >
-              <FaFolderOpen size={30} />
+              <FaFileExport size={30} />
             </div>
           </div>
           {/* TITLE INPUT */}
@@ -406,6 +423,14 @@ const styles = {
     border: "3px solid lightgrey",
     width: 50,
     margin: 5,
+  },
+  exportingModal: {
+    ...divCenteredContent,
+    width: "50%",
+    alignSelf: "center",
+    height: "100%",
+    backgroundColor: "white",
+    position: "absolute",
   },
 };
 
