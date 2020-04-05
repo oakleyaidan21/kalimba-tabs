@@ -10,8 +10,6 @@ import { Button } from "react-bootstrap";
 import * as html2canvas from "html2canvas";
 import * as jsPDF from "jspdf";
 
-// const { dialog, app } = window.require("electron").remote;
-// var fs = app.require("fs");
 var app = window.require("electron").remote;
 const fs = app.require("fs");
 
@@ -28,6 +26,9 @@ class TabCreator extends Component {
     };
   }
 
+  /**
+   * Saves the song in the form of its redux array to the file system
+   */
   saveSong = async () => {
     //create kalimba folder if it doesn't exist
     if (!fs.existsSync(app.app.getPath("documents") + "/KalimbaTabs")) {
@@ -57,7 +58,14 @@ class TabCreator extends Component {
     });
   };
 
+  /**
+   * Opens a .kal file from the user's KalimbaTabs folder
+   */
   openSong = () => {
+    //create kalimba folder if it doesn't exist
+    if (!fs.existsSync(app.app.getPath("documents") + "/KalimbaTabs")) {
+      fs.mkdir(app.app.getPath("documents") + "/KalimbaTabs");
+    }
     let options = {
       defaultPath: app.app.getPath("documents") + "/KalimbaTabs",
     };
@@ -79,10 +87,17 @@ class TabCreator extends Component {
     this.setState({ kalimba: instruments.get("kalimba") });
   };
 
+  /**
+   * Stops the song playback
+   */
   stopSong = () => {
     this.setState({ isStopped: true, playing: false, currentNoteIndex: -1 });
   };
 
+  /**
+   * Plays the song by going through the redux song array
+   * and collecting the locations with notes
+   */
   playSong = async () => {
     this.setState({ playing: true });
     let kalimbaElement = document.getElementById("kalimbaContainer");
@@ -127,11 +142,15 @@ class TabCreator extends Component {
     this.setState({ isStopped: false });
   };
 
+  /**
+   * Converts the kalimbaContainer element into a pdf.
+   * Needs to scroll up every time it takes a snapshot of
+   * the element.
+   */
   exportToPDF = async () => {
     let input = document.getElementById("kalimbaContainer");
     let pdf = new jsPDF();
-    input.scrollTop = input.scrollHeight;
-
+    input.scrollTop = input.scrollHeight; //go to bottom of kalimba
     while (input.scrollTop !== 0) {
       //take pic
       html2canvas(input).then((canvas) => {
@@ -145,7 +164,7 @@ class TabCreator extends Component {
     }
     input.scrollTop = input.scrollHeight;
     //save pdf
-    pdf.save("test.pdf");
+    pdf.save(this.props.songTitle + ".pdf");
   };
 
   render() {
@@ -301,6 +320,33 @@ class TabCreator extends Component {
   }
 }
 
+/**
+ * Redux functions
+ */
+const mapStateToProps = (state) => {
+  return {
+    test: state.test,
+    tineNotes: state.tineNotes,
+    song: state.song,
+    tempo: state.tempo,
+    songTitle: state.songTitle,
+    dotted: state.dotted,
+    rest: state.rest,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleDotted: () => dispatch({ type: "TOGGLEDOTTED" }),
+    openSong: (data) => dispatch({ type: "OPENSONG", data: data }),
+    changeTitle: (title) => dispatch({ type: "CHANGETITLE", title: title }),
+    toggleRest: () => dispatch({ type: "TOGGLEREST" }),
+    changeTempo: (tempo) => dispatch({ type: "CHANGETEMPO", tempo: tempo }),
+  };
+};
+
+/**
+ * Styling
+ */
 const divCenteredContent = {
   display: "flex",
   justifyContent: "center",
@@ -361,28 +407,6 @@ const styles = {
     width: 50,
     margin: 5,
   },
-};
-
-const mapStateToProps = (state) => {
-  return {
-    test: state.test,
-    tineNotes: state.tineNotes,
-    song: state.song,
-    tempo: state.tempo,
-    songTitle: state.songTitle,
-    dotted: state.dotted,
-    rest: state.rest,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    toggleDotted: () => dispatch({ type: "TOGGLEDOTTED" }),
-    openSong: (data) => dispatch({ type: "OPENSONG", data: data }),
-    changeTitle: (title) => dispatch({ type: "CHANGETITLE", title: title }),
-    toggleRest: () => dispatch({ type: "TOGGLEREST" }),
-    changeTempo: (tempo) => dispatch({ type: "CHANGETEMPO", tempo: tempo }),
-  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabCreator);
