@@ -2,6 +2,8 @@
 
 Rewrite of KalimbaLibre using Electron.
 
+![](https://i.imgur.com/oxqmlNx.png)
+
 ## Setup
 
 After cloning the repo, in the root folder run:
