@@ -13,7 +13,7 @@ class SongItem extends Component {
           this.props.onClick();
         }}
       >
-        {this.props.title}
+        {this.props.title.replace(".kal", "")}
       </div>
     );
   }

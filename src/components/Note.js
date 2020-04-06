@@ -49,21 +49,14 @@ class Note extends Component {
   };
 
   render() {
-    let wasClicked =
-      this.props.song[this.props.tineIndex][this.props.noteIndex].note !== "";
-
-    let displayTime = this.props.song[this.props.tineIndex][
+    let noteInQuestion = this.props.song[this.props.tineIndex][
       this.props.noteIndex
-    ].time;
-
-    let imgsrc = this.getImage(
-      displayTime,
-      this.props.song[this.props.tineIndex][this.props.noteIndex].note ===
-        "rest"
-    );
-
+    ];
+    let wasClicked = noteInQuestion.note !== "";
+    let displayTime = noteInQuestion.time;
+    let isRest = noteInQuestion.note === "rest";
+    let imgsrc = this.getImage(displayTime, isRest);
     let acc = this.checkForAccidental();
-
     let noteImage = displayTime;
     if (imgsrc) {
       noteImage = (
@@ -75,12 +68,6 @@ class Note extends Component {
       );
     }
 
-    if (
-      this.props.song[this.props.tineIndex][this.props.noteIndex].note ===
-      "rest"
-    ) {
-      displayTime += "R";
-    }
     return (
       <div
         style={{
@@ -115,7 +102,7 @@ class Note extends Component {
           acc !== false ? (
             <div>
               {noteImage}
-              <div>{acc}</div>
+              {isRest ? <></> : <div>{acc}</div>}
             </div>
           ) : (
             noteImage
