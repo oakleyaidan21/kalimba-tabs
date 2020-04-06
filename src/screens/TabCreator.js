@@ -15,7 +15,7 @@ import {
 import { Button } from "react-bootstrap";
 import * as html2canvas from "html2canvas";
 import * as jsPDF from "jspdf";
-// import ClipLoader from "react-spinners/ClipLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 
 var app = window.require("electron").remote;
 const fs = app.require("fs");
@@ -31,6 +31,7 @@ class TabCreator extends Component {
       editTitle: false,
       editTempo: false,
       exporting: false,
+      height: window.innerHeight,
     };
   }
 
@@ -87,12 +88,6 @@ class TabCreator extends Component {
         this.props.openSong(JSON.parse(data));
       });
     });
-  };
-
-  componentDidMount = async () => {
-    //set up kalimba
-    const { instruments } = await getInstruments(["kalimba"]);
-    this.setState({ kalimba: instruments.get("kalimba") });
   };
 
   /**
@@ -183,19 +178,43 @@ class TabCreator extends Component {
     }
   };
 
+  updateDimensions() {
+    this.setState({ height: window.innerHeight });
+    console.log("resize");
+  }
+
+  componentDidMount = async () => {
+    //set up kalimba
+    const { instruments } = await getInstruments(["kalimba"]);
+    this.setState({ kalimba: instruments.get("kalimba") });
+    //set window resize event listener
+    this.updateDimensions();
+    window.addEventListener("resize", () => {
+      this.updateDimensions();
+    });
+  };
+
+  componentWillUnmount = () => {
+    window.removeEventListener("resize", () => {
+      this.updateDimensions();
+    });
+  };
+
   render() {
     return (
       <div style={styles.tabCreatorContainer}>
         <div style={{ flex: 1 }}></div>
         {/* KALIMBA */}
-        <div style={styles.kalimbaContainer} id="kalimbaContainer">
-          {/* EXPORTING MODAL */}
-          {/* {this.state.exporting && (
-            <div style={styles.exportingModal}>
-              <ClipLoader />
-              Exporting...
-            </div>
-          )} */}
+        <div
+          style={{
+            flex: 2,
+            display: "flex",
+            height: this.state.height,
+            overflow: "auto",
+            justifyContent: "center",
+          }}
+          id="kalimbaContainer"
+        >
           {/* wait for kalimba to load */}
           {this.state.kalimba !== null && (
             <Kalimba
@@ -240,14 +259,18 @@ class TabCreator extends Component {
               <FaFolderOpen size={30} />
             </div>
             {/* EXPORT */}
-            <div
-              style={{ margin: 10 }}
-              onClick={() => {
-                this.exportToPDF();
-              }}
-            >
-              <FaFileExport size={30} />
-            </div>
+            {this.state.exporting ? (
+              <ClipLoader size={20} />
+            ) : (
+              <div
+                style={{ margin: 10 }}
+                onClick={() => {
+                  this.exportToPDF();
+                }}
+              >
+                <FaFileExport size={30} />
+              </div>
+            )}
           </div>
           {/* TITLE INPUT */}
           <div style={styles.titleContainer}>
@@ -393,13 +416,7 @@ const styles = {
     display: "flex",
     flexDirection: "row",
   },
-  kalimbaContainer: {
-    flex: 2,
-    display: "flex",
-    height: window.innerHeight,
-    overflow: "auto",
-    justifyContent: "center",
-  },
+
   controlPanelContainer: {
     position: "absolute",
     top: 0,
