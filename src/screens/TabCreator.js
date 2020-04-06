@@ -39,6 +39,7 @@ class TabCreator extends Component {
 
   /**
    * Saves the song in the form of its redux array to the file system
+   * @return {void} returns early if the user cancels
    */
   saveSong = async () => {
     //create kalimba folder if it doesn't exist
@@ -78,6 +79,7 @@ class TabCreator extends Component {
 
   /**
    * Opens a .kal file from the user's KalimbaTabs folder
+   * @return {void} returns early if an error occurs opening the song
    */
   openSong = () => {
     //create kalimba folder if it doesn't exist

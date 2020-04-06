@@ -16,6 +16,11 @@ class HomeScreen extends Component {
     };
   }
 
+  /**
+   * Reads a file from the KalimbaTabs folder based on its title
+   * Then navigates to
+   * @param {string} title The title of the desired song to open
+   */
   openSong = (title) => {
     //read from file system
     let docpath = app.app.getPath("documents") + "/KalimbaTabs/" + title;
@@ -49,6 +54,9 @@ class HomeScreen extends Component {
     });
   };
 
+  /**
+   * Clears the redux song and then navigates to empty TabCreator
+   */
   newSongClicked = () => {
     //should probably have some type of creation modal appear first
     //where they input a title, tempo, etc
@@ -96,6 +104,19 @@ class HomeScreen extends Component {
   }
 }
 
+/**
+ * Redux Functions
+ */
+const mapDispatchToProps = (dispatch) => {
+  return {
+    openSong: (data) => dispatch({ type: "OPENSONG", data: data }),
+    openNewSong: () => dispatch({ type: "OPENNEWSONG" }),
+  };
+};
+
+/**
+ * Styling
+ */
 const divCenteredContent = {
   display: "flex",
   justifyContent: "center",
@@ -137,13 +158,6 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
   },
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    openSong: (data) => dispatch({ type: "OPENSONG", data: data }),
-    openNewSong: () => dispatch({ type: "OPENNEWSONG" }),
-  };
 };
 
 export default connect(null, mapDispatchToProps)(HomeScreen);

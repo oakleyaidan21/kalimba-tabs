@@ -29,7 +29,17 @@ for (let i = 0; i < 17; i++) {
   }
 }
 
-//initial state for redux store
+/**
+ * Initial state of the redux store
+ * @tineNotes the 17 note names on the bottom of the kalimba
+ * @song the multi dimensional array containing all of the note objects
+ * @selectedNote the currently selected note timing, i.e. quarter, eighth
+ * @tempo the tempo of the song in bpm
+ * @songTitle the title of the song
+ * @selectedAccidental the currently selected accidental, i.e. sharp, flat
+ * @dotted a boolean representing whether or not the notes added are dotted
+ * @rest a boolean representing whether or not the notes added are rests
+ */
 export const initialState = {
   tineNotes: [
     "D6",
@@ -59,7 +69,9 @@ export const initialState = {
   rest: false,
 };
 
-//note images
+/**
+ * array with note timings and their corresponding note images
+ */
 export const noteImages = [
   { time: 2 / 3, image: D_Whole },
   { time: 1, image: Whole },
@@ -73,7 +85,9 @@ export const noteImages = [
   { time: 16, image: Sixteenth },
 ];
 
-//rest images
+/**
+ * array with note timings and their corresponding reste images
+ */
 export const restImages = [
   { time: 2 / 3, image: R_D_Whole },
   { time: 1, image: R_Whole },
@@ -87,6 +101,11 @@ export const restImages = [
   { time: 16, image: R_Sixteenth },
 ];
 
+/**
+ * finds accidentals given a note name
+ * @param {string} note the note name in question
+ * @return {string} the accidental found in the note
+ */
 export const findAccidentals = (note) => {
   if (note.includes("#")) {
     return "♯";
