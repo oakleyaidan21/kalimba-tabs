@@ -12,6 +12,7 @@ A WYSIWYG editor for creating, saving, and exporting kalimba tabs.
 - [ ] Custom title bar instead of default OS one
 - [ ] Usage tutorial
 - [ ] Main page to see recent tabs
+- [ ] Set up backend for sharing kalimba tabs
 
 ## Setup
 
