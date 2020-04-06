@@ -8,7 +8,7 @@ class Kalimba extends Component {
     super(props);
     this.state = {
       notes: [],
-      kalimba: null
+      kalimba: null,
     };
   }
 
@@ -23,8 +23,7 @@ class Kalimba extends Component {
         id="kalimba"
         style={{
           width: "100%",
-          overflow: "auto",
-          height: 51 * this.props.song[0].length
+          height: 51 * this.props.song[0].length,
         }}
       >
         {/* TINES */}
@@ -40,7 +39,7 @@ class Kalimba extends Component {
                 height:
                   50 * this.props.song[0].length +
                   (8 - Math.abs(8 - tineIndex)) * 10,
-                borderRadius: 20
+                borderRadius: 20,
               }}
               key={tine}
             >
@@ -65,7 +64,7 @@ class Kalimba extends Component {
                         tine,
                         time,
                         wasClicked,
-                        rest
+                        rest,
                       });
                       //play note
                       if (!wasClicked) {
@@ -96,14 +95,14 @@ class Kalimba extends Component {
         </div>
         {/* NOTE SELECTOR */}
         <div style={styles.noteSelectorContainer}>
-          {this.props.tineNotes.map(tine => (
+          {this.props.tineNotes.map((tine) => (
             <NoteChanger tine={tine} />
           ))}
         </div>
         {/* DUMMY DIV TO SCROLL TO BOTTOM */}
         <div
           style={styles.dummyDiv}
-          ref={ref => {
+          ref={(ref) => {
             this.kalimbaStart = ref;
           }}
         />
@@ -115,14 +114,14 @@ class Kalimba extends Component {
 const styles = {
   tineContainer: {
     display: "flex",
-    height: "99.9%",
+    height: "100%",
     width: "100%",
     flexDirection: "row",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   note: {
     height: 45,
-    marginTop: 5
+    marginTop: 5,
   },
   noteSelectorContainer: {
     position: "absolute",
@@ -134,28 +133,28 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
-    borderTop: "2px solid grey"
+    borderTop: "2px solid grey",
   },
   dummyDiv: {
     float: "left",
     clear: "both",
-    alignSelf: "flex-end"
-  }
+    alignSelf: "flex-end",
+  },
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     tineNotes: state.tineNotes,
     song: state.song,
     selectedAccidental: state.selectedAccidental,
-    rest: state.rest
+    rest: state.rest,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    clickedNote: noteDetails =>
-      dispatch({ type: "NOTECLICKED", noteDetails: noteDetails })
+    clickedNote: (noteDetails) =>
+      dispatch({ type: "NOTECLICKED", noteDetails: noteDetails }),
   };
 };
 

@@ -2,11 +2,31 @@
 
 Rewrite of KalimbaLibre using Electron.
 
+A WYSIWYG editor for creating, saving, and exporting kalimba tabs.
+
+![](https://i.imgur.com/oxqmlNx.png)
+
+## TO-DO
+
+- [ ] Create dynamic export function that takes into account dimensions that aren't fullscreen
+- [ ] Custom title bar instead of default OS one
+- [ ] Usage tutorial
+- [ ] Main page to see recent tabs
+- [ ] Set up backend for sharing kalimba tabs
+- [ ] Class up the joint
+- [ ] Add icon
+  - [x] Windows
+  - [x] Linux
+  - [ ] OSX
+- [ ] Get OS license
+
 ## Setup
 
 After cloning the repo, in the root folder run:
 
 `npm install`
+
+If you want to test an already created song, there are examples in the `tab_examples` folder. Press the folder icon on the TabCreator page on order to open a .kal file.
 
 ## Dev
 

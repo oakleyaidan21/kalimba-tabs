@@ -10,10 +10,11 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 800,
+    width: 1920,
+    height: 1080,
+    icon: __dirname + `/assets/kalimbaicon.png`,
     // fullscreen: true,
-    webPreferences: { nodeIntegration: true }
+    webPreferences: { nodeIntegration: true },
   });
   mainWindow.loadURL(
     isDev

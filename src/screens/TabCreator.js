@@ -15,7 +15,8 @@ import {
 import { Button } from "react-bootstrap";
 import * as html2canvas from "html2canvas";
 import * as jsPDF from "jspdf";
-// import ClipLoader from "react-spinners/ClipLoader";
+import ClipLoader from "react-spinners/ClipLoader";
+import QuarterRest from "../kalimbaImages/restImages/quarter_rest.png";
 
 var app = window.require("electron").remote;
 const fs = app.require("fs");
@@ -31,6 +32,7 @@ class TabCreator extends Component {
       editTitle: false,
       editTempo: false,
       exporting: false,
+      height: window.innerHeight,
     };
   }
 
@@ -44,7 +46,11 @@ class TabCreator extends Component {
     }
     let options = {
       title: this.props.songTitle,
-      defaultPath: app.app.getPath("documents") + "/KalimbaTabs",
+      defaultPath:
+        app.app.getPath("documents") +
+        "/KalimbaTabs/" +
+        this.props.songTitle +
+        ".kal",
     };
     app.dialog.showSaveDialog(options).then((file) => {
       if (file.canceled) {
@@ -87,12 +93,6 @@ class TabCreator extends Component {
         this.props.openSong(JSON.parse(data));
       });
     });
-  };
-
-  componentDidMount = async () => {
-    //set up kalimba
-    const { instruments } = await getInstruments(["kalimba"]);
-    this.setState({ kalimba: instruments.get("kalimba") });
   };
 
   /**
@@ -168,7 +168,7 @@ class TabCreator extends Component {
         pdf.addImage(imgData, "PNG", 0, 0);
       });
       //scroll up
-      input.scrollTop -= input.offsetHeight;
+      input.scrollTop -= input.offsetHeight - 50;
       await delay(1);
     }
     input.scrollTop = input.scrollHeight;
@@ -177,10 +177,28 @@ class TabCreator extends Component {
     this.setState({ exporting: false });
   };
 
-  titleKeyPressed = (event) => {
-    if (event.key === "Enter") {
-      this.setState({ editTitle: false });
-    }
+  /**
+   * Updates dimensions of kalimba to that of the window's height
+   */
+  updateDimensions() {
+    this.setState({ height: window.innerHeight });
+  }
+
+  componentDidMount = async () => {
+    //set up kalimba
+    const { instruments } = await getInstruments(["kalimba"]);
+    this.setState({ kalimba: instruments.get("kalimba") });
+    //set window resize event listener
+    this.updateDimensions();
+    window.addEventListener("resize", () => {
+      this.updateDimensions();
+    });
+  };
+
+  componentWillUnmount = () => {
+    window.removeEventListener("resize", () => {
+      this.updateDimensions();
+    });
   };
 
   render() {
@@ -188,14 +206,16 @@ class TabCreator extends Component {
       <div style={styles.tabCreatorContainer}>
         <div style={{ flex: 1 }}></div>
         {/* KALIMBA */}
-        <div style={styles.kalimbaContainer} id="kalimbaContainer">
-          {/* EXPORTING MODAL */}
-          {/* {this.state.exporting && (
-            <div style={styles.exportingModal}>
-              <ClipLoader />
-              Exporting...
-            </div>
-          )} */}
+        <div
+          style={{
+            flex: 2,
+            display: "flex",
+            height: this.state.height,
+            overflow: "auto",
+            justifyContent: "center",
+          }}
+          id="kalimbaContainer"
+        >
           {/* wait for kalimba to load */}
           {this.state.kalimba !== null && (
             <Kalimba
@@ -240,14 +260,18 @@ class TabCreator extends Component {
               <FaFolderOpen size={30} />
             </div>
             {/* EXPORT */}
-            <div
-              style={{ margin: 10 }}
-              onClick={() => {
-                this.exportToPDF();
-              }}
-            >
-              <FaFileExport size={30} />
-            </div>
+            {this.state.exporting ? (
+              <ClipLoader size={20} />
+            ) : (
+              <div
+                style={{ margin: 10 }}
+                onClick={() => {
+                  this.exportToPDF();
+                }}
+              >
+                <FaFileExport size={30} />
+              </div>
+            )}
           </div>
           {/* TITLE INPUT */}
           <div style={styles.titleContainer}>
@@ -344,7 +368,11 @@ class TabCreator extends Component {
                 this.props.toggleRest();
               }}
             >
-              Rest
+              <img
+                src={QuarterRest}
+                style={{ width: 15, height: "auto" }}
+                alt={"resticon"}
+              />
             </Button>
           </div>
         </div>
@@ -367,6 +395,7 @@ const mapStateToProps = (state) => {
     rest: state.rest,
   };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
     toggleDotted: () => dispatch({ type: "TOGGLEDOTTED" }),
@@ -393,13 +422,7 @@ const styles = {
     display: "flex",
     flexDirection: "row",
   },
-  kalimbaContainer: {
-    flex: 2,
-    display: "flex",
-    height: window.innerHeight,
-    overflow: "auto",
-    justifyContent: "center",
-  },
+
   controlPanelContainer: {
     position: "absolute",
     top: 0,
