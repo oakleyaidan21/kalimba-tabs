@@ -157,6 +157,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    cursor: "pointer",
   },
 };
 

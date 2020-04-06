@@ -29,6 +29,9 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    cursor: "pointer",
+    boxShadow: "0px 5px 5px grey",
+    fontWeight: "bold",
   },
 };
 
