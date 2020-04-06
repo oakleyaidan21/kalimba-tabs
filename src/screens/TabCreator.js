@@ -11,6 +11,7 @@ import {
   FaSave,
   FaFolderOpen,
   FaFileExport,
+  FaArrowLeft,
 } from "react-icons/fa";
 import { Button } from "react-bootstrap";
 import * as html2canvas from "html2canvas";
@@ -231,6 +232,15 @@ class TabCreator extends Component {
         <div style={styles.controlPanelContainer}>
           {/* SONG CONTROL */}
           <div style={styles.songControlContainer}>
+            {/* BACK BUTTON */}
+            <div
+              style={{ marginLeft: 30 }}
+              onClick={() => {
+                this.props.history.goBack();
+              }}
+            >
+              <FaArrowLeft size={30} />
+            </div>
             {/* PLAY BUTTON */}
             <div
               onClick={() => {
