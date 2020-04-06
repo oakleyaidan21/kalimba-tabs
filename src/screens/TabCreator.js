@@ -45,7 +45,11 @@ class TabCreator extends Component {
     }
     let options = {
       title: this.props.songTitle,
-      defaultPath: app.app.getPath("documents") + "/KalimbaTabs",
+      defaultPath:
+        app.app.getPath("documents") +
+        "/KalimbaTabs/" +
+        this.props.songTitle +
+        ".kal",
     };
     app.dialog.showSaveDialog(options).then((file) => {
       if (file.canceled) {
