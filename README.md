@@ -12,13 +12,14 @@ A WYSIWYG editor for creating, saving, and exporting kalimba tabs.
 - [ ] Custom title bar instead of default OS one
 - [ ] Usage tutorial
 - [ ] Main page to see recent tabs
+  - [ ] Set up react router
 - [ ] Set up backend for sharing kalimba tabs
 - [ ] Class up the joint
 - [ ] Add icon
   - [x] Windows
   - [x] Linux
   - [ ] OSX
-- [ ] Get OS license
+- [x] Get OS license
 
 ## Setup
 
