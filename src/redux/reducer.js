@@ -102,6 +102,9 @@ export const reducer = (state = initialState, action) => {
     case "CHANGETEMPO": {
       return { ...state, tempo: action.tempo };
     }
+    case "OPENNEWSONG": {
+      return { ...initialState };
+    }
     default:
       return state;
   }

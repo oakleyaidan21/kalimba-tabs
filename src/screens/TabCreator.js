@@ -11,7 +11,7 @@ import {
   FaSave,
   FaFolderOpen,
   FaFileExport,
-  FaArrowLeft,
+  FaHome,
 } from "react-icons/fa";
 import { Button } from "react-bootstrap";
 import * as html2canvas from "html2canvas";
@@ -42,8 +42,11 @@ class TabCreator extends Component {
    */
   saveSong = async () => {
     //create kalimba folder if it doesn't exist
-    if (!fs.existsSync(app.app.getPath("documents") + "/KalimbaTabs")) {
-      fs.mkdir(app.app.getPath("documents") + "/KalimbaTabs");
+    let docpath = app.app.getPath("documents") + "/KalimbaTabs";
+    if (!fs.existsSync(docpath)) {
+      fs.mkdir(docpath, (err) => {
+        if (err) alert(err);
+      });
     }
     let options = {
       title: this.props.songTitle,
@@ -78,8 +81,11 @@ class TabCreator extends Component {
    */
   openSong = () => {
     //create kalimba folder if it doesn't exist
-    if (!fs.existsSync(app.app.getPath("documents") + "/KalimbaTabs")) {
-      fs.mkdir(app.app.getPath("documents") + "/KalimbaTabs");
+    let docpath = app.app.getPath("documents") + "/KalimbaTabs";
+    if (!fs.existsSync(docpath)) {
+      fs.mkdir(docpath, (err) => {
+        if (err) alert(err);
+      });
     }
     let options = {
       defaultPath: app.app.getPath("documents") + "/KalimbaTabs",
@@ -232,28 +238,16 @@ class TabCreator extends Component {
         <div style={styles.controlPanelContainer}>
           {/* SONG CONTROL */}
           <div style={styles.songControlContainer}>
-            {/* BACK BUTTON */}
+            {/* HOME BUTTON */}
             <div
-              style={{ marginLeft: 30 }}
+              style={{ margin: 30 }}
               onClick={() => {
-                this.props.history.goBack();
+                this.props.history.push("/");
               }}
             >
-              <FaArrowLeft size={30} />
+              <FaHome size={30} />
             </div>
-            {/* PLAY BUTTON */}
-            <div
-              onClick={() => {
-                this.state.playing ? this.stopSong() : this.playSong();
-              }}
-              style={{ margin: 10 }}
-            >
-              {this.state.playing ? (
-                <FaStop color="red" size={30} />
-              ) : (
-                <FaPlay color="blue" size={30} />
-              )}
-            </div>
+
             {/* SAVE */}
             <div
               style={{ margin: 10 }}
@@ -285,6 +279,19 @@ class TabCreator extends Component {
                 <FaFileExport size={30} />
               </div>
             )}
+            {/* PLAY BUTTON */}
+            <div
+              onClick={() => {
+                this.state.playing ? this.stopSong() : this.playSong();
+              }}
+              style={{ margin: 10 }}
+            >
+              {this.state.playing ? (
+                <FaStop color="red" size={30} />
+              ) : (
+                <FaPlay color="blue" size={30} />
+              )}
+            </div>
           </div>
           {/* TITLE INPUT */}
           <div style={styles.titleContainer}>
