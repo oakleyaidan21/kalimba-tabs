@@ -86,3 +86,13 @@ export const restImages = [
   { time: 32 / 3, image: R_D_Sixteenth },
   { time: 16, image: R_Sixteenth },
 ];
+
+export const findAccidentals = (note) => {
+  if (note.includes("#")) {
+    return "♯";
+  }
+  if (note.includes("b")) {
+    return "♭";
+  }
+  return "♮";
+};

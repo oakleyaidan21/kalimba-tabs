@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { noteImages, restImages } from "../constants/kalimbaConstants";
+import {
+  noteImages,
+  restImages,
+  findAccidentals,
+} from "../constants/kalimbaConstants";
 
 class Note extends Component {
   constructor(props) {
@@ -31,6 +35,19 @@ class Note extends Component {
     return false;
   };
 
+  checkForAccidental = () => {
+    //if the note has any type of accidental, check it against the tine notes
+    //if the tine notes and this not match, don't display an accidental
+    //otherwise do.
+    let noteInSong = this.props.song[this.props.tineIndex][this.props.noteIndex]
+      .note;
+    if (this.props.tineNotes[this.props.tineIndex] === noteInSong) {
+      return false;
+    } else {
+      return findAccidentals(noteInSong);
+    }
+  };
+
   render() {
     let wasClicked =
       this.props.song[this.props.tineIndex][this.props.noteIndex].note !== "";
@@ -44,6 +61,9 @@ class Note extends Component {
       this.props.song[this.props.tineIndex][this.props.noteIndex].note ===
         "rest"
     );
+
+    let acc = this.checkForAccidental();
+
     let noteImage = displayTime;
     if (imgsrc) {
       noteImage = (
@@ -91,17 +111,11 @@ class Note extends Component {
           this.setState({ hovered: false });
         }}
       >
-        {/* {wasClicked
-          ? this.state.accidental !== "None"
-            ? displayTime + this.state.accidental
-            : displayTime
-          : ""}
-           */}
         {wasClicked ? (
-          this.state.accidental !== "None" ? (
+          acc !== false ? (
             <div>
               {noteImage}
-              <div>{this.state.accidental}</div>
+              <div>{acc}</div>
             </div>
           ) : (
             noteImage
@@ -120,6 +134,7 @@ const mapStateToProps = (state) => {
     selectedAccidental: state.selectedAccidental,
     song: state.song,
     rest: state.rest,
+    tineNotes: state.tineNotes,
   };
 };
 

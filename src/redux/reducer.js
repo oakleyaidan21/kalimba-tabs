@@ -1,4 +1,7 @@
-import { initialState } from "../constants/kalimbaConstants.js";
+import {
+  initialState,
+  findAccidentals,
+} from "../constants/kalimbaConstants.js";
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -16,10 +19,22 @@ export const reducer = (state = initialState, action) => {
         let noteToAdd = action.noteDetails.tine;
         let timeToAdd = action.noteDetails.time;
         if (state.selectedAccidental === "♯") {
-          noteToAdd = noteToAdd[0] + "#" + noteToAdd[1];
+          if (findAccidentals(noteToAdd) !== "♯") {
+            if (noteToAdd.length === 3) {
+              noteToAdd = noteToAdd[0] + "#" + noteToAdd[2];
+            } else {
+              noteToAdd = noteToAdd[0] + "#" + noteToAdd[1];
+            }
+          }
         }
         if (state.selectedAccidental === "♭") {
-          noteToAdd = noteToAdd[0] + "b" + noteToAdd[1];
+          if (findAccidentals(noteToAdd) !== "♭") {
+            if (noteToAdd.length === 3) {
+              noteToAdd = noteToAdd[0] + "b" + noteToAdd[2];
+            } else {
+              noteToAdd = noteToAdd[0] + "b" + noteToAdd[1];
+            }
+          }
         }
         if (state.selectedAccidental === "♮") {
           noteToAdd = noteToAdd.replace("#", "").replace("b", "");

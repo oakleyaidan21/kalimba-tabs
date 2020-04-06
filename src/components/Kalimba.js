@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Note from "./Note";
 import { connect } from "react-redux";
 import NoteChanger from "./NoteChanger";
+import { findAccidentals } from "../constants/kalimbaConstants";
 const coloredTines = [2, 5, 8, 11, 14];
 class Kalimba extends Component {
   constructor(props) {
@@ -70,10 +71,30 @@ class Kalimba extends Component {
                       if (!wasClicked) {
                         let noteToPlay = tine;
                         if (this.props.selectedAccidental === "♯") {
-                          noteToPlay = noteToPlay[0] + "#" + noteToPlay[1];
+                          if (findAccidentals(noteToPlay) !== "♯") {
+                            if (noteToPlay.length === 3) {
+                              noteToPlay = noteToPlay[0] + "#" + noteToPlay[2];
+                            } else {
+                              noteToPlay = noteToPlay[0] + "#" + noteToPlay[1];
+                            }
+
+                            // noteToPlay = noteToPlay.replace("#", "b");
+                            console.log("after:", noteToPlay);
+                          }
                         }
                         if (this.props.selectedAccidental === "♭") {
-                          noteToPlay = noteToPlay[0] + "b" + noteToPlay[1];
+                          console.log("note to play", noteToPlay);
+                          console.log(findAccidentals(noteToPlay));
+                          if (findAccidentals(noteToPlay) !== "♭") {
+                            if (noteToPlay.length === 3) {
+                              noteToPlay = noteToPlay[0] + "b" + noteToPlay[2];
+                            } else {
+                              noteToPlay = noteToPlay[0] + "b" + noteToPlay[1];
+                            }
+
+                            // noteToPlay = noteToPlay.replace("#", "b");
+                            console.log("after:", noteToPlay);
+                          }
                         }
                         if (this.props.selectedAccidental === "♮") {
                           noteToPlay = noteToPlay
