@@ -11,8 +11,8 @@ A WYSIWYG editor for creating, saving, and exporting kalimba tabs.
 - [ ] Create dynamic export function that takes into account dimensions that aren't fullscreen
 - [ ] Custom title bar instead of default OS one
 - [ ] Usage tutorial
-- [ ] Main page to see recent tabs
-  - [ ] Set up react router
+- [x] Main page to see recent tabs
+  - [x] Set up react router
 - [ ] Set up backend for sharing kalimba tabs
 - [ ] Class up the joint
 - [ ] Add icon
@@ -20,6 +20,7 @@ A WYSIWYG editor for creating, saving, and exporting kalimba tabs.
   - [x] Linux
   - [ ] OSX
 - [x] Get OS license
+- [ ] file documentation
 
 ## Setup
 
