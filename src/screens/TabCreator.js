@@ -16,6 +16,7 @@ import { Button } from "react-bootstrap";
 import * as html2canvas from "html2canvas";
 import * as jsPDF from "jspdf";
 import ClipLoader from "react-spinners/ClipLoader";
+import QuarterRest from "../kalimbaImages/restImages/quarter_rest.png";
 
 var app = window.require("electron").remote;
 const fs = app.require("fs");
@@ -367,7 +368,11 @@ class TabCreator extends Component {
                 this.props.toggleRest();
               }}
             >
-              Rest
+              <img
+                src={QuarterRest}
+                style={{ width: 15, height: "auto" }}
+                alt={"resticon"}
+              />
             </Button>
           </div>
         </div>
