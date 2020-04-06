@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import SongItem from "../components/SongItem";
 import { connect } from "react-redux";
 import { FaPlus } from "react-icons/fa";
@@ -12,7 +11,8 @@ class HomeScreen extends Component {
     super(props);
     this.state = {
       pressed: false,
-      songs: [],
+      yourSongs: [],
+      exampleSongs: [],
     };
   }
 
@@ -43,14 +43,24 @@ class HomeScreen extends Component {
         if (err) alert(err);
       });
     }
-    // get songs from folder
+    // get your songs from folder
     fs.readdir(docpath, (err, files) => {
       console.log(files);
       if (err) {
         alert(err);
         return;
       }
-      this.setState({ songs: files });
+      this.setState({ yourSongs: files });
+    });
+
+    console.log("path:", app.app.getAppPath());
+    fs.readdir(app.app.getAppPath() + "/src/tab_examples", (err, files) => {
+      console.log("examples", files);
+      if (err) {
+        alert(err);
+        return;
+      }
+      this.setState({ exampleSongs: files });
     });
   };
 
@@ -68,12 +78,11 @@ class HomeScreen extends Component {
     console.log(this.props);
     return (
       <div style={styles.homeContainer}>
-        {/* HEADER */}
-        <div style={styles.header}>Kalimba Tabs</div>
         <div style={styles.body}>
           {/* SONG LIST */}
           <div style={styles.songList}>
-            <h1>Songs</h1>
+            <h1>Your Songs</h1>
+            <div style={styles.linebreak} />
             <div style={{ display: "flex", flexDirection: "row" }}>
               {/* NEW SONG BUTTON */}
               <div
@@ -84,7 +93,7 @@ class HomeScreen extends Component {
               >
                 <FaPlus size={70} color="grey" />
               </div>
-              {this.state.songs.map((song) => (
+              {this.state.yourSongs.map((song) => (
                 <SongItem
                   title={song}
                   onClick={() => {
@@ -94,9 +103,19 @@ class HomeScreen extends Component {
                 />
               ))}
             </div>
-          </div>
-          <div style={{ flex: 1 }}>
-            <Link to="/tabcreator">To Tabs screen</Link>
+            <h1>Example Songs</h1>
+            <div style={styles.linebreak} />
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              {this.state.exampleSongs.map((song) => (
+                <SongItem
+                  title={song}
+                  onClick={() => {
+                    console.log("this one clicked: ", song);
+                    this.openSong(song);
+                  }}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -126,6 +145,7 @@ const divCenteredContent = {
 
 const styles = {
   homeContainer: {
+    overflow: "auto",
     display: "flex",
     flex: 1,
     flexDirection: "column",
@@ -158,6 +178,12 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     cursor: "pointer",
+  },
+  linebreak: {
+    width: "95%",
+    height: 3,
+    backgroundColor: "grey",
+    margin: 5,
   },
 };
 

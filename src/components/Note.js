@@ -78,6 +78,7 @@ class Note extends Component {
             this.state.hovered || this.props.isHighlighted ? "yellow" : "",
           justifyContent: "center",
           alignItems: "center",
+          cursor: "pointer",
         }}
         onClick={() => {
           this.setState({
