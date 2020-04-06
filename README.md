@@ -13,6 +13,12 @@ A WYSIWYG editor for creating, saving, and exporting kalimba tabs.
 - [ ] Usage tutorial
 - [ ] Main page to see recent tabs
 - [ ] Set up backend for sharing kalimba tabs
+- [ ] Class up the joint
+- [ ] Add icon
+  - [x] Windows
+  - [x] Linux
+  - [ ] OSX
+- [ ] Get OS license
 
 ## Setup
 
@@ -20,7 +26,7 @@ After cloning the repo, in the root folder run:
 
 `npm install`
 
-If you want to test an already created song, there are examples in the `tab_examples` folder
+If you want to test an already created song, there are examples in the `tab_examples` folder. Press the folder icon on the TabCreator page on order to open a .kal file.
 
 ## Dev
 

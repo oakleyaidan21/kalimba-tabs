@@ -181,7 +181,6 @@ class TabCreator extends Component {
    */
   updateDimensions() {
     this.setState({ height: window.innerHeight });
-    console.log("resize");
   }
 
   componentDidMount = async () => {
