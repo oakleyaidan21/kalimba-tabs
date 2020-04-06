@@ -163,7 +163,7 @@ class TabCreator extends Component {
         pdf.addImage(imgData, "PNG", 0, 0);
       });
       //scroll up
-      input.scrollTop -= input.offsetHeight;
+      input.scrollTop -= input.offsetHeight - 50;
       await delay(1);
     }
     input.scrollTop = input.scrollHeight;
@@ -172,12 +172,9 @@ class TabCreator extends Component {
     this.setState({ exporting: false });
   };
 
-  titleKeyPressed = (event) => {
-    if (event.key === "Enter") {
-      this.setState({ editTitle: false });
-    }
-  };
-
+  /**
+   * Updates dimensions of kalimba to that of the window's height
+   */
   updateDimensions() {
     this.setState({ height: window.innerHeight });
     console.log("resize");
@@ -390,6 +387,7 @@ const mapStateToProps = (state) => {
     rest: state.rest,
   };
 };
+
 const mapDispatchToProps = (dispatch) => {
   return {
     toggleDotted: () => dispatch({ type: "TOGGLEDOTTED" }),
