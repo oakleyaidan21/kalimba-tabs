@@ -39,6 +39,8 @@ for (let i = 0; i < 17; i++) {
  * @selectedAccidental the currently selected accidental, i.e. sharp, flat
  * @dotted a boolean representing whether or not the notes added are dotted
  * @rest a boolean representing whether or not the notes added are rests
+ * @tripletMode a boolean representing whether or not triplet input mode is activated
+ * @lastNoteIndex an integer representing the last edited note index
  */
 export const initialState = {
   tineNotes: [
@@ -68,6 +70,7 @@ export const initialState = {
   dotted: false,
   rest: false,
   tripletMode: false,
+  lastNoteIndex: 0,
 };
 
 /**

@@ -115,15 +115,25 @@ class TabCreator extends Component {
    * Plays the song by going through the redux song array
    * and collecting the locations with notes
    */
-  playSong = async () => {
+  playSong = async (fromStart) => {
     this.setState({ playing: true });
     let kalimbaElement = document.getElementById("kalimbaContainer");
     kalimbaElement.scrollTop = kalimbaElement.scrollHeight;
     let delayConstant = 4 * (1000 / (this.props.tempo / 60));
     let optimizedSong = [];
 
+    //start the note search depending on user input
+    //if they right clicked, play from the last clicked note
+    //otherwise, play from the beginning
+    let start =
+      this.props.lastNoteIndex === 0
+        ? this.props.song[0].length - 1
+        : !fromStart
+        ? this.props.song[0].length - 1
+        : this.props.lastNoteIndex;
+
     //go through the song array and pick out only the notes that need to be played
-    for (let i = this.props.song[0].length - 1; i >= 0; i--) {
+    for (let i = start; i >= 0; i--) {
       let notesToPlay = { notes: [], time: 4 };
       let shortestInterval = -1;
       for (let j = 0; j < 17; j++) {
@@ -283,8 +293,12 @@ class TabCreator extends Component {
             )}
             {/* PLAY BUTTON */}
             <div
-              onClick={() => {
-                this.state.playing ? this.stopSong() : this.playSong();
+              onClick={(event) => {
+                console.log("eventtype:", event.type);
+                this.state.playing ? this.stopSong() : this.playSong(false);
+              }}
+              onContextMenu={() => {
+                this.state.playing ? this.stopSong() : this.playSong(true);
               }}
               style={{ margin: 10 }}
             >
@@ -430,6 +444,7 @@ const mapStateToProps = (state) => {
     dotted: state.dotted,
     rest: state.rest,
     tripletMode: state.tripletMode,
+    lastNoteIndex: state.lastNoteIndex,
   };
 };
 

@@ -12,6 +12,7 @@ export const reducer = (state = initialState, action) => {
         newSong[action.noteDetails.tineIndex][action.noteDetails.noteIndex] = {
           note: "",
           time: 0,
+          tripletMode: false,
         };
       } else {
         //add to song
@@ -55,7 +56,11 @@ export const reducer = (state = initialState, action) => {
           tripletMode: state.tripletMode,
         };
       }
-      return { ...state, song: newSong };
+      return {
+        ...state,
+        song: newSong,
+        lastNoteIndex: action.noteDetails.noteIndex,
+      };
     case "CHANGENOTEVALUE":
       return { ...state, selectedNote: action.value };
     case "CHANGEACCIDENTAL":
