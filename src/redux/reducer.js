@@ -39,6 +39,10 @@ export const reducer = (state = initialState, action) => {
         if (state.selectedAccidental === "♮") {
           noteToAdd = noteToAdd.replace("#", "").replace("b", "");
         }
+        //check if triplet mode is activated
+        if (state.tripletMode) {
+          timeToAdd = timeToAdd * 3;
+        }
         if (state.dotted) {
           timeToAdd = (timeToAdd + timeToAdd) / 3;
         }
@@ -48,6 +52,7 @@ export const reducer = (state = initialState, action) => {
         newSong[action.noteDetails.tineIndex][action.noteDetails.noteIndex] = {
           note: noteToAdd,
           time: timeToAdd,
+          tripletMode: state.tripletMode,
         };
       }
       return { ...state, song: newSong };
@@ -104,6 +109,9 @@ export const reducer = (state = initialState, action) => {
     }
     case "OPENNEWSONG": {
       return { ...initialState };
+    }
+    case "TOGGLETRIPLET": {
+      return { ...state, tripletMode: !state.tripletMode };
     }
     default:
       return state;

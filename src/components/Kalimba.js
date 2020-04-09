@@ -50,15 +50,8 @@ class Kalimba extends Component {
                   <Note
                     key={tine + noteIndex.toString()}
                     noteName={tine}
-                    onClick={(wasClicked, time, rest) => {
-                      console.log(
-                        "tine index:",
-                        tineIndex,
-                        "noteIndex:",
-                        noteIndex
-                      );
-
-                      //add or remove redux song
+                    onClick={(wasClicked, time, rest, tripletMode) => {
+                      //add or remove from redux song
                       this.props.clickedNote({
                         tineIndex,
                         noteIndex,
@@ -66,6 +59,7 @@ class Kalimba extends Component {
                         time,
                         wasClicked,
                         rest,
+                        tripletMode,
                       });
                       //play note
                       if (!wasClicked) {
@@ -77,23 +71,15 @@ class Kalimba extends Component {
                             } else {
                               noteToPlay = noteToPlay[0] + "#" + noteToPlay[1];
                             }
-
-                            // noteToPlay = noteToPlay.replace("#", "b");
-                            console.log("after:", noteToPlay);
                           }
                         }
                         if (this.props.selectedAccidental === "♭") {
-                          console.log("note to play", noteToPlay);
-                          console.log(findAccidentals(noteToPlay));
                           if (findAccidentals(noteToPlay) !== "♭") {
                             if (noteToPlay.length === 3) {
                               noteToPlay = noteToPlay[0] + "b" + noteToPlay[2];
                             } else {
                               noteToPlay = noteToPlay[0] + "b" + noteToPlay[1];
                             }
-
-                            // noteToPlay = noteToPlay.replace("#", "b");
-                            console.log("after:", noteToPlay);
                           }
                         }
                         if (this.props.selectedAccidental === "♮") {

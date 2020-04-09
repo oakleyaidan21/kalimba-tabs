@@ -67,6 +67,7 @@ export const initialState = {
   selectedAccidental: "None",
   dotted: false,
   rest: false,
+  tripletMode: false,
 };
 
 /**

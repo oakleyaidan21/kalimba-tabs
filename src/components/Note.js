@@ -55,9 +55,16 @@ class Note extends Component {
     let wasClicked = noteInQuestion.note !== "";
     let displayTime = noteInQuestion.time;
     let isRest = noteInQuestion.note === "rest";
-    let imgsrc = this.getImage(displayTime, isRest);
+
     let acc = this.checkForAccidental();
     let noteImage = displayTime;
+    let isTriplet = noteInQuestion.tripletMode;
+
+    if (isTriplet === true) {
+      displayTime = (displayTime * 2) / 3;
+    }
+
+    let imgsrc = this.getImage(displayTime, isRest);
     if (imgsrc) {
       noteImage = (
         <img
@@ -81,15 +88,11 @@ class Note extends Component {
           cursor: "pointer",
         }}
         onClick={() => {
-          this.setState({
-            // selected: !this.state.selected,
-            time: this.props.selectedNote,
-            accidental: this.props.selectedAccidental,
-          });
           this.props.onClick(
             wasClicked,
             this.props.selectedNote,
-            this.props.rest
+            this.props.rest,
+            this.props.tripletMode
           );
         }}
         onMouseEnter={() => {
@@ -102,6 +105,7 @@ class Note extends Component {
         {wasClicked ? (
           acc !== false ? (
             <div>
+              {isTriplet ? <div>3</div> : <></>}
               {noteImage}
               {isRest ? <></> : <div>{acc}</div>}
             </div>
@@ -123,6 +127,7 @@ const mapStateToProps = (state) => {
     song: state.song,
     rest: state.rest,
     tineNotes: state.tineNotes,
+    tripletMode: state.tripletMode,
   };
 };
 

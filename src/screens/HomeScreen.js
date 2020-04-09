@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SongItem from "../components/SongItem";
 import { connect } from "react-redux";
 import { FaPlus } from "react-icons/fa";
+import { exampleSongs } from "../constants/tab_examples.js";
 
 var app = window.require("electron").remote;
 const fs = app.require("fs");
@@ -53,13 +54,13 @@ class HomeScreen extends Component {
     });
 
     //get example songs
-    fs.readdir(app.app.getAppPath() + "/src/tab_examples", (err, files) => {
-      if (err) {
-        alert(err);
-        return;
-      }
-      this.setState({ exampleSongs: files });
-    });
+    // fs.readdir(app.app.getAppPath() + "/src/tab_examples", (err, files) => {
+    //   if (err) {
+    //     alert(err);
+    //     return;
+    //   }
+    //   this.setState({ exampleSongs: files });
+    // });
   };
 
   /**
@@ -103,9 +104,9 @@ class HomeScreen extends Component {
             <h1>Example Songs</h1>
             <div style={styles.linebreak} />
             <div style={{ display: "flex", flexDirection: "row" }}>
-              {this.state.exampleSongs.map((song) => (
+              {exampleSongs.map((song) => (
                 <SongItem
-                  title={song}
+                  title={song.songTitle}
                   onClick={() => {
                     console.log("this one clicked: ", song);
                     this.openSong(song);

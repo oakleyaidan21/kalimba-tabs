@@ -377,8 +377,8 @@ class TabCreator extends Component {
                   backgroundColor: this.props.dotted ? "white" : "blue",
                 }}
               />
-              {/* REST BUTTON */}
             </Button>
+            {/* REST BUTTON */}
             <Button
               variant="outline-primary"
               style={{
@@ -395,6 +395,20 @@ class TabCreator extends Component {
                 style={{ width: 15, height: "auto" }}
                 alt={"resticon"}
               />
+            </Button>
+            {/* TRIPLET BUTTON */}
+            <Button
+              variant="outline-primary"
+              style={{
+                margin: 5,
+                backgroundColor: this.props.tripletMode ? "blue" : "white",
+                color: this.props.tripletMode ? "white" : "blue",
+              }}
+              onClick={() => {
+                this.props.toggleTriplet();
+              }}
+            >
+              3
             </Button>
           </div>
         </div>
@@ -415,6 +429,7 @@ const mapStateToProps = (state) => {
     songTitle: state.songTitle,
     dotted: state.dotted,
     rest: state.rest,
+    tripletMode: state.tripletMode,
   };
 };
 
@@ -425,6 +440,7 @@ const mapDispatchToProps = (dispatch) => {
     changeTitle: (title) => dispatch({ type: "CHANGETITLE", title: title }),
     toggleRest: () => dispatch({ type: "TOGGLEREST" }),
     changeTempo: (tempo) => dispatch({ type: "CHANGETEMPO", tempo: tempo }),
+    toggleTriplet: () => dispatch({ type: "TOGGLETRIPLET" }),
   };
 };
 

@@ -17,6 +17,7 @@
     "jspdf": "^1.5.3",
     "mobx": "^5.15.4",
     "mobx-music": "^1.1.1",
+    "path": "^0.12.7",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-dom": "^16.13.1",
