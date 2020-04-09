@@ -45,7 +45,6 @@ class HomeScreen extends Component {
     }
     // get your songs from folder
     fs.readdir(docpath, (err, files) => {
-      console.log(files);
       if (err) {
         alert(err);
         return;
@@ -53,9 +52,8 @@ class HomeScreen extends Component {
       this.setState({ yourSongs: files });
     });
 
-    console.log("path:", app.app.getAppPath());
+    //get example songs
     fs.readdir(app.app.getAppPath() + "/src/tab_examples", (err, files) => {
-      console.log("examples", files);
       if (err) {
         alert(err);
         return;
@@ -75,7 +73,6 @@ class HomeScreen extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div style={styles.homeContainer}>
         <div style={styles.body}>

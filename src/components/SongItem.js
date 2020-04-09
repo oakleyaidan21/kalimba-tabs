@@ -1,18 +1,39 @@
 import React, { Component } from "react";
-
+import { FaTrashAlt } from "react-icons/fa";
 class SongItem extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      hovered: false,
+    };
   }
   render() {
     return (
       <div
         style={styles.songItemContainer}
-        onClick={() => {
+        onDoubleClick={() => {
           this.props.onClick();
         }}
+        onMouseEnter={() => {
+          this.setState({ hovered: true });
+        }}
+        onMouseLeave={() => {
+          this.setState({ hovered: false });
+        }}
       >
+        {/* DELETE BUTTON */}
+        {this.state.hovered && (
+          <div
+            style={styles.deleteButton}
+            onClick={() => {
+              console.log("clickeroni!");
+              //this.props.onDeleteClicked();
+            }}
+          >
+            <FaTrashAlt size={20} />
+          </div>
+        )}
+
         {this.props.title.replace(".kal", "")}
       </div>
     );
@@ -32,6 +53,18 @@ const styles = {
     cursor: "pointer",
     boxShadow: "0px 5px 5px grey",
     fontWeight: "bold",
+    position: "relative",
+  },
+  deleteButton: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    position: "absolute",
+    right: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    top: 10,
   },
 };
 
