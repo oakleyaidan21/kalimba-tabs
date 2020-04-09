@@ -22,7 +22,7 @@ class HomeScreen extends Component {
    * Then navigates to
    * @param {string} title The title of the desired song to open
    */
-  openSong = (title) => {
+  openSong = (title, location) => {
     //read from file system
     let docpath = app.app.getPath("documents") + "/KalimbaTabs/" + title;
     fs.readFile(docpath, "utf-8", (err, data) => {
@@ -52,15 +52,6 @@ class HomeScreen extends Component {
       }
       this.setState({ yourSongs: files });
     });
-
-    //get example songs
-    // fs.readdir(app.app.getAppPath() + "/src/tab_examples", (err, files) => {
-    //   if (err) {
-    //     alert(err);
-    //     return;
-    //   }
-    //   this.setState({ exampleSongs: files });
-    // });
   };
 
   /**
@@ -91,12 +82,11 @@ class HomeScreen extends Component {
               >
                 <FaPlus size={70} color="grey" />
               </div>
-              {this.state.yourSongs.map((song) => (
+              {this.state.yourSongs.map((songTitle) => (
                 <SongItem
-                  title={song}
+                  title={songTitle}
                   onClick={() => {
-                    console.log("this one clicked: ", song);
-                    this.openSong(song);
+                    this.openSong(songTitle);
                   }}
                 />
               ))}
@@ -108,8 +98,8 @@ class HomeScreen extends Component {
                 <SongItem
                   title={song.songTitle}
                   onClick={() => {
-                    console.log("this one clicked: ", song);
-                    this.openSong(song);
+                    this.props.openSong(song);
+                    this.props.history.push("/tabcreator");
                   }}
                 />
               ))}
