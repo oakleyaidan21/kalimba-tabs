@@ -6,7 +6,7 @@ import {
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "NOTECLICKED":
-      let newSong = state.song;
+      let newSong = [...state.song];
       if (action.noteDetails.wasClicked) {
         //remove from song
         newSong[action.noteDetails.tineIndex][action.noteDetails.noteIndex] = {
