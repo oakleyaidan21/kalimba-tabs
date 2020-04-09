@@ -22,6 +22,9 @@ A WYSIWYG editor for creating, saving, and exporting kalimba tabs.
 - [x] Get OS license
 - [ ] file documentation
 - [ ] add triplet function
+  - [x] add triplet timing
+  - [ ] handle triplet display
+- [ ] add and remove units of time from the kalimba
 
 ## Setup
 
