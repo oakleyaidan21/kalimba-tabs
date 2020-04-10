@@ -152,15 +152,20 @@ class TabCreator extends Component {
       optimizedSong.push(notesToPlay);
     }
 
-    //go through optimizedSong
+    //go through optimizedSong, playing each note at the index
+    //waits each iteration for as long as the shortest note at the index
     for (let i = 0; i < optimizedSong.length; i++) {
       this.setState({ currentNoteIndex: optimizedSong.length - 1 - i });
       if (this.state.isStopped) {
         this.setState({ currentNoteIndex: -1 });
         break;
       }
+      //scroll the kalimba to the currently playing note
       kalimbaElement.scrollTop =
-        kalimbaElement.scrollHeight - 50 * i - (window.innerHeight - 200);
+        kalimbaElement.scrollHeight -
+        50 * (i + (this.props.song[0].length - start)) -
+        (window.innerHeight - 200);
+      //play each note in optimizedSong[i]
       for (let j = 0; j < optimizedSong[i].notes.length; j++) {
         if (optimizedSong[i].notes[j] !== "rest") {
           this.state.kalimba.play(optimizedSong[i].notes[j]);
