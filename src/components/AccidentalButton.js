@@ -20,10 +20,10 @@ class AccidentalButton extends Component {
           color:
             this.props.selectedAccidental === this.props.value
               ? "white"
-              : "blue"
+              : "blue",
         }}
         onClick={() => {
-          this.props.changeAccidental(this.props.value);
+          this.props.changeSelectedAccidental(this.props.value);
         }}
       >
         {this.props.value}
@@ -32,16 +32,16 @@ class AccidentalButton extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    selectedAccidental: state.selectedAccidental
+    selectedAccidental: state.selectedAccidental,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    changeAccidental: accidental =>
-      dispatch({ type: "CHANGEACCIDENTAL", accidental: accidental })
+    changeSelectedAccidental: (accidental) =>
+      dispatch({ type: "CHANGESELECTEDACCIDENTAL", accidental: accidental }),
   };
 };
 

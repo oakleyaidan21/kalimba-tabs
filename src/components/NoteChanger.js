@@ -6,7 +6,7 @@ class NoteChanger extends Component {
     super(props);
     this.state = {
       showModal: false,
-      refresh: false
+      refresh: false,
     };
   }
   render() {
@@ -27,13 +27,13 @@ class NoteChanger extends Component {
               backgroundColor: "white",
               borderRadius: 3,
               border: "2px solid grey",
-              display: "flex"
+              display: "flex",
             }}
           >
             <div
               style={{ flex: 1 }}
               onClick={() => {
-                this.props.addAccidental("♯", this.props.tine);
+                this.props.changeKey("♯", this.props.tine);
                 this.setState({ refresh: !this.state.refresh });
               }}
             >
@@ -42,7 +42,7 @@ class NoteChanger extends Component {
             <div
               style={{ flex: 1 }}
               onClick={() => {
-                this.props.addAccidental("♭", this.props.tine);
+                this.props.changeKey("♭", this.props.tine);
                 this.setState({ refresh: !this.state.refresh });
               }}
             >
@@ -51,7 +51,7 @@ class NoteChanger extends Component {
             <div
               style={{ flex: 1 }}
               onClick={() => {
-                this.props.addAccidental("♮", this.props.tine);
+                this.props.changeKey("♮", this.props.tine);
                 this.setState({ refresh: !this.state.refresh });
               }}
             >
@@ -65,18 +65,18 @@ class NoteChanger extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {};
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    addAccidental: (accidental, tine) =>
+    changeKey: (accidental, tine) =>
       dispatch({
-        type: "ADDACCIDENTAL",
+        type: "CHANGEKEY",
         tine: tine,
-        accidental: accidental
-      })
+        accidental: accidental,
+      }),
   };
 };
 

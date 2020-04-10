@@ -25,7 +25,7 @@ let array = [];
 for (let i = 0; i < 17; i++) {
   array.push([]);
   for (let j = 0; j < 200; j++) {
-    array[i].push({ note: "", time: 0 });
+    array[i].push({ note: "", time: 0, tripletMode: false });
   }
 }
 
