@@ -22,9 +22,16 @@ import R_D_Sixteenth from "../kalimbaImages/restImages/dotted_sixteenth_rest.png
 
 let array = [];
 
-for (let i = 0; i < 17; i++) {
+// for (let i = 0; i < 17; i++) {
+//   array.push([]);
+//   for (let j = 0; j < 200; j++) {
+//     array[i].push({ note: "", time: 0, tripletMode: false });
+//   }
+// }
+
+for (let i = 0; i < 200; i++) {
   array.push([]);
-  for (let j = 0; j < 200; j++) {
+  for (let j = 0; j < 17; j++) {
     array[i].push({ note: "", time: 0, tripletMode: false });
   }
 }

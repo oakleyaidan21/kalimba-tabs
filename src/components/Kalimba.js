@@ -3,7 +3,9 @@ import Note from "./Note";
 import { connect } from "react-redux";
 import NoteChanger from "./NoteChanger";
 import { findAccidentals } from "../constants/kalimbaConstants";
+
 const coloredTines = [2, 5, 8, 11, 14];
+
 class Kalimba extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +26,7 @@ class Kalimba extends Component {
         id="kalimba"
         style={{
           width: "100%",
-          height: 50 * this.props.song[0].length + this.props.visibleHeight / 2,
+          height: 50 * this.props.song.length + this.props.visibleHeight / 2,
         }}
       >
         {/* TINES */}
@@ -39,19 +41,20 @@ class Kalimba extends Component {
                 flex: 17,
 
                 height:
-                  50 * this.props.song[0].length +
+                  50 * this.props.song.length +
                   (8 - Math.abs(8 - tineIndex)) * 10,
                 borderRadius: 20,
               }}
               key={tine}
             >
               {/* NOTES */}
-              {Array.from(Array(this.props.song[0].length).keys()).map(
+              {Array.from(Array(this.props.song.length).keys()).map(
                 (note, noteIndex) => (
                   <Note
                     key={tine + noteIndex.toString()}
                     noteName={tine}
                     onClick={(wasClicked, time, rest, tripletMode) => {
+                      console.log("this:", noteIndex, tineIndex);
                       //add or remove from redux song
                       this.props.clickedNote({
                         tineIndex,

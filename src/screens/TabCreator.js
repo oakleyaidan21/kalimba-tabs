@@ -138,9 +138,9 @@ class TabCreator extends Component {
     //otherwise, play from the beginning
     let start =
       this.props.lastNoteIndex === 0
-        ? this.props.song[0].length - 1
+        ? this.props.song.length - 1
         : !fromStart
-        ? this.props.song[0].length - 1
+        ? this.props.song.length - 1
         : this.props.lastNoteIndex;
 
     //go through the song array and pick out only the notes that need to be played
@@ -149,13 +149,13 @@ class TabCreator extends Component {
       let shortestInterval = -1;
       for (let j = 0; j < 17; j++) {
         let noteToAdd = "";
-        if (this.props.song[j][i].note !== "") {
-          noteToAdd = this.props.song[j][i].note;
+        if (this.props.song[i][j].note !== "") {
+          noteToAdd = this.props.song[i][j].note;
         } else {
           continue;
         }
-        if (shortestInterval < this.props.song[j][i].time) {
-          shortestInterval = this.props.song[j][i].time;
+        if (shortestInterval < this.props.song[i][j].time) {
+          shortestInterval = this.props.song[i][j].time;
         }
         notesToPlay.notes.push(noteToAdd);
         notesToPlay.time = shortestInterval;
@@ -173,7 +173,7 @@ class TabCreator extends Component {
       //scroll the kalimba to the currently playing note
       kalimbaElement.scrollTop =
         kalimbaElement.scrollHeight -
-        50 * (i + (this.props.song[0].length - start)) -
+        50 * (i + (this.props.song.length - start)) -
         window.innerHeight +
         50;
 

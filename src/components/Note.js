@@ -39,7 +39,7 @@ class Note extends Component {
     //if the note has any type of accidental, check it against the tine notes
     //if the tine notes and this not match, don't display an accidental
     //otherwise do.
-    let noteInSong = this.props.song[this.props.tineIndex][this.props.noteIndex]
+    let noteInSong = this.props.song[this.props.noteIndex][this.props.tineIndex]
       .note;
     if (this.props.tineNotes[this.props.tineIndex] === noteInSong) {
       return false;
@@ -49,8 +49,8 @@ class Note extends Component {
   };
 
   render() {
-    let noteInQuestion = this.props.song[this.props.tineIndex][
-      this.props.noteIndex
+    let noteInQuestion = this.props.song[this.props.noteIndex][
+      this.props.tineIndex
     ];
     let wasClicked = noteInQuestion.note !== "";
     let displayTime = noteInQuestion.time;

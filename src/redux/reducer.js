@@ -15,7 +15,7 @@ const editSong = (state, note) => {
   let newSong = [...state.song];
   if (note.wasClicked) {
     //remove from song
-    newSong[note.tineIndex][note.noteIndex] = {
+    newSong[note.noteIndex][note.tineIndex] = {
       note: "",
       time: 0,
       tripletMode: false,
@@ -56,7 +56,7 @@ const editSong = (state, note) => {
     if (note.rest) {
       noteToAdd = "rest";
     }
-    newSong[note.tineIndex][note.noteIndex] = {
+    newSong[note.noteIndex][note.tineIndex] = {
       note: noteToAdd,
       time: timeToAdd,
       tripletMode: state.tripletMode,
