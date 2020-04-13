@@ -121,7 +121,7 @@ class TabCreator extends Component {
     kalimbaElement.scrollTop = kalimbaElement.scrollHeight;
     let delayConstant = 4 * (1000 / (this.props.tempo / 60));
     let optimizedSong = [];
-
+    console.log(kalimbaElement.offsetHeight);
     //start the note search depending on user input
     //if they right clicked, play from the last clicked note
     //otherwise, play from the beginning
@@ -155,7 +155,6 @@ class TabCreator extends Component {
     //go through optimizedSong, playing each note at the index
     //waits each iteration for as long as the shortest note at the index
     for (let i = 0; i < optimizedSong.length; i++) {
-      this.setState({ currentNoteIndex: optimizedSong.length - 1 - i });
       if (this.state.isStopped) {
         this.setState({ currentNoteIndex: -1 });
         break;
@@ -164,7 +163,9 @@ class TabCreator extends Component {
       kalimbaElement.scrollTop =
         kalimbaElement.scrollHeight -
         50 * (i + (this.props.song[0].length - start)) -
-        (window.innerHeight - 200);
+        window.innerHeight +
+        50;
+
       //play each note in optimizedSong[i]
       for (let j = 0; j < optimizedSong[i].notes.length; j++) {
         if (optimizedSong[i].notes[j] !== "rest") {
@@ -248,6 +249,8 @@ class TabCreator extends Component {
             <Kalimba
               kalimba={this.state.kalimba}
               currentNote={this.state.currentNoteIndex}
+              playing={this.state.playing}
+              visibleHeight={this.state.height}
             />
           )}
         </div>
@@ -259,6 +262,7 @@ class TabCreator extends Component {
             <div
               style={{ margin: 30 }}
               onClick={() => {
+                this.setState({ stopSong: true });
                 this.props.history.push("/");
               }}
             >
@@ -321,7 +325,7 @@ class TabCreator extends Component {
                 onClick={() => {
                   this.setState({ editTitle: true });
                 }}
-                style={{ margin: 5, fontSize: 30, fontWeight: "bold" }}
+                style={styles.songTitle}
               >
                 {this.props.songTitle}
               </div>
@@ -504,6 +508,11 @@ const styles = {
   songControlContainer: {
     flex: 2,
     ...divCenteredContent,
+  },
+  songTitle: {
+    margin: 5,
+    fontSize: 30,
+    fontWeight: "bold",
   },
   titleContainer: {
     flex: 1,

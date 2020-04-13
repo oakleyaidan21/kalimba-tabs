@@ -24,7 +24,7 @@ class Kalimba extends Component {
         id="kalimba"
         style={{
           width: "100%",
-          height: 51 * this.props.song[0].length,
+          height: 50 * this.props.song[0].length + this.props.visibleHeight / 2,
         }}
       >
         {/* TINES */}
@@ -37,6 +37,7 @@ class Kalimba extends Component {
                   ? "lightgrey"
                   : "blue",
                 flex: 17,
+
                 height:
                   50 * this.props.song[0].length +
                   (8 - Math.abs(8 - tineIndex)) * 10,
@@ -113,6 +114,18 @@ class Kalimba extends Component {
             this.kalimbaStart = ref;
           }}
         />
+        {/* PLAYING BAR */}
+        {this.props.playing && (
+          <div
+            style={{
+              position: "absolute",
+              height: 50,
+              width: "50%",
+              backgroundColor: "rgba(255,255,0,0.2)",
+              top: this.props.visibleHeight / 2 - 50,
+            }}
+          />
+        )}
       </div>
     );
   }

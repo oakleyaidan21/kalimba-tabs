@@ -81,8 +81,7 @@ class Note extends Component {
           height: 45,
           marginTop: 5,
           display: "flex",
-          backgroundColor:
-            this.state.hovered || this.props.isHighlighted ? "yellow" : "",
+          backgroundColor: this.state.hovered ? "yellow" : "",
           justifyContent: "center",
           alignItems: "center",
           cursor: "pointer",
