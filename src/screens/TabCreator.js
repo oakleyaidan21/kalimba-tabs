@@ -117,7 +117,10 @@ class TabCreator extends Component {
           isStopped: false,
           currentNoteIndex: -1,
         });
+
         this.props.openSong(JSON.parse(data));
+        let kalimbaElement = document.getElementById("kalimbaContainer");
+        kalimbaElement.scrollTop = kalimbaElement.scrollHeight;
       });
     });
   };

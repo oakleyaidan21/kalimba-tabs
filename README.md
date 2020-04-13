@@ -47,3 +47,5 @@ If you are on linux and want to build for Windows, run [this](https://gist.githu
 - [x] add and remove units of time from the kalimba
 - [x] play from last clicked note function
 - [x] saving existing files does not bring up save dialog
+- [ ] add ability to place tempo change on kalimba
+- [ ] add ability to highlight a selection of notes for copying, cutting, etc
