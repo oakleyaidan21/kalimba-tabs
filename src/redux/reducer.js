@@ -65,6 +65,10 @@ const editSong = (state, note) => {
   return { ...state, song: newSong, lastNoteIndex: note.noteIndex };
 };
 
+const getInitialState = () => {
+  return initialState;
+};
+
 /**
  *
  * Changes the key signature on the bottom of the kalimba
@@ -99,7 +103,7 @@ const changeKey = (state, action) => {
  * @param {object} state the initial state of a new song
  * @param {object} action  the parameters passed from dipatch
  */
-export const reducer = (state = initialState, action) => {
+export const reducer = (state = getInitialState(), action) => {
   switch (action.type) {
     case "NOTECLICKED":
       return editSong(state, action.noteDetails);
@@ -144,7 +148,7 @@ export const reducer = (state = initialState, action) => {
     }
 
     case "OPENNEWSONG": {
-      return { ...initialState };
+      return { ...getInitialState() };
     }
 
     case "TOGGLETRIPLET": {
