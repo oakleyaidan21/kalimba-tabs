@@ -93,6 +93,8 @@ class TabCreator extends Component {
    * @return {void} returns early if an error occurs opening the song
    */
   openSong = () => {
+    //stop song if it's playing
+    this.stopSong();
     //create kalimba folder if it doesn't exist
     let docpath = app.app.getPath("documents") + "/KalimbaTabs";
     if (!fs.existsSync(docpath)) {
@@ -109,7 +111,12 @@ class TabCreator extends Component {
           alert("An error occurred reading the file(s)" + err.message);
           return;
         }
-        this.setState({ editTitle: false, editTempo: false });
+        this.setState({
+          editTitle: false,
+          editTempo: false,
+          isStopped: false,
+          currentNoteIndex: -1,
+        });
         this.props.openSong(JSON.parse(data));
       });
     });
@@ -119,7 +126,11 @@ class TabCreator extends Component {
    * Stops the song playback
    */
   stopSong = () => {
-    this.setState({ isStopped: true, playing: false, currentNoteIndex: -1 });
+    this.setState({
+      isStopped: true,
+      playing: false,
+      currentNoteIndex: -1,
+    });
   };
 
   /**
@@ -127,7 +138,7 @@ class TabCreator extends Component {
    * and collecting the locations with notes
    */
   playSong = async (fromStart) => {
-    this.setState({ playing: true });
+    this.setState({ playing: true, isStopped: false });
     let kalimbaElement = document.getElementById("kalimbaContainer");
     kalimbaElement.scrollTop = kalimbaElement.scrollHeight;
     let delayConstant = 4 * (1000 / (this.props.tempo / 60));
@@ -167,7 +178,11 @@ class TabCreator extends Component {
     //waits each iteration for as long as the shortest note at the index
     for (let i = 0; i < optimizedSong.length; i++) {
       if (this.state.isStopped) {
-        this.setState({ currentNoteIndex: -1 });
+        this.setState({
+          currentNoteIndex: -1,
+          isStopped: false,
+          playing: false,
+        });
         break;
       }
       //scroll the kalimba to the currently playing note
@@ -272,8 +287,9 @@ class TabCreator extends Component {
             {/* HOME BUTTON */}
             <div
               style={{ margin: 30 }}
-              onClick={() => {
-                this.setState({ stopSong: true });
+              onClick={async () => {
+                this.stopSong();
+                await delay(1);
                 this.props.history.push("/");
               }}
             >
