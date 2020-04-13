@@ -1,6 +1,7 @@
 import {
   initialState,
   findAccidentals,
+  noteRow,
 } from "../constants/kalimbaConstants.js";
 
 /**
@@ -153,6 +154,19 @@ export const reducer = (state = getInitialState(), action) => {
 
     case "TOGGLETRIPLET": {
       return { ...state, tripletMode: !state.tripletMode };
+    }
+
+    case "ADDROW": {
+      let newSong = [...state.song];
+      let newRow = noteRow;
+      newSong.splice(action.noteIndex, 0, newRow);
+      return { ...state, song: newSong };
+    }
+
+    case "REMOVEROW": {
+      let newSong = [...state.song];
+      newSong.splice(action.noteIndex, 1);
+      return { ...state, song: newSong };
     }
 
     default:

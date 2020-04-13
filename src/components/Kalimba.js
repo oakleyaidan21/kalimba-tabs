@@ -53,8 +53,14 @@ class Kalimba extends Component {
                   <Note
                     key={tine + noteIndex.toString()}
                     noteName={tine}
+                    onRightClick={() => {
+                      if (tineIndex > 8) {
+                        this.props.addRow(noteIndex);
+                      } else {
+                        this.props.removeRow(noteIndex);
+                      }
+                    }}
                     onClick={(wasClicked, time, rest, tripletMode) => {
-                      console.log("this:", noteIndex, tineIndex);
                       //add or remove from redux song
                       this.props.clickedNote({
                         tineIndex,
@@ -178,6 +184,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     clickedNote: (noteDetails) =>
       dispatch({ type: "NOTECLICKED", noteDetails: noteDetails }),
+    addRow: (noteIndex) => dispatch({ type: "ADDROW", noteIndex }),
+    removeRow: (noteIndex) => dispatch({ type: "REMOVEROW", noteIndex }),
   };
 };
 

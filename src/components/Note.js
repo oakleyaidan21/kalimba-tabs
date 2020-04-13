@@ -100,6 +100,9 @@ class Note extends Component {
         onMouseLeave={() => {
           this.setState({ hovered: false });
         }}
+        onContextMenu={() => {
+          this.props.onRightClick();
+        }}
       >
         {wasClicked ? (
           acc !== false ? (
