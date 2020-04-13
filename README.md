@@ -29,6 +29,8 @@ If you are on linux and want to build for Windows, run [this](https://gist.githu
 - [ ] Create dynamic export function that takes into account dimensions that aren't fullscreen
 - [ ] Custom title bar instead of default OS one
 - [ ] Usage tutorial
+  - [x] github wiki
+  - [ ] video
 - [x] Main page to see recent tabs
   - [x] Set up react router
 - [ ] Set up backend for sharing kalimba tabs
@@ -42,6 +44,6 @@ If you are on linux and want to build for Windows, run [this](https://gist.githu
 - [ ] add triplet function
   - [x] add triplet timing
   - [ ] handle triplet display
-- [ ] add and remove units of time from the kalimba
+- [x] add and remove units of time from the kalimba
 - [x] play from last clicked note function
-- [ ] saving existing files does not bring up save dialog
+- [x] saving existing files does not bring up save dialog
