@@ -34,6 +34,7 @@ class TabCreator extends Component {
       editTempo: false,
       exporting: false,
       height: window.innerHeight,
+      enteredTempo: 0,
     };
   }
 
@@ -144,7 +145,6 @@ class TabCreator extends Component {
     this.setState({ playing: true, isStopped: false });
     let kalimbaElement = document.getElementById("kalimbaContainer");
     kalimbaElement.scrollTop = kalimbaElement.scrollHeight;
-    let delayConstant = 4 * (1000 / (this.props.tempo / 60));
     let optimizedSong = [];
     console.log(kalimbaElement.offsetHeight);
     //start the note search depending on user input
@@ -180,6 +180,8 @@ class TabCreator extends Component {
     //go through optimizedSong, playing each note at the index
     //waits each iteration for as long as the shortest note at the index
     for (let i = 0; i < optimizedSong.length; i++) {
+      //set delay constant here so that users can change the tempo mid playback
+      let delayConstant = 4 * (1000 / (this.props.tempo / 60));
       if (this.state.isStopped) {
         this.setState({
           currentNoteIndex: -1,
@@ -387,6 +389,7 @@ class TabCreator extends Component {
                 onKeyPress={(event) => {
                   if (event.key === "Enter") {
                     this.setState({ editTempo: false });
+                    this.props.changeTempo(this.state.enteredTempo);
                   }
                 }}
                 placeholder={this.props.tempo}
@@ -394,7 +397,8 @@ class TabCreator extends Component {
                 type="number"
                 min="0"
                 onChange={(e) => {
-                  this.props.changeTempo(e.target.value);
+                  // this.props.changeTempo(e.target.value);
+                  this.setState({ enteredTempo: e.target.value });
                 }}
               />
             )}
