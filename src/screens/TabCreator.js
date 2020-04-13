@@ -49,24 +49,35 @@ class TabCreator extends Component {
         if (err) alert(err);
       });
     }
+    let contentToSave = {
+      songTitle: this.props.songTitle,
+      tempo: this.props.tempo,
+      tineNotes: this.props.tineNotes,
+      song: this.props.song,
+    };
+    //if the file already exists save it with no dialog
+    if (fs.existsSync(docpath + "/" + this.props.songTitle + ".kal")) {
+      fs.writeFile(
+        docpath + "/" + this.props.songTitle + ".kal",
+        JSON.stringify(contentToSave),
+        (err) => {
+          if (err) {
+            alert("An error occurred while saving " + err.message);
+          } else {
+            alert("Successfully saved '" + this.props.songTitle + "'");
+          }
+        }
+      );
+      return;
+    }
     let options = {
       title: this.props.songTitle,
-      defaultPath:
-        app.app.getPath("documents") +
-        "/KalimbaTabs/" +
-        this.props.songTitle +
-        ".kal",
+      defaultPath: docpath + "/" + this.props.songTitle + ".kal",
     };
     app.dialog.showSaveDialog(options).then((file) => {
       if (file.canceled) {
         return;
       }
-      let contentToSave = {
-        songTitle: this.props.songTitle,
-        tempo: this.props.tempo,
-        tineNotes: this.props.tineNotes,
-        song: this.props.song,
-      };
       fs.writeFile(file.filePath, JSON.stringify(contentToSave), (err) => {
         if (err) {
           alert("An error occurred while saving " + err.message);
