@@ -1,7 +1,6 @@
 import {
   initialState,
   findAccidentals,
-  noteRow,
 } from "../constants/kalimbaConstants.js";
 
 /**
@@ -158,7 +157,10 @@ export const reducer = (state = getInitialState(), action) => {
 
     case "ADDROW": {
       let newSong = [...state.song];
-      let newRow = noteRow;
+      let newRow = [];
+      for (let i = 0; i < 17; i++) {
+        newRow.push({ note: "", time: 0, tripletMode: false });
+      }
       newSong.splice(action.noteIndex, 0, newRow);
       return { ...state, song: newSong };
     }
@@ -166,6 +168,20 @@ export const reducer = (state = getInitialState(), action) => {
     case "REMOVEROW": {
       let newSong = [...state.song];
       newSong.splice(action.noteIndex, 1);
+      return { ...state, song: newSong };
+    }
+
+    case "EXTENDSONG": {
+      console.log("extending song...");
+      let newSong = [...state.song];
+      let newRow = [];
+      for (let i = 0; i < 17; i++) {
+        newRow.push({ note: "", time: 0, tripletMode: false });
+      }
+      for (let i = 0; i < 50; i++) {
+        newSong.unshift(newRow);
+      }
+      console.log(newSong.length);
       return { ...state, song: newSong };
     }
 

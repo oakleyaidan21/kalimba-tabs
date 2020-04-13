@@ -18,6 +18,14 @@ class Kalimba extends Component {
   componentDidMount = async () => {
     //scroll to bottom
     this.kalimbaStart.scrollIntoView({ behavior: "smooth" });
+
+    //if they scroll to the top, extend the song
+    // let kalimbaElement = document.getElementById("kalimbaContainer");
+    // kalimbaElement.addEventListener("scroll", () => {
+    //   if (kalimbaElement.scrollTop < 500) {
+    //     this.props.extendSong();
+    //   }
+    // });
   };
 
   render() {
@@ -186,6 +194,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: "NOTECLICKED", noteDetails: noteDetails }),
     addRow: (noteIndex) => dispatch({ type: "ADDROW", noteIndex }),
     removeRow: (noteIndex) => dispatch({ type: "REMOVEROW", noteIndex }),
+    extendSong: () => dispatch({ type: "EXTENDSONG" }),
   };
 };
 

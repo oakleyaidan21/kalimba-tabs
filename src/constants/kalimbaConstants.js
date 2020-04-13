@@ -22,18 +22,10 @@ import R_D_Sixteenth from "../kalimbaImages/restImages/dotted_sixteenth_rest.png
 
 let array = [];
 
-const row = [];
-
-for (let j = 0; j < 17; j++) {
-  row.push({ note: "", time: 0, tripletMode: false });
-}
-
-export const noteRow = row;
-
 for (let i = 0; i < 200; i++) {
   array.push([]);
   for (let j = 0; j < 17; j++) {
-    array[i] = row;
+    array[i].push({ note: "", time: 0, tripletMode: false });
   }
 }
 

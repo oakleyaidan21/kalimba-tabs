@@ -382,6 +382,19 @@ class TabCreator extends Component {
           </div>
           {/* NOTE TOOLBAR */}
           <div style={styles.noteToolbarContainer}>
+            <Button
+              variant="outline-primary"
+              style={{
+                margin: 5,
+                backgroundColor: "white",
+              }}
+              onClick={() => {
+                this.props.extendSong();
+              }}
+            >
+              <div>Extend </div>
+            </Button>
+            <div style={styles.noteToolbarDivider} />
             <NoteButton value={1} />
             <NoteButton value={2} />
             <NoteButton value={4} />
@@ -476,6 +489,7 @@ const mapDispatchToProps = (dispatch) => {
     toggleRest: () => dispatch({ type: "TOGGLEREST" }),
     changeTempo: (tempo) => dispatch({ type: "CHANGETEMPO", tempo: tempo }),
     toggleTriplet: () => dispatch({ type: "TOGGLETRIPLET" }),
+    extendSong: () => dispatch({ type: "EXTENDSONG" }),
   };
 };
 
