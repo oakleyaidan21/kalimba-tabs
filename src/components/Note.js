@@ -81,13 +81,21 @@ class Note extends Component {
           height: 45,
           marginTop: 5,
           display: "flex",
-          backgroundColor: this.state.hovered ? "yellow" : "",
+          backgroundColor: this.props.isSelected
+            ? "purple"
+            : this.state.hovered
+            ? "yellow"
+            : "",
           justifyContent: "center",
           alignItems: "center",
           cursor: "pointer",
         }}
         onClick={() => {
-          this.props.onClick(wasClicked);
+          if (this.props.selectionMode) {
+            this.props.onSelectedRow();
+          } else {
+            this.props.onClickedNote(wasClicked);
+          }
         }}
         onMouseEnter={() => {
           this.setState({ hovered: true });
@@ -122,9 +130,8 @@ const mapStateToProps = (state) => {
     selectedNote: state.selectedNote,
     selectedAccidental: state.selectedAccidental,
     song: state.song,
-    rest: state.rest,
     tineNotes: state.tineNotes,
-    tripletMode: state.tripletMode,
+    selectionMode: state.selectionMode,
   };
 };
 

@@ -68,7 +68,15 @@ class Kalimba extends Component {
                         this.props.removeRow(noteIndex);
                       }
                     }}
-                    onClick={(wasClicked) => {
+                    isSelected={
+                      this.props.selectedRows.find(
+                        (row) => row.noteIndex === noteIndex
+                      ) !== undefined
+                    }
+                    onSelectedRow={() => {
+                      this.props.selectRow(noteIndex);
+                    }}
+                    onClickedNote={(wasClicked) => {
                       //add or remove from redux song
                       this.props.clickedNote({
                         tineIndex,
@@ -182,16 +190,18 @@ const mapStateToProps = (state) => {
     rest: state.rest,
     tripletMode: state.tripletMode,
     selectedNote: state.selectedNote,
+    selectedRows: state.selectedRows,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     clickedNote: (noteDetails) =>
-      dispatch({ type: "NOTECLICKED", noteDetails: noteDetails }),
+      dispatch({ type: "NOTECLICKED", noteDetails }),
     addRow: (noteIndex) => dispatch({ type: "ADDROW", noteIndex }),
     removeRow: (noteIndex) => dispatch({ type: "REMOVEROW", noteIndex }),
     extendSong: () => dispatch({ type: "EXTENDSONG" }),
+    selectRow: (noteIndex) => dispatch({ type: "SELECTROW", noteIndex }),
   };
 };
 

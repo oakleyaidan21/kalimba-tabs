@@ -72,6 +72,7 @@ export const initialState = {
   tripletMode: false,
   lastNoteIndex: 0,
   selectionMode: false,
+  selectedRows: [],
 };
 
 /**

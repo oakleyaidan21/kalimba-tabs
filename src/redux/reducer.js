@@ -189,6 +189,26 @@ export const reducer = (state = getInitialState(), action) => {
       return { ...state, selectionMode: !state.selectionMode };
     }
 
+    case "SELECTROW": {
+      let newSelectedRows = [...state.selectedRows];
+      //check if row has already been highlighted
+      for (let i = 0; i < newSelectedRows.length; i++) {
+        if (newSelectedRows[i].noteIndex === action.noteIndex) {
+          //remove it if it has
+          newSelectedRows.splice(i, 1);
+          return { ...state, selectedRows: newSelectedRows };
+        }
+      }
+      newSelectedRows.push({
+        noteIndex: action.noteIndex,
+        notes: state.song[action.noteIndex],
+      });
+      //sort array
+      newSelectedRows.sort((a, b) => b.noteIndex - a.noteIndex);
+      console.log(newSelectedRows);
+      return { ...state, selectedRows: newSelectedRows };
+    }
+
     default:
       return state;
   }
