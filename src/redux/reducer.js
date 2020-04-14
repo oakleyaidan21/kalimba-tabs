@@ -180,9 +180,8 @@ export const reducer = (state = getInitialState(), action) => {
         newRow.push({ note: "", time: 0, tripletMode: false });
       }
       for (let i = 0; i < 50; i++) {
-        newSong.unshift(newRow);
+        newSong.unshift([...newRow]);
       }
-      console.log(newSong.length);
       return { ...state, song: newSong };
     }
 
