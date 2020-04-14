@@ -18,14 +18,34 @@ class Kalimba extends Component {
   componentDidMount = async () => {
     //scroll to bottom
     this.kalimbaStart.scrollIntoView({ behavior: "smooth" });
+  };
 
-    //if they scroll to the top, extend the song
-    // let kalimbaElement = document.getElementById("kalimbaContainer");
-    // kalimbaElement.addEventListener("scroll", () => {
-    //   if (kalimbaElement.scrollTop < 500) {
-    //     this.props.extendSong();
-    //   }
-    // });
+  playNote = (wasClicked, tine) => {
+    if (!wasClicked) {
+      let noteToPlay = tine;
+      if (this.props.selectedAccidental === "♯") {
+        if (findAccidentals(noteToPlay) !== "♯") {
+          if (noteToPlay.length === 3) {
+            noteToPlay = noteToPlay[0] + "#" + noteToPlay[2];
+          } else {
+            noteToPlay = noteToPlay[0] + "#" + noteToPlay[1];
+          }
+        }
+      }
+      if (this.props.selectedAccidental === "♭") {
+        if (findAccidentals(noteToPlay) !== "♭") {
+          if (noteToPlay.length === 3) {
+            noteToPlay = noteToPlay[0] + "b" + noteToPlay[2];
+          } else {
+            noteToPlay = noteToPlay[0] + "b" + noteToPlay[1];
+          }
+        }
+      }
+      if (this.props.selectedAccidental === "♮") {
+        noteToPlay = noteToPlay.replace("#", "").replace("b", "");
+      }
+      if (!this.props.rest) this.props.kalimba.play(noteToPlay, 500);
+    }
   };
 
   render() {
@@ -47,7 +67,6 @@ class Kalimba extends Component {
                   ? "lightgrey"
                   : "blue",
                 flex: 17,
-
                 height:
                   50 * this.props.song.length +
                   (8 - Math.abs(8 - tineIndex)) * 10,
@@ -87,34 +106,7 @@ class Kalimba extends Component {
                         tine,
                       });
                       //play note
-                      if (!wasClicked) {
-                        let noteToPlay = tine;
-                        if (this.props.selectedAccidental === "♯") {
-                          if (findAccidentals(noteToPlay) !== "♯") {
-                            if (noteToPlay.length === 3) {
-                              noteToPlay = noteToPlay[0] + "#" + noteToPlay[2];
-                            } else {
-                              noteToPlay = noteToPlay[0] + "#" + noteToPlay[1];
-                            }
-                          }
-                        }
-                        if (this.props.selectedAccidental === "♭") {
-                          if (findAccidentals(noteToPlay) !== "♭") {
-                            if (noteToPlay.length === 3) {
-                              noteToPlay = noteToPlay[0] + "b" + noteToPlay[2];
-                            } else {
-                              noteToPlay = noteToPlay[0] + "b" + noteToPlay[1];
-                            }
-                          }
-                        }
-                        if (this.props.selectedAccidental === "♮") {
-                          noteToPlay = noteToPlay
-                            .replace("#", "")
-                            .replace("b", "");
-                        }
-                        if (!this.props.rest)
-                          this.props.kalimba.play(noteToPlay, 500);
-                      }
+                      this.playNote(wasClicked, tine);
                     }}
                     noteIndex={noteIndex}
                     tineIndex={tineIndex}

@@ -19,20 +19,12 @@ class Note extends Component {
 
   getImage = (time, isRest) => {
     if (!isRest) {
-      for (let i = 0; i < noteImages.length; i++) {
-        if (time === noteImages[i].time) {
-          return noteImages[i].image;
-        }
-      }
+      const found = noteImages.find((noteImage) => time === noteImage.time);
+      return found ? found.image : false;
     } else {
-      for (let i = 0; i < restImages.length; i++) {
-        if (time === restImages[i].time) {
-          return restImages[i].image;
-        }
-      }
+      const found = restImages.find((restImage) => time === restImage.time);
+      return found ? found.image : false;
     }
-
-    return false;
   };
 
   checkForAccidental = () => {
