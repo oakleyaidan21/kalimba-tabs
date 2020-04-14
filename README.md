@@ -16,7 +16,7 @@ If you want to test an already created song, there are examples in the `tab_exam
 
 ## Dev
 
-To run the program in development mode, run `npm run electron-pack` in the root folder.
+To run the program in development mode, run `npm run electron-dev` in the root folder.
 
 ## Build
 
