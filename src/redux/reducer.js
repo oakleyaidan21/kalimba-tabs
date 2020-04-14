@@ -24,7 +24,7 @@ const editSong = (state, note) => {
     //add to song
     //check accidental
     let noteToAdd = note.tine;
-    let timeToAdd = note.time;
+    let timeToAdd = state.selectedNote;
     if (state.selectedAccidental === "♯") {
       if (findAccidentals(noteToAdd) !== "♯") {
         if (noteToAdd.length === 3) {
@@ -53,7 +53,7 @@ const editSong = (state, note) => {
     if (state.dotted) {
       timeToAdd = (timeToAdd + timeToAdd) / 3;
     }
-    if (note.rest) {
+    if (state.rest) {
       noteToAdd = "rest";
     }
     newSong[note.noteIndex][note.tineIndex] = {
@@ -183,6 +183,10 @@ export const reducer = (state = getInitialState(), action) => {
       }
       console.log(newSong.length);
       return { ...state, song: newSong };
+    }
+
+    case "TOGGLESELECTIONMODE": {
+      return { ...state, selectionMode: !state.selectionMode };
     }
 
     default:

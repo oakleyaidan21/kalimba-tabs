@@ -12,6 +12,7 @@ import {
   FaFolderOpen,
   FaFileExport,
   FaHome,
+  FaHandPointer,
 } from "react-icons/fa";
 import { Button } from "react-bootstrap";
 import * as html2canvas from "html2canvas";
@@ -404,7 +405,25 @@ class TabCreator extends Component {
             )}
           </div>
           {/* NOTE TOOLBAR */}
+
           <div style={styles.noteToolbarContainer}>
+            <Button
+              variant="outline-primary"
+              style={{
+                margin: 5,
+                backgroundColor: this.props.selectionMode ? "blue" : "white",
+              }}
+              onClick={() => {
+                this.props.toggleSelectionMode();
+              }}
+            >
+              <div>
+                <FaHandPointer
+                  color={this.props.selectionMode ? "white" : "blue"}
+                />
+              </div>
+            </Button>
+            <div style={styles.noteToolbarDivider} />
             <Button
               variant="outline-primary"
               style={{
@@ -492,7 +511,6 @@ class TabCreator extends Component {
  */
 const mapStateToProps = (state) => {
   return {
-    test: state.test,
     tineNotes: state.tineNotes,
     song: state.song,
     tempo: state.tempo,
@@ -501,6 +519,7 @@ const mapStateToProps = (state) => {
     rest: state.rest,
     tripletMode: state.tripletMode,
     lastNoteIndex: state.lastNoteIndex,
+    selectionMode: state.selectionMode,
   };
 };
 
@@ -513,6 +532,7 @@ const mapDispatchToProps = (dispatch) => {
     changeTempo: (tempo) => dispatch({ type: "CHANGETEMPO", tempo: tempo }),
     toggleTriplet: () => dispatch({ type: "TOGGLETRIPLET" }),
     extendSong: () => dispatch({ type: "EXTENDSONG" }),
+    toggleSelectionMode: () => dispatch({ type: "TOGGLESELECTIONMODE" }),
   };
 };
 
@@ -544,7 +564,7 @@ const styles = {
     backgroundColor: "white",
   },
   noteToolbarContainer: {
-    flex: 2,
+    flex: 3,
     ...divCenteredContent,
   },
   noteToolbarDivider: {
@@ -554,7 +574,7 @@ const styles = {
     margin: 5,
   },
   songControlContainer: {
-    flex: 2,
+    flex: 3,
     ...divCenteredContent,
   },
   songTitle: {

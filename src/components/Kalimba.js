@@ -68,16 +68,13 @@ class Kalimba extends Component {
                         this.props.removeRow(noteIndex);
                       }
                     }}
-                    onClick={(wasClicked, time, rest, tripletMode) => {
+                    onClick={(wasClicked) => {
                       //add or remove from redux song
                       this.props.clickedNote({
                         tineIndex,
                         noteIndex,
                         tine,
-                        time,
                         wasClicked,
-                        rest,
-                        tripletMode,
                       });
                       //play note
                       if (!wasClicked) {
@@ -109,7 +106,6 @@ class Kalimba extends Component {
                           this.props.kalimba.play(noteToPlay, 500);
                       }
                     }}
-                    isHighlighted={this.props.currentNote === noteIndex}
                     noteIndex={noteIndex}
                     tineIndex={tineIndex}
                   />
@@ -185,6 +181,8 @@ const mapStateToProps = (state) => {
     song: state.song,
     selectedAccidental: state.selectedAccidental,
     rest: state.rest,
+    tripletMode: state.tripletMode,
+    selectedNote: state.selectedNote,
   };
 };
 

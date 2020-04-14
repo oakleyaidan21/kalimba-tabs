@@ -71,6 +71,7 @@ export const initialState = {
   rest: false,
   tripletMode: false,
   lastNoteIndex: 0,
+  selectionMode: false,
 };
 
 /**
