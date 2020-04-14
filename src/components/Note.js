@@ -104,7 +104,11 @@ class Note extends Component {
           this.setState({ hovered: false });
         }}
         onContextMenu={() => {
-          this.props.onRightClick();
+          if (this.props.selectionMode) {
+            this.props.pasteSelection();
+          } else {
+            this.props.onRightClick();
+          }
         }}
       >
         {wasClicked ? (

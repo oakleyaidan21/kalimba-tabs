@@ -68,6 +68,9 @@ class Kalimba extends Component {
                         this.props.removeRow(noteIndex);
                       }
                     }}
+                    pasteSelection={() => {
+                      this.props.pasteSelection(noteIndex);
+                    }}
                     isSelected={
                       this.props.selectedRows.find(
                         (row) => row.noteIndex === noteIndex
@@ -202,6 +205,8 @@ const mapDispatchToProps = (dispatch) => {
     removeRow: (noteIndex) => dispatch({ type: "REMOVEROW", noteIndex }),
     extendSong: () => dispatch({ type: "EXTENDSONG" }),
     selectRow: (noteIndex) => dispatch({ type: "SELECTROW", noteIndex }),
+    pasteSelection: (noteIndex) =>
+      dispatch({ type: "PASTESELECTION", noteIndex }),
   };
 };
 
