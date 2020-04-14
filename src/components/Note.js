@@ -87,12 +87,7 @@ class Note extends Component {
           cursor: "pointer",
         }}
         onClick={() => {
-          this.props.onClick(
-            wasClicked,
-            this.props.selectedNote,
-            this.props.rest,
-            this.props.tripletMode
-          );
+          this.props.onClick(wasClicked);
         }}
         onMouseEnter={() => {
           this.setState({ hovered: true });

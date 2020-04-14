@@ -74,7 +74,6 @@ class Kalimba extends Component {
                         tineIndex,
                         noteIndex,
                         tine,
-                        wasClicked,
                       });
                       //play note
                       if (!wasClicked) {

@@ -13,7 +13,7 @@ import {
  */
 const editSong = (state, note) => {
   let newSong = [...state.song];
-  if (note.wasClicked) {
+  if (newSong[note.noteIndex][note.tineIndex].note !== "") {
     //remove from song
     newSong[note.noteIndex][note.tineIndex] = {
       note: "",
