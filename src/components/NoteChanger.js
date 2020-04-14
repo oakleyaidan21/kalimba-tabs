@@ -73,7 +73,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     changeKey: (accidental, tine) =>
       dispatch({
-        type: "CHANGEKEY",
+        type: "CHANGE_KEY",
         tine: tine,
         accidental: accidental,
       }),

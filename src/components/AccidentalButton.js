@@ -41,7 +41,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     changeSelectedAccidental: (accidental) =>
-      dispatch({ type: "CHANGESELECTEDACCIDENTAL", accidental: accidental }),
+      dispatch({ type: "CHANGE_SELECTED_ACCIDENTAL", accidental: accidental }),
   };
 };
 

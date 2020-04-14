@@ -525,14 +525,14 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleDotted: () => dispatch({ type: "TOGGLEDOTTED" }),
-    openSong: (data) => dispatch({ type: "OPENSONG", data: data }),
-    changeTitle: (title) => dispatch({ type: "CHANGETITLE", title: title }),
-    toggleRest: () => dispatch({ type: "TOGGLEREST" }),
-    changeTempo: (tempo) => dispatch({ type: "CHANGETEMPO", tempo: tempo }),
-    toggleTriplet: () => dispatch({ type: "TOGGLETRIPLET" }),
-    extendSong: () => dispatch({ type: "EXTENDSONG" }),
-    toggleSelectionMode: () => dispatch({ type: "TOGGLESELECTIONMODE" }),
+    toggleDotted: () => dispatch({ type: "TOGGLE_DOTTED" }),
+    openSong: (data) => dispatch({ type: "OPEN_SONG", data: data }),
+    changeTitle: (title) => dispatch({ type: "CHANGE_TITLE", title: title }),
+    toggleRest: () => dispatch({ type: "TOGGLE_REST" }),
+    changeTempo: (tempo) => dispatch({ type: "CHANGE_TEMPO", tempo: tempo }),
+    toggleTriplet: () => dispatch({ type: "TOGGLE_TRIPLET" }),
+    extendSong: () => dispatch({ type: "EXTEND_SONG" }),
+    toggleSelectionMode: () => dispatch({ type: "TOGGLE_SELECTION_MODE" }),
   };
 };
 

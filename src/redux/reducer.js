@@ -102,26 +102,27 @@ const changeKey = (state, action) => {
  *
  * @param {object} state the initial state of a new song
  * @param {object} action  the parameters passed from dipatch
+ * @return {object} returns the new state
  */
 export const reducer = (state = getInitialState(), action) => {
   switch (action.type) {
-    case "NOTECLICKED":
+    case "NOTE_CLICKED":
       return editSong(state, action.noteDetails);
 
-    case "CHANGENOTEVALUE":
+    case "CHANGE_NOTE_VALUE":
       return { ...state, selectedNote: action.value };
 
-    case "CHANGESELECTEDACCIDENTAL":
+    case "CHANGE_SELECTED_ACCIDENTAL":
       if (state.selectedAccidental === action.accidental) {
         return { ...state, selectedAccidental: "None" };
       }
       return { ...state, selectedAccidental: action.accidental };
 
-    case "TOGGLEDOTTED": {
+    case "TOGGLE_DOTTED": {
       return { ...state, dotted: !state.dotted };
     }
 
-    case "OPENSONG": {
+    case "OPEN_SONG": {
       return {
         ...state,
         song: action.data.song,
@@ -131,31 +132,31 @@ export const reducer = (state = getInitialState(), action) => {
       };
     }
 
-    case "CHANGETITLE": {
+    case "CHANGE_TITLE": {
       return { ...state, songTitle: action.title };
     }
 
-    case "CHANGEKEY": {
+    case "CHANGE_KEY": {
       return changeKey(state, action);
     }
 
-    case "TOGGLEREST": {
+    case "TOGGLE_REST": {
       return { ...state, rest: !state.rest };
     }
 
-    case "CHANGETEMPO": {
+    case "CHANGE_TEMPO": {
       return { ...state, tempo: action.tempo };
     }
 
-    case "OPENNEWSONG": {
+    case "OPEN_NEW_SONG": {
       return { ...getInitialState() };
     }
 
-    case "TOGGLETRIPLET": {
+    case "TOGGLE_TRIPLET": {
       return { ...state, tripletMode: !state.tripletMode };
     }
 
-    case "ADDROW": {
+    case "ADD_ROW": {
       let newSong = [...state.song];
       let newRow = [];
       for (let i = 0; i < 17; i++) {
@@ -165,13 +166,13 @@ export const reducer = (state = getInitialState(), action) => {
       return { ...state, song: newSong };
     }
 
-    case "REMOVEROW": {
+    case "REMOVE_ROW": {
       let newSong = [...state.song];
       newSong.splice(action.noteIndex, 1);
       return { ...state, song: newSong };
     }
 
-    case "EXTENDSONG": {
+    case "EXTEND_SONG": {
       console.log("extending song...");
       let newSong = [...state.song];
       let newRow = [];
@@ -185,7 +186,7 @@ export const reducer = (state = getInitialState(), action) => {
       return { ...state, song: newSong };
     }
 
-    case "TOGGLESELECTIONMODE": {
+    case "TOGGLE_SELECTION_MODE": {
       if (state.selectionMode) {
         return {
           ...state,
@@ -196,7 +197,7 @@ export const reducer = (state = getInitialState(), action) => {
       return { ...state, selectionMode: !state.selectionMode };
     }
 
-    case "SELECTROW": {
+    case "SELECT_ROW": {
       let newSelectedRows = [...state.selectedRows];
       //check if row has already been highlighted
       for (let i = 0; i < newSelectedRows.length; i++) {
@@ -216,7 +217,7 @@ export const reducer = (state = getInitialState(), action) => {
       return { ...state, selectedRows: newSelectedRows };
     }
 
-    case "PASTESELECTION": {
+    case "PASTE_SELECTION": {
       let newSong = [...state.song];
       let selectedRows = [];
       for (let i = state.selectedRows.length - 1; i >= 0; i--) {

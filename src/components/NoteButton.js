@@ -10,12 +10,8 @@ class NoteButton extends Component {
   }
 
   getImage = (time) => {
-    for (let i = 0; i < noteImages.length; i++) {
-      if (time === noteImages[i].time) {
-        return noteImages[i].image;
-      }
-    }
-    return false;
+    const found = noteImages.find((noteImage) => time === noteImage.time);
+    return found ? found.image : false;
   };
 
   render() {
@@ -57,7 +53,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     changeNoteValue: (value) =>
-      dispatch({ type: "CHANGENOTEVALUE", value: value }),
+      dispatch({ type: "CHANGE_NOTE_VALUE", value: value }),
   };
 };
 

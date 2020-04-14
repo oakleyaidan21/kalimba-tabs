@@ -200,13 +200,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     clickedNote: (noteDetails) =>
-      dispatch({ type: "NOTECLICKED", noteDetails }),
-    addRow: (noteIndex) => dispatch({ type: "ADDROW", noteIndex }),
-    removeRow: (noteIndex) => dispatch({ type: "REMOVEROW", noteIndex }),
-    extendSong: () => dispatch({ type: "EXTENDSONG" }),
-    selectRow: (noteIndex) => dispatch({ type: "SELECTROW", noteIndex }),
+      dispatch({ type: "NOTE_CLICKED", noteDetails }),
+    addRow: (noteIndex) => dispatch({ type: "ADD_ROW", noteIndex }),
+    removeRow: (noteIndex) => dispatch({ type: "REMOVE_ROW", noteIndex }),
+    extendSong: () => dispatch({ type: "EXTEND_SONG" }),
+    selectRow: (noteIndex) => dispatch({ type: "SELECT_ROW", noteIndex }),
     pasteSelection: (noteIndex) =>
-      dispatch({ type: "PASTESELECTION", noteIndex }),
+      dispatch({ type: "PASTE_SELECTION", noteIndex }),
   };
 };
 

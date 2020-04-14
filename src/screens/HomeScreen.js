@@ -116,8 +116,8 @@ class HomeScreen extends Component {
  */
 const mapDispatchToProps = (dispatch) => {
   return {
-    openSong: (data) => dispatch({ type: "OPENSONG", data: data }),
-    openNewSong: () => dispatch({ type: "OPENNEWSONG" }),
+    openSong: (data) => dispatch({ type: "OPEN_SONG", data: data }),
+    openNewSong: () => dispatch({ type: "OPEN_NEW_SONG" }),
   };
 };
 
