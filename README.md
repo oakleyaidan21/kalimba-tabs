@@ -41,6 +41,7 @@ If you are on linux and want to build for Windows, run [this](https://gist.githu
   - [ ] OSX
 - [x] Get OS license
 - [ ] file documentation
+- [ ] code cleanup
 - [ ] add triplet function
   - [x] add triplet timing
   - [ ] handle triplet display
@@ -48,4 +49,4 @@ If you are on linux and want to build for Windows, run [this](https://gist.githu
 - [x] play from last clicked note function
 - [x] saving existing files does not bring up save dialog
 - [ ] add ability to place tempo change on kalimba
-- [ ] add ability to highlight a selection of notes for copying, cutting, etc
+- [x] add ability to highlight a selection of notes for copying, cutting, etc
