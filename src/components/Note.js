@@ -74,7 +74,7 @@ class Note extends Component {
           marginTop: 5,
           display: "flex",
           backgroundColor: this.props.isSelected
-            ? "purple"
+            ? "rgba(128,0,128, 0.5)"
             : this.state.hovered
             ? "yellow"
             : "",

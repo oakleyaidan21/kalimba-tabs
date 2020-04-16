@@ -50,7 +50,11 @@ class HomeScreen extends Component {
         alert(err);
         return;
       }
-      this.setState({ yourSongs: files });
+      //only show .kal files
+      let songs = files.filter((fileName) => {
+        return fileName.includes(".kal");
+      });
+      this.setState({ yourSongs: songs });
     });
   };
 
