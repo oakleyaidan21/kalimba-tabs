@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Note from "./Note";
 import { connect } from "react-redux";
 import NoteChanger from "./NoteChanger";
+import NoteToolBar from "./NoteToolBar";
 import { findAccidentals } from "../constants/kalimbaConstants";
 
 const coloredTines = [2, 5, 8, 11, 14];
@@ -87,6 +88,9 @@ class Kalimba extends Component {
                         this.props.removeRow(noteIndex);
                       }
                     }}
+                    toggleNoteBar={() => {
+                      this.props.toggleNoteBar(noteIndex, tineIndex);
+                    }}
                     pasteSelection={() => {
                       this.props.pasteSelection(noteIndex);
                     }}
@@ -116,6 +120,8 @@ class Kalimba extends Component {
             </div>
           ))}
         </div>
+        {/* NOTE SPECIFIC TASK BAR */}
+        {this.props.showNoteBar && <NoteToolBar />}
         {/* NOTE SELECTOR */}
         <div style={styles.noteSelectorContainer}>
           {this.props.tineNotes.map((tine) => (
@@ -186,6 +192,7 @@ const mapStateToProps = (state) => {
     tripletMode: state.tripletMode,
     selectedNote: state.selectedNote,
     selectedRows: state.selectedRows,
+    showNoteBar: state.showNoteBar,
   };
 };
 
@@ -199,6 +206,8 @@ const mapDispatchToProps = (dispatch) => {
     selectRow: (noteIndex) => dispatch({ type: "SELECT_ROW", noteIndex }),
     pasteSelection: (noteIndex) =>
       dispatch({ type: "PASTE_SELECTION", noteIndex }),
+    toggleNoteBar: (noteIndex, tineIndex) =>
+      dispatch({ type: "SHOW_NOTE_BAR", noteIndex, tineIndex }),
   };
 };
 

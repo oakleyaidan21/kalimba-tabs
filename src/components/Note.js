@@ -96,11 +96,12 @@ class Note extends Component {
           this.setState({ hovered: false });
         }}
         onContextMenu={() => {
-          if (this.props.selectionMode) {
-            this.props.pasteSelection();
-          } else {
-            this.props.onRightClick();
-          }
+          // if (this.props.selectionMode) {
+          //   this.props.pasteSelection();
+          // } else {
+          //   this.props.onRightClick();
+          // }
+          this.props.toggleNoteBar();
         }}
       >
         {wasClicked ? (

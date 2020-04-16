@@ -162,8 +162,14 @@ class TabCreator extends Component {
     for (let i = start; i >= 0; i--) {
       let notesToPlay = { notes: [], time: 4 };
       let shortestInterval = -1;
+      let fastestTempo = -1;
       for (let j = 0; j < 17; j++) {
         let noteToAdd = "";
+        if (this.props.song[i][j].tempo !== undefined) {
+          if (this.props.song[i][j].tempo > fastestTempo) {
+            notesToPlay.tempo = this.props.song[i][j].tempo;
+          }
+        }
         if (this.props.song[i][j].note !== "") {
           noteToAdd = this.props.song[i][j].note;
         } else {
@@ -180,9 +186,17 @@ class TabCreator extends Component {
 
     //go through optimizedSong, playing each note at the index
     //waits each iteration for as long as the shortest note at the index
+    let currentTempo = this.props.tempo;
     for (let i = 0; i < optimizedSong.length; i++) {
+      if (
+        optimizedSong[i].tempo !== -1 &&
+        optimizedSong[i].tempo !== undefined
+      ) {
+        console.log("changed here to ", optimizedSong[i].tempo);
+        currentTempo = optimizedSong[i].tempo;
+      }
       //set delay constant here so that users can change the tempo mid playback
-      let delayConstant = 4 * (1000 / (this.props.tempo / 60));
+      let delayConstant = 4 * (1000 / (currentTempo / 60));
       if (this.state.isStopped) {
         this.setState({
           currentNoteIndex: -1,

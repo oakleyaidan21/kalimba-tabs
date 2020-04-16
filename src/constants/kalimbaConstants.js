@@ -73,6 +73,9 @@ export const initialState = {
   lastNoteIndex: 0,
   selectionMode: false,
   selectedRows: [],
+  showNoteBar: false,
+  noteBarTineIndex: -1,
+  noteBarNoteIndex: -1,
 };
 
 /**

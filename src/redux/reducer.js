@@ -206,9 +206,12 @@ export const reducer = (state = getInitialState(), action) => {
           return { ...state, selectedRows: newSelectedRows };
         }
       }
-      newSelectedRows.push({
+      let rowToPush = {
         noteIndex: action.noteIndex,
         notes: state.song[action.noteIndex],
+      };
+      newSelectedRows.push({
+        ...rowToPush,
       });
       //sort array
       newSelectedRows.sort((a, b) => b.noteIndex - a.noteIndex);
@@ -221,7 +224,7 @@ export const reducer = (state = getInitialState(), action) => {
       let selectedRows = [];
       for (let i = state.selectedRows.length - 1; i >= 0; i--) {
         console.log(state.selectedRows[i]);
-        selectedRows.push(state.selectedRows[i].notes);
+        selectedRows.push([...state.selectedRows[i].notes]);
       }
       console.log("selectedrows:", selectedRows);
       newSong.splice(action.noteIndex, 0, ...selectedRows);
@@ -231,6 +234,28 @@ export const reducer = (state = getInitialState(), action) => {
         selectedRows: [],
         selectionMode: false,
       };
+    }
+
+    case "HIDE_NOTE_BAR": {
+      return { ...state, showNoteBar: false };
+    }
+
+    case "SHOW_NOTE_BAR": {
+      return {
+        ...state,
+        showNoteBar: true,
+        noteBarNoteIndex: action.noteIndex,
+        noteBarTineIndex: action.tineIndex,
+      };
+    }
+
+    case "NOTE_TEMPO_CHANGE": {
+      let newSong = [...state.song];
+      newSong[state.noteBarNoteIndex][state.noteBarTineIndex].tempo = parseInt(
+        state.tempo
+      );
+      console.log(newSong[state.noteBarNoteIndex][state.noteBarTineIndex]);
+      return { ...state, song: newSong };
     }
 
     default:
