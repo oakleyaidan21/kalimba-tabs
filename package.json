@@ -31,13 +31,22 @@
   },
   "main": "public/electron.js",
   "build": {
-    "appId": "com.example.electron-cra",
+    "appId": "com.carrotcake.kalimba-tabs",
     "files": [
       "build/**/*",
       "node_modules/**/*"
     ],
     "directories": {
-      "buildResources": "assets"
+      "buildResources": "./public/assets"
+    },
+    "win": {
+      "icon": "./kalimbaicon.png"
+    },
+    "mac": {
+      "icon": "./kalimbaicon.png"
+    },
+    "linux": {
+      "icon": "./kalimbaicon.png"
     }
   },
   "scripts": {
