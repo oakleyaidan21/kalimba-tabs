@@ -41,7 +41,7 @@
       "buildResources": "./public/assets"
     },
     "win": {
-      "icon": "./kalimbaicon.png"
+      "icon": "./kalimbaicon.ico"
     },
     "mac": {
       "icon": "./kalimbaicon.icns"
