@@ -29,6 +29,7 @@
     "react-text-input": "0.0.8",
     "redux": "^4.0.5"
   },
+  "license": "MIT",
   "main": "public/electron.js",
   "build": {
     "appId": "com.carrotcake.kalimba-tabs",
@@ -43,10 +44,11 @@
       "icon": "./kalimbaicon.png"
     },
     "mac": {
-      "icon": "./kalimbaicon.png"
+      "icon": "./kalimbaicon.icns"
     },
     "linux": {
-      "icon": "./kalimbaicon.png"
+      "icon": "./kalimbaicon.icns",
+      "target": "deb"
     }
   },
   "scripts": {
@@ -61,7 +63,9 @@
     "dist:mac": "electron-builder --mac"
   },
   "author": {
-    "name": "CarrotCake"
+    "name": "CarrotCake",
+    "email": "oakleyaidan@gmail.com",
+    "url": "https://github.com/oakleyaidan21/kalimba-tabs"
   },
   "homepage": "./",
   "eslintConfig": {
