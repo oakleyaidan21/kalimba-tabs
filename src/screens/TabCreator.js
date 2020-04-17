@@ -232,21 +232,26 @@ class TabCreator extends Component {
   exportToPDF = async () => {
     this.setState({ exporting: true });
     let input = document.getElementById("kalimbaContainer");
+    //scroll to the bottom
+    input.scrollTop = input.scrollHeight;
+    let totalHeight = input.scrollHeight;
+    let totalWidth = input.offsetWidth;
+    let margin = 15;
+    let pdfWidth = totalWidth + margin * 2;
+    let pdfHeight = input.offsetHeight + margin * 2;
+    let totalPages = Math.ceil(totalHeight / pdfHeight) - 1;
     let pdf = new jsPDF();
-    input.scrollTop = input.scrollHeight; //go to bottom of kalimba
-    while (input.scrollTop !== 0) {
-      //take pic
-      html2canvas(input).then((canvas) => {
-        const imgData = canvas.toDataURL("image/png");
-        pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, 0);
+    for (let i = 0; i < totalPages; i++) {
+      html2canvas(input).then(async (canvas) => {
+        let imgData = canvas.toDataURL("image/jpeg", 1.0);
+        pdf.addPage(pdfWidth, pdfHeight);
+        pdf.addImage(imgData, "PNG", margin, margin, 0, 0);
       });
-      //scroll up
+      //scroll up a page worth
       input.scrollTop -= input.offsetHeight - 50;
       await delay(1);
     }
-    input.scrollTop = input.scrollHeight;
-    //save pdf
+
     pdf.save(this.props.songTitle + ".pdf");
     this.setState({ exporting: false });
   };
