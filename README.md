@@ -35,10 +35,12 @@ If you are on linux and want to build for Windows, run [this](https://gist.githu
   - [x] Set up react router
 - [ ] Set up backend for sharing kalimba tabs
 - [ ] Class up the joint
-- [ ] Add icon
+  - [x] get better note icons
+  - [ ] learn and implement better UI/UX patterns
+- [x] Add icon
   - [x] Windows
   - [x] Linux
-  - [ ] OSX
+  - [x] OSX
 - [x] Get OS license
 - [ ] file documentation
 - [ ] code cleanup
