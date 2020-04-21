@@ -286,29 +286,7 @@ class TabCreator extends Component {
   render() {
     return (
       <div style={styles.tabCreatorContainer}>
-        <div style={{ flex: 1 }}></div>
-        {/* KALIMBA */}
-        <div
-          style={{
-            flex: 2,
-            display: "flex",
-            height: this.state.height,
-            overflow: "auto",
-            justifyContent: "center",
-          }}
-          id="kalimbaContainer"
-        >
-          {/* wait for kalimba to load */}
-          {this.state.kalimba !== null && (
-            <Kalimba
-              kalimba={this.state.kalimba}
-              currentNote={this.state.currentNoteIndex}
-              playing={this.state.playing}
-              visibleHeight={this.state.height}
-            />
-          )}
-        </div>
-        <div style={{ flex: 1 }}></div>
+        {/* TOOLBAR */}
         <div style={styles.controlPanelContainer}>
           {/* SONG CONTROL */}
           <div style={styles.songControlContainer}>
@@ -505,6 +483,38 @@ class TabCreator extends Component {
             </ToolBarButton>
           </div>
         </div>
+        {/* EVERYTHING ELSE */}
+        <div
+          style={{
+            flex: 1,
+
+            height: "100%",
+            display: "flex",
+            position: "relative",
+          }}
+        >
+          <div style={{ flex: 1 }}></div>
+          <div
+            id="kalimbaContainer"
+            style={{
+              flex: 2,
+              display: "flex",
+              justifyContent: "center",
+              overflow: "scroll",
+              height: this.state.height - 90,
+            }}
+          >
+            {this.state.kalimba !== null && (
+              <Kalimba
+                kalimba={this.state.kalimba}
+                currentNote={this.state.currentNoteIndex}
+                playing={this.state.playing}
+                visibleHeight={this.state.height}
+              />
+            )}
+          </div>
+          <div style={{ flex: 1 }}></div>
+        </div>
       </div>
     );
   }
@@ -553,19 +563,17 @@ const divCenteredContent = {
 
 const styles = {
   tabCreatorContainer: {
-    minHeight: "100vh",
+    height: "100%",
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
   },
-
   controlPanelContainer: {
-    position: "absolute",
-    top: 0,
     ...divCenteredContent,
     width: "100%",
     boxShadow: "0px 5px 5px grey",
     height: 60,
     backgroundColor: "rgb(245,245,245)",
+    zIndex: 10,
   },
   noteToolbarContainer: {
     ...divCenteredContent,

@@ -27,7 +27,7 @@ If you are on linux and want to build for Windows, run [this](https://gist.githu
 ## TO-DO
 
 - [ ] Create dynamic export function that takes into account dimensions that aren't fullscreen
-- [ ] Custom title bar instead of default OS one
+- [x] Custom title bar instead of default OS one
 - [ ] Usage tutorial
   - [x] github wiki
   - [ ] video

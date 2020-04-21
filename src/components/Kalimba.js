@@ -66,12 +66,15 @@ class Kalimba extends Component {
                 margin: 4,
                 backgroundColor: !coloredTines.includes(tineIndex)
                   ? "lightgrey"
-                  : "blue",
+                  : "#60a1fc",
                 flex: 17,
                 height:
                   50 * this.props.song.length +
                   (8 - Math.abs(8 - tineIndex)) * 10,
-                borderRadius: 20,
+                // borderRadiusBottomLeft: 20,
+                // borderRadiusBottomRight: 20,
+                borderBottomLeftRadius: 20,
+                borderBottomRightRadius: 20,
               }}
               key={tine}
             >

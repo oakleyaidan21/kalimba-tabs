@@ -1,5 +1,10 @@
 // menu-functions.js
-const { remote, ipcRenderer } = require("electron");
+// const { remote, ipcRenderer } = require("electron");
+
+let electron = window.require("electron").remote;
+const remote = electron;
+const ipcRenderer = window.require("electron").ipcRenderer;
+// const ipcRenderer = electron.ipcRenderer;
 
 function getCurrentWindow() {
   return remote.getCurrentWindow();

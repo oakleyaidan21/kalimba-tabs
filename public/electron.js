@@ -1,20 +1,25 @@
 const electron = require("electron");
 const app = electron.app;
+const ipcMain = electron.ipcMain;
 const BrowserWindow = electron.BrowserWindow;
 
 const path = require("path");
 const url = require("url");
 const isDev = require("electron-is-dev");
-
+const { menu } = require("../src/menu.js");
 let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1920,
-    height: 1080,
+    width: 1900,
+    height: 1000,
     icon: __dirname + `/assets/kalimbaicon.png`,
     // fullscreen: true,
-    webPreferences: { nodeIntegration: true },
+    frame: false,
+    webPreferences: {
+      nodeIntegration: true,
+      // preload: path.join(__dirname, "preload.js"),
+    },
   });
   mainWindow.loadURL(
     isDev
@@ -35,5 +40,15 @@ app.on("window-all-closed", () => {
 app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();
+  }
+});
+
+ipcMain.on("display-app-menu", function (e, args) {
+  if (mainWindow) {
+    menu.popup({
+      window: mainWindow,
+      x: args.x,
+      y: args.y,
+    });
   }
 });
