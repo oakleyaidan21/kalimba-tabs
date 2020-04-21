@@ -4,7 +4,7 @@ Rewrite of KalimbaLibre using Electron.
 
 A WYSIWYG editor for creating, saving, and exporting kalimba tabs.
 
-![](https://i.imgur.com/5uN7oLP.png)
+![](https://imgur.com/5UPPuUK.png)
 
 ## Setup
 
