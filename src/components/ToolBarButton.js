@@ -19,6 +19,7 @@ class ToolBarButton extends Component {
           color: this.props.selected ? "blue" : "black",
           boxShadow: this.props.selected ? "inset 0px 1px 3px" : "",
           cursor: this.props.disabled ? "default" : "pointer",
+          fontWeight: "bold",
         }}
         onMouseEnter={() => {
           this.setState({ hovered: true });
@@ -47,10 +48,10 @@ class ToolBarButton extends Component {
 
 let styles = {
   mainContainer: {
-    height: 50,
-    width: 50,
+    height: 45,
+    width: 45,
     borderRadius: 5,
-    margin: 2,
+    margin: 1,
     padding: 5,
     display: "flex",
     justifyContent: "center",

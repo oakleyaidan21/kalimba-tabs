@@ -15,7 +15,7 @@ class AccidentalButton extends Component {
         }}
         selected={this.props.value === this.props.selectedAccidental}
       >
-        {this.props.value}
+        <div style={{ fontWeight: "bold" }}>{this.props.value}</div>
       </ToolBarButton>
     );
   }

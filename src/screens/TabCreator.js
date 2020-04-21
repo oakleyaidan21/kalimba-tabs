@@ -549,15 +549,14 @@ const styles = {
     position: "absolute",
     top: 0,
     ...divCenteredContent,
-    left: "-5%",
-    width: "110%",
+    width: "100%",
     boxShadow: "0px 5px 5px grey",
     height: 60,
     backgroundColor: "rgb(245,245,245)",
   },
   noteToolbarContainer: {
-    flex: 3,
     ...divCenteredContent,
+    flex: 1,
   },
   noteToolbarDivider: {
     height: 50,
@@ -566,7 +565,8 @@ const styles = {
     margin: 5,
   },
   songControlContainer: {
-    flex: 3,
+    marginLeft: 10,
+    flex: 1,
     ...divCenteredContent,
   },
   songTitle: {
@@ -577,6 +577,7 @@ const styles = {
   titleContainer: {
     flex: 1,
     ...divCenteredContent,
+    alignSelf: "center",
   },
   titleInput: {
     textAlign: "center",
