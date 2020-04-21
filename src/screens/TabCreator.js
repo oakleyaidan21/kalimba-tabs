@@ -15,6 +15,7 @@ import {
   FaHome,
   FaHandPointer,
   FaPlus,
+  FaFile,
 } from "react-icons/fa";
 
 import * as html2canvas from "html2canvas";
@@ -321,14 +322,17 @@ class TabCreator extends Component {
             >
               <FaHome size={30} />
             </ToolBarButton>
-
-            {/* SAVE */}
+            {/* NEW SONG */}
             <ToolBarButton
               onClick={() => {
-                this.saveSong();
+                //ask if they want to save this song
+                this.props.openNewSong();
+                //scroll to the bottom
+                let kalimba = document.getElementById("kalimbaContainer");
+                kalimba.scrollTop = kalimba.scrollHeight;
               }}
             >
-              <FaSave size={30} />
+              <FaFile size={25} />
             </ToolBarButton>
             {/* OPEN */}
             <ToolBarButton
@@ -337,6 +341,14 @@ class TabCreator extends Component {
               }}
             >
               <FaFolderOpen size={30} />
+            </ToolBarButton>
+            {/* SAVE */}
+            <ToolBarButton
+              onClick={() => {
+                this.saveSong();
+              }}
+            >
+              <FaSave size={30} />
             </ToolBarButton>
             {/* EXPORT */}
             <ToolBarButton
@@ -525,6 +537,7 @@ const mapDispatchToProps = (dispatch) => {
     toggleTriplet: () => dispatch({ type: "TOGGLE_TRIPLET" }),
     extendSong: () => dispatch({ type: "EXTEND_SONG" }),
     toggleSelectionMode: () => dispatch({ type: "TOGGLE_SELECTION_MODE" }),
+    openNewSong: () => dispatch({ type: "OPEN_NEW_SONG" }),
   };
 };
 
@@ -568,6 +581,7 @@ const styles = {
     marginLeft: 10,
     flex: 1,
     ...divCenteredContent,
+    justifyContent: "",
   },
   songTitle: {
     margin: 5,

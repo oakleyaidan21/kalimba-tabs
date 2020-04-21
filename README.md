@@ -36,6 +36,8 @@ If you are on linux and want to build for Windows, run [this](https://gist.githu
 - [ ] Set up backend for sharing kalimba tabs
 - [ ] Class up the joint
   - [x] get better note icons
+  - [ ] replace note images with svgs
+  - [ ] make home screen not boring
   - [ ] learn and implement better UI/UX patterns
 - [x] Add icon
   - [x] Windows
