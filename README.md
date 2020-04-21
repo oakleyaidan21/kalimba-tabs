@@ -1,11 +1,13 @@
 
-<div style={"text-align: center"}><img src=""/></div>
+<p align="middle">
+  <img src="https://github.com/oakleyaidan21/kalimba-tabs/blob/master/public/assets/newkalimbaicon.png?raw=true" width="100px" height="100px" align="middle"/>
+  <b /> 
+  <p style="font-size: 100px; font-weight: bold; text-align: center" align="middle">Kalimba Tabs</p>
+  <p align="middle">A WYSIWYG editor for creating, saving, and exporting kalimba tabs.</p>
+</p>
 
-# Kalimba Tabs
 
-Rewrite of KalimbaLibre using Electron.
-
-A WYSIWYG editor for creating, saving, and exporting kalimba tabs.
+---
 
 ![](https://imgur.com/5UPPuUK.png)
 
