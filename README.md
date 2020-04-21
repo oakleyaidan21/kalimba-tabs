@@ -1,3 +1,6 @@
+
+<div style={"text-align: center"}><img src=""/></div>
+
 # Kalimba Tabs
 
 Rewrite of KalimbaLibre using Electron.
