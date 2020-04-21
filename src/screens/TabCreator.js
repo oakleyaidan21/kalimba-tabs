@@ -5,6 +5,7 @@ import { getInstruments } from "mobx-music";
 import { delay } from "q";
 import NoteButton from "../components/NoteButton";
 import AccidentalButton from "../components/AccidentalButton";
+import ToolBarButton from "../components/ToolBarButton";
 import {
   FaPlay,
   FaStop,
@@ -13,8 +14,9 @@ import {
   FaFileExport,
   FaHome,
   FaHandPointer,
+  FaPlus,
 } from "react-icons/fa";
-import { Button } from "react-bootstrap";
+
 import * as html2canvas from "html2canvas";
 import * as jsPDF from "jspdf";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -310,8 +312,7 @@ class TabCreator extends Component {
           {/* SONG CONTROL */}
           <div style={styles.songControlContainer}>
             {/* HOME BUTTON */}
-            <div
-              style={{ margin: 30 }}
+            <ToolBarButton
               onClick={async () => {
                 this.stopSong();
                 await delay(1);
@@ -319,56 +320,54 @@ class TabCreator extends Component {
               }}
             >
               <FaHome size={30} />
-            </div>
+            </ToolBarButton>
 
             {/* SAVE */}
-            <div
-              style={{ margin: 10 }}
+            <ToolBarButton
               onClick={() => {
                 this.saveSong();
               }}
             >
               <FaSave size={30} />
-            </div>
+            </ToolBarButton>
             {/* OPEN */}
-            <div
-              style={{ margin: 10 }}
+            <ToolBarButton
               onClick={() => {
                 this.openSong();
               }}
             >
               <FaFolderOpen size={30} />
-            </div>
+            </ToolBarButton>
             {/* EXPORT */}
-            {this.state.exporting ? (
-              <ClipLoader size={20} />
-            ) : (
-              <div
-                style={{ margin: 10 }}
-                onClick={() => {
-                  this.exportToPDF();
-                }}
-              >
+            <ToolBarButton
+              onClick={() => {
+                this.exportToPDF();
+              }}
+              disabled={this.state.exporting || this.state.playing}
+              selected={this.state.exporting}
+            >
+              {this.state.exporting ? (
+                <ClipLoader size={30} color="blue" />
+              ) : (
                 <FaFileExport size={30} />
-              </div>
-            )}
+              )}
+            </ToolBarButton>
             {/* PLAY BUTTON */}
-            <div
-              onClick={(event) => {
-                console.log("eventtype:", event.type);
+            <ToolBarButton
+              selected={this.state.playing}
+              onClick={() => {
                 this.state.playing ? this.stopSong() : this.playSong(false);
               }}
               onContextMenu={() => {
                 this.state.playing ? this.stopSong() : this.playSong(true);
               }}
-              style={{ margin: 10 }}
             >
               {this.state.playing ? (
                 <FaStop color="red" size={30} />
               ) : (
                 <FaPlay color="blue" size={30} />
               )}
-            </div>
+            </ToolBarButton>
           </div>
           {/* TITLE INPUT */}
           <div style={styles.titleContainer}>
@@ -424,37 +423,25 @@ class TabCreator extends Component {
             )}
           </div>
           {/* NOTE TOOLBAR */}
-
           <div style={styles.noteToolbarContainer}>
-            <Button
-              variant="outline-primary"
-              style={{
-                margin: 5,
-                backgroundColor: this.props.selectionMode ? "blue" : "white",
-              }}
+            {/* SELECTION MODE BUTTON */}
+            <ToolBarButton
+              selected={this.props.selectionMode}
               onClick={() => {
                 this.props.toggleSelectionMode();
               }}
             >
-              <div>
-                <FaHandPointer
-                  color={this.props.selectionMode ? "white" : "blue"}
-                />
-              </div>
-            </Button>
+              <FaHandPointer />
+            </ToolBarButton>
             <div style={styles.noteToolbarDivider} />
-            <Button
-              variant="outline-primary"
-              style={{
-                margin: 5,
-                backgroundColor: "white",
-              }}
+            {/* EXTEND SONG BUTTON */}
+            <ToolBarButton
               onClick={() => {
                 this.props.extendSong();
               }}
             >
-              <div>Extend </div>
-            </Button>
+              <FaPlus />
+            </ToolBarButton>
             <div style={styles.noteToolbarDivider} />
             <NoteButton value={1} />
             <NoteButton value={2} />
@@ -467,12 +454,8 @@ class TabCreator extends Component {
             <AccidentalButton value="♮" />
             <div style={styles.noteToolbarDivider} />
             {/* DOTTED BUTTON */}
-            <Button
-              variant="outline-primary"
-              style={{
-                margin: 5,
-                backgroundColor: this.props.dotted ? "blue" : "white",
-              }}
+            <ToolBarButton
+              selected={this.props.dotted}
               onClick={() => {
                 this.props.toggleDotted();
               }}
@@ -482,18 +465,13 @@ class TabCreator extends Component {
                   width: 10,
                   height: 10,
                   borderRadius: 5,
-                  backgroundColor: this.props.dotted ? "white" : "blue",
+                  backgroundColor: this.props.dotted ? "blue" : "black",
                 }}
               />
-            </Button>
+            </ToolBarButton>
             {/* REST BUTTON */}
-            <Button
-              variant="outline-primary"
-              style={{
-                margin: 5,
-                backgroundColor: this.props.rest ? "blue" : "white",
-                color: this.props.rest ? "white" : "blue",
-              }}
+            <ToolBarButton
+              selected={this.props.rest}
               onClick={() => {
                 this.props.toggleRest();
               }}
@@ -503,21 +481,16 @@ class TabCreator extends Component {
                 style={{ width: 15, height: "auto" }}
                 alt={"resticon"}
               />
-            </Button>
+            </ToolBarButton>
             {/* TRIPLET BUTTON */}
-            <Button
-              variant="outline-primary"
-              style={{
-                margin: 5,
-                backgroundColor: this.props.tripletMode ? "blue" : "white",
-                color: this.props.tripletMode ? "white" : "blue",
-              }}
+            <ToolBarButton
+              selected={this.props.tripletMode}
               onClick={() => {
                 this.props.toggleTriplet();
               }}
             >
-              3
-            </Button>
+              -3-
+            </ToolBarButton>
           </div>
         </div>
       </div>
@@ -580,7 +553,7 @@ const styles = {
     width: "110%",
     boxShadow: "0px 5px 5px grey",
     height: 60,
-    backgroundColor: "white",
+    backgroundColor: "rgb(245,245,245)",
   },
   noteToolbarContainer: {
     flex: 3,

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
+import ToolBarButton from "./ToolBarButton";
 import { noteImages } from "../constants/kalimbaConstants";
 
 class NoteButton extends Component {
@@ -17,18 +17,11 @@ class NoteButton extends Component {
   render() {
     let noteImage = this.getImage(this.props.value);
     return (
-      <Button
-        variant="outline-primary"
-        style={{
-          margin: 5,
-          backgroundColor:
-            this.props.selectedNote === this.props.value ? "blue" : "white",
-          color:
-            this.props.selectedNote === this.props.value ? "white" : "blue",
-        }}
+      <ToolBarButton
         onClick={() => {
           this.props.changeNoteValue(this.props.value);
         }}
+        selected={this.props.value === this.props.selectedNote}
       >
         {noteImage === false ? (
           this.props.value
@@ -39,7 +32,31 @@ class NoteButton extends Component {
             alt={this.props.value}
           />
         )}
-      </Button>
+      </ToolBarButton>
+      // return (
+      //   <Button
+      //     variant="outline-primary"
+      //     style={{
+      //       margin: 5,
+      //       backgroundColor:
+      //         this.props.selectedNote === this.props.value ? "blue" : "white",
+      //       color:
+      //         this.props.selectedNote === this.props.value ? "white" : "blue",
+      //     }}
+      //     onClick={() => {
+      //       this.props.changeNoteValue(this.props.value);
+      //     }}
+      //   >
+      //     {noteImage === false ? (
+      //       this.props.value
+      //     ) : (
+      //       <img
+      //         src={noteImage}
+      //         style={{ width: 15, height: "auto" }}
+      //         alt={this.props.value}
+      //       />
+      //     )}
+      //   </Button>
     );
   }
 }

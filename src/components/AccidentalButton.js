@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
+import ToolBarButton from "./ToolBarButton";
 
 class AccidentalButton extends Component {
   constructor(props) {
@@ -9,25 +9,14 @@ class AccidentalButton extends Component {
   }
   render() {
     return (
-      <Button
-        variant="outline-primary"
-        style={{
-          margin: 5,
-          backgroundColor:
-            this.props.selectedAccidental === this.props.value
-              ? "blue"
-              : "white",
-          color:
-            this.props.selectedAccidental === this.props.value
-              ? "white"
-              : "blue",
-        }}
+      <ToolBarButton
         onClick={() => {
           this.props.changeSelectedAccidental(this.props.value);
         }}
+        selected={this.props.value === this.props.selectedAccidental}
       >
         {this.props.value}
-      </Button>
+      </ToolBarButton>
     );
   }
 }
