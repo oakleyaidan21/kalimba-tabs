@@ -483,11 +483,10 @@ class TabCreator extends Component {
             </ToolBarButton>
           </div>
         </div>
-        {/* EVERYTHING ELSE */}
+        {/* EVERYTHING BELOW TOOLBAR */}
         <div
           style={{
             flex: 1,
-
             height: "100%",
             display: "flex",
             position: "relative",

@@ -84,7 +84,7 @@ class HomeScreen extends Component {
                   this.newSongClicked();
                 }}
               >
-                <FaPlus size={70} color="grey" />
+                <FaPlus size={70} color="black" />
               </div>
               {this.state.yourSongs.map((songTitle) => (
                 <SongItem
@@ -128,12 +128,12 @@ const mapDispatchToProps = (dispatch) => {
 /**
  * Styling
  */
-const divCenteredContent = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  flexDirection: "row",
-};
+// const divCenteredContent = {
+//   display: "flex",
+//   justifyContent: "center",
+//   alignItems: "center",
+//   flexDirection: "row",
+// };
 
 const styles = {
   homeContainer: {
@@ -142,13 +142,6 @@ const styles = {
     flex: 1,
     flexDirection: "column",
     height: "100vh",
-  },
-  header: {
-    ...divCenteredContent,
-    boxShadow: "0px 5px 5px grey",
-    height: 60,
-    width: "100%",
-    backgroundColor: "white",
   },
   body: {
     flex: 1,
@@ -162,19 +155,19 @@ const styles = {
   },
   newSongButton: {
     width: 250,
-    height: 400,
+    height: 300,
     margin: 5,
     borderRadius: 10,
-    border: "2px dotted grey",
+    border: "2px solid black",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     cursor: "pointer",
   },
   linebreak: {
-    width: "95%",
+    width: "99%",
     height: 3,
-    backgroundColor: "grey",
+    backgroundColor: "#60a1fc",
     margin: 5,
   },
 };

@@ -6,19 +6,18 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require("path");
 const url = require("url");
 const isDev = require("electron-is-dev");
-const { menu } = require("../src/menu.js");
+const { menu } = require("./menu.js");
 let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1900,
     height: 1000,
-    icon: __dirname + `/assets/kalimbaicon.png`,
+    icon: __dirname + `/assets/newkalimbaicon.png`,
     // fullscreen: true,
     frame: false,
     webPreferences: {
       nodeIntegration: true,
-      // preload: path.join(__dirname, "preload.js"),
     },
   });
   mainWindow.loadURL(

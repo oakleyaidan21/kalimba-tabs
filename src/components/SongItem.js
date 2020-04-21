@@ -43,15 +43,15 @@ class SongItem extends Component {
 const styles = {
   songItemContainer: {
     width: 250,
-    height: 400,
+    height: 300,
     margin: 5,
     borderRadius: 10,
-    backgroundColor: "lightgrey",
+    backgroundColor: "white",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     cursor: "pointer",
-    boxShadow: "0px 5px 5px grey",
+    boxShadow: "0px 0px 3px grey",
     fontWeight: "bold",
     position: "relative",
   },

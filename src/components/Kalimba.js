@@ -71,8 +71,6 @@ class Kalimba extends Component {
                 height:
                   50 * this.props.song.length +
                   (8 - Math.abs(8 - tineIndex)) * 10,
-                // borderRadiusBottomLeft: 20,
-                // borderRadiusBottomRight: 20,
                 borderBottomLeftRadius: 20,
                 borderBottomRightRadius: 20,
               }}

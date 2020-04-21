@@ -42,13 +42,13 @@
       "buildResources": "./public/assets"
     },
     "win": {
-      "icon": "./kalimbaicon.ico"
+      "icon": "./newkalimbaicon.ico"
     },
     "mac": {
-      "icon": "./kalimbaicon.icns"
+      "icon": "./newkalimbaicon.icns"
     },
     "linux": {
-      "icon": "./kalimbaicon.icns",
+      "icon": "./newkalimbaicon.icns",
       "target": "deb"
     }
   },
