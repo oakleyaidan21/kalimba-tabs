@@ -112,7 +112,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     width: 100,
-    marginRight: 9,
+    marginRight: 8,
   },
 };
 

@@ -1,5 +1,4 @@
-
-# Kalimba Tabs  <img src="https://github.com/oakleyaidan21/kalimba-tabs/blob/master/public/assets/newkalimbaicon.png?raw=true" width="50px" height="50px" align="right"/>
+# Kalimba Tabs <img src="https://github.com/oakleyaidan21/kalimba-tabs/blob/master/public/assets/newkalimbaicon.png?raw=true" width="50px" height="50px" align="right"/>
 
 A WYSIWYG editor for creating, saving, and exporting kalimba tabs.
 
