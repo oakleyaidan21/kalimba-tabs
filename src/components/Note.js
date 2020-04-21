@@ -81,6 +81,7 @@ class Note extends Component {
           justifyContent: "center",
           alignItems: "center",
           cursor: "pointer",
+          userSelect: "none",
         }}
         onClick={() => {
           if (this.props.selectionMode) {
