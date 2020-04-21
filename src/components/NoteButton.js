@@ -33,30 +33,6 @@ class NoteButton extends Component {
           />
         )}
       </ToolBarButton>
-      // return (
-      //   <Button
-      //     variant="outline-primary"
-      //     style={{
-      //       margin: 5,
-      //       backgroundColor:
-      //         this.props.selectedNote === this.props.value ? "blue" : "white",
-      //       color:
-      //         this.props.selectedNote === this.props.value ? "white" : "blue",
-      //     }}
-      //     onClick={() => {
-      //       this.props.changeNoteValue(this.props.value);
-      //     }}
-      //   >
-      //     {noteImage === false ? (
-      //       this.props.value
-      //     ) : (
-      //       <img
-      //         src={noteImage}
-      //         style={{ width: 15, height: "auto" }}
-      //         alt={this.props.value}
-      //       />
-      //     )}
-      //   </Button>
     );
   }
 }

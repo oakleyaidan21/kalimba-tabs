@@ -15,9 +15,13 @@ class ToolBarButton extends Component {
         style={{
           ...styles.mainContainer,
           border: this.state.hovered ? "1px solid lightgrey" : "",
-          backgroundColor: this.props.selected ? "white" : "",
+          backgroundColor:
+            this.props.selected || this.state.beingClicked ? "white" : "",
           color: this.props.selected ? "blue" : "black",
-          boxShadow: this.props.selected ? "inset 0px 1px 3px" : "",
+          boxShadow:
+            this.props.selected || this.state.beingClicked
+              ? "inset 0px 1px 3px black"
+              : "",
           cursor: this.props.disabled ? "default" : "pointer",
           fontWeight: "bold",
         }}
@@ -26,6 +30,7 @@ class ToolBarButton extends Component {
         }}
         onMouseLeave={() => {
           this.setState({ hovered: false });
+          this.setState({ beingClicked: false });
         }}
         onClick={() => {
           if (this.props.disabled) {
@@ -38,6 +43,12 @@ class ToolBarButton extends Component {
             return;
           }
           this.props.onContextMenu();
+        }}
+        onMouseDown={() => {
+          this.setState({ beingClicked: true });
+        }}
+        onMouseUp={() => {
+          this.setState({ beingClicked: false });
         }}
       >
         {this.props.children}
