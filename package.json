@@ -37,7 +37,7 @@
       "build/**/*",
       "node_modules/**/*"
     ],
-    "productName": "Kalibma Tabs",
+    "productName": "Kalimba Tabs",
     "directories": {
       "buildResources": "./public/assets"
     },
