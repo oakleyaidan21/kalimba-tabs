@@ -27,7 +27,7 @@ class SongItem extends Component {
             style={styles.deleteButton}
             onClick={() => {
               console.log("clickeroni!");
-              //this.props.onDeleteClicked();
+              this.props.onDeleteClicked();
             }}
           >
             <FaTrashAlt size={20} />

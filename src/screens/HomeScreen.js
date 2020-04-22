@@ -36,14 +36,7 @@ class HomeScreen extends Component {
     this.props.history.push("/tabcreator");
   };
 
-  componentDidMount = () => {
-    // set up tabs folder
-    let docpath = app.app.getPath("documents") + "/KalimbaTabs";
-    if (!fs.existsSync(docpath)) {
-      fs.mkdir(docpath, (err) => {
-        if (err) alert(err);
-      });
-    }
+  getSongs = (docpath) => {
     // get your songs from folder
     fs.readdir(docpath, (err, files) => {
       if (err) {
@@ -58,6 +51,17 @@ class HomeScreen extends Component {
     });
   };
 
+  componentDidMount = () => {
+    // set up tabs folder
+    let docpath = app.app.getPath("documents") + "/KalimbaTabs";
+    if (!fs.existsSync(docpath)) {
+      fs.mkdir(docpath, (err) => {
+        if (err) alert(err);
+      });
+    }
+    this.getSongs(docpath);
+  };
+
   /**
    * Clears the redux song and then navigates to empty TabCreator
    */
@@ -66,6 +70,19 @@ class HomeScreen extends Component {
     //where they input a title, tempo, etc
     this.props.openNewSong();
     this.props.history.push("/tabcreator");
+  };
+
+  deleteSong = (songTitle) => {
+    let docpath = app.app.getPath("documents") + "/KalimbaTabs/";
+    let toDelete = window.confirm(
+      "Are you sure you want to delete " + songTitle + "?"
+    );
+    if (toDelete) {
+      fs.unlink(docpath + songTitle, (err) => {
+        if (err) throw err;
+        this.getSongs(docpath);
+      });
+    }
   };
 
   render() {
@@ -91,6 +108,9 @@ class HomeScreen extends Component {
                   title={songTitle}
                   onClick={() => {
                     this.openSong(songTitle);
+                  }}
+                  onDeleteClicked={() => {
+                    this.deleteSong(songTitle);
                   }}
                 />
               ))}
