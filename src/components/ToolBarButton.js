@@ -24,6 +24,7 @@ class ToolBarButton extends Component {
               : "",
           cursor: this.props.disabled ? "default" : "pointer",
           fontWeight: "bold",
+          ...this.props.style,
         }}
         onMouseEnter={() => {
           this.setState({ hovered: true });

@@ -42,12 +42,24 @@ const template = [
   },
   {
     role: "help",
+
     submenu: [
       {
-        label: "Learn More",
+        label: "Source Code",
         click: async () => {
           const { shell } = require("electron");
-          await shell.openExternal("https://electronjs.org");
+          await shell.openExternal(
+            "https://github.com/oakleyaidan21/kalimba-tabs"
+          );
+        },
+      },
+      {
+        label: "Bug Report",
+        click: async () => {
+          const { shell } = require("electron");
+          await shell.openExternal(
+            "https://github.com/oakleyaidan21/kalimba-tabs/issues"
+          );
         },
       },
     ],

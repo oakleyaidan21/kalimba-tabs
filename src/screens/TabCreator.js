@@ -22,6 +22,7 @@ import * as html2canvas from "html2canvas";
 import * as jsPDF from "jspdf";
 import ClipLoader from "react-spinners/ClipLoader";
 import QuarterRest from "../kalimbaImages/restImages/quarter_rest.png";
+import PlayContextMenu from "../components/PlayContextMenu";
 
 var app = window.require("electron").remote;
 const fs = app.require("fs");
@@ -39,6 +40,7 @@ class TabCreator extends Component {
       exporting: false,
       height: window.innerHeight,
       enteredTempo: 0,
+      showPlayContextMenu: false,
     };
   }
 
@@ -285,7 +287,12 @@ class TabCreator extends Component {
 
   render() {
     return (
-      <div style={styles.tabCreatorContainer}>
+      <div
+        style={styles.tabCreatorContainer}
+        onClick={() => {
+          this.setState({ showPlayContextMenu: false });
+        }}
+      >
         {/* TOOLBAR */}
         <div style={styles.controlPanelContainer}>
           {/* SONG CONTROL */}
@@ -343,21 +350,37 @@ class TabCreator extends Component {
               )}
             </ToolBarButton>
             {/* PLAY BUTTON */}
-            <ToolBarButton
-              selected={this.state.playing}
-              onClick={() => {
-                this.state.playing ? this.stopSong() : this.playSong(false);
-              }}
-              onContextMenu={() => {
-                this.state.playing ? this.stopSong() : this.playSong(true);
-              }}
-            >
-              {this.state.playing ? (
-                <FaStop color="red" size={30} />
-              ) : (
-                <FaPlay color="blue" size={30} />
+            <div style={{ position: "relative" }}>
+              <ToolBarButton
+                selected={this.state.playing}
+                onClick={() => {
+                  this.state.playing ? this.stopSong() : this.playSong(false);
+                }}
+                onContextMenu={() => {
+                  this.setState({ showPlayContextMenu: true });
+                }}
+              >
+                {this.state.playing ? (
+                  <FaStop color="red" size={30} />
+                ) : (
+                  <FaPlay color="blue" size={30} />
+                )}
+              </ToolBarButton>
+              {this.state.showPlayContextMenu && (
+                <PlayContextMenu
+                  play={(fromMiddle) => {
+                    this.state.playing
+                      ? this.stopSong()
+                      : this.playSong(fromMiddle);
+                    this.setState({ showPlayContextMenu: false });
+                  }}
+                  isPlaying={this.state.playing}
+                  stop={() => {
+                    this.stopSong();
+                  }}
+                />
               )}
-            </ToolBarButton>
+            </div>
           </div>
           {/* TITLE INPUT */}
           <div style={styles.titleContainer}>
@@ -594,11 +617,16 @@ const styles = {
     margin: 5,
     fontSize: 30,
     fontWeight: "bold",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
   },
   titleContainer: {
     flex: 1,
     ...divCenteredContent,
     alignSelf: "center",
+    textOverflow: "ellipsis",
+    overflow: "hidden",
   },
   titleInput: {
     textAlign: "center",
