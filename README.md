@@ -4,6 +4,15 @@ A WYSIWYG editor for creating, saving, and exporting kalimba tabs.
 
 ![](https://imgur.com/5UPPuUK.png)
 
+## Latest Builds
+
+- Windows
+  - exe: <a href="https://drive.google.com/file/d/18JW0JVdcZn1cboLW6MbRHQnjvMzzC2zj/view?usp=sharing" target="_blank">0.1.0</a>
+- Linux: 
+  - deb: <a href="https://drive.google.com/file/d/1uvj0Vwdkfa_u-2nUs4LszUmvyhLVwUlq/view?usp=sharing" target="_blank">0.1.0</a>
+- mac: 
+  - no current builds for mac. You can run the source code on it, but I have not yet figured out how to configure electron-builder for OSX devices
+
 ## Setup
 
 After cloning the repo, in the root folder run:
@@ -20,7 +29,7 @@ To run the program in development mode, run `npm run electron-dev` in the root f
 
 To make a build of the app, run `npm run electron-pack` in the root folder. It should show up in the `dist` folder when it's done.
 
-If you are on linux and want to build for Windows, run [this](https://gist.githubusercontent.com/jamzi/aff85aa192b8addab2b560db5d849a2a/raw/70c5b6f5816cc8b743853dae7b335418faa18b1f/gistfile1.txt) docker command in the root folder, then run `npm run dist:windows`
+If you are on Linux and want to build for Windows, run [this](https://gist.githubusercontent.com/jamzi/aff85aa192b8addab2b560db5d849a2a/raw/70c5b6f5816cc8b743853dae7b335418faa18b1f/gistfile1.txt) docker command in the root folder, then run `npm run dist:windows`
 
 ## TO-DO
 
@@ -51,4 +60,6 @@ If you are on linux and want to build for Windows, run [this](https://gist.githu
 - [x] play from last clicked note function
 - [x] saving existing files does not bring up save dialog
 - [ ] add ability to place tempo change on kalimba
+  - [x] add playback functionality
+  - [ ] add visual representation of tempo change
 - [x] add ability to highlight a selection of notes for copying, cutting, etc
