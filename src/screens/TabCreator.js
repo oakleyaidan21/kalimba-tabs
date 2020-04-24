@@ -20,6 +20,8 @@ import {
 
 import * as html2canvas from "html2canvas";
 import * as jsPDF from "jspdf";
+
+import ScaleLoader from "react-spinners/ScaleLoader";
 import ClipLoader from "react-spinners/ClipLoader";
 import QuarterRest from "../kalimbaImages/restImages/quarter_rest.png";
 import PlayContextMenu from "../components/PlayContextMenu";
@@ -152,7 +154,6 @@ class TabCreator extends Component {
     let kalimbaElement = document.getElementById("kalimbaContainer");
     kalimbaElement.scrollTop = kalimbaElement.scrollHeight;
     let optimizedSong = [];
-    console.log(kalimbaElement.offsetHeight);
     //start the note search depending on user input
     //if they right clicked, play from the last clicked note
     //otherwise, play from the beginning
@@ -197,7 +198,6 @@ class TabCreator extends Component {
         optimizedSong[i].tempo !== -1 &&
         optimizedSong[i].tempo !== undefined
       ) {
-        console.log("changed here to ", optimizedSong[i].tempo);
         currentTempo = optimizedSong[i].tempo;
       }
       //set delay constant here so that users can change the tempo mid playback
@@ -507,32 +507,24 @@ class TabCreator extends Component {
           </div>
         </div>
         {/* EVERYTHING BELOW TOOLBAR */}
-        <div
-          style={{
-            flex: 1,
-            height: "100%",
-            display: "flex",
-            position: "relative",
-          }}
-        >
+        <div style={styles.lowerHalf}>
           <div style={{ flex: 1 }}></div>
           <div
             id="kalimbaContainer"
             style={{
-              flex: 2,
-              display: "flex",
-              justifyContent: "center",
-              overflow: "scroll",
+              ...styles.kalimbaContainer,
               height: this.state.height - 90,
             }}
           >
-            {this.state.kalimba !== null && (
+            {this.state.kalimba !== null ? (
               <Kalimba
                 kalimba={this.state.kalimba}
                 currentNote={this.state.currentNoteIndex}
                 playing={this.state.playing}
                 visibleHeight={this.state.height}
               />
+            ) : (
+              <ScaleLoader />
             )}
           </div>
           <div style={{ flex: 1 }}></div>
@@ -640,13 +632,18 @@ const styles = {
     width: 50,
     margin: 5,
   },
-  exportingModal: {
-    ...divCenteredContent,
-    width: "50%",
-    alignSelf: "center",
+  lowerHalf: {
+    flex: 1,
     height: "100%",
-    backgroundColor: "white",
-    position: "absolute",
+    display: "flex",
+    position: "relative",
+  },
+  kalimbaContainer: {
+    flex: 2,
+    display: "flex",
+    justifyContent: "center",
+    overflow: "scroll",
+    alignItems: "center",
   },
 };
 

@@ -173,7 +173,6 @@ export const reducer = (state = getInitialState(), action) => {
     }
 
     case "EXTEND_SONG": {
-      console.log("extending song...");
       let newSong = [...state.song];
       let newRow = [];
       for (let i = 0; i < 17; i++) {
@@ -215,7 +214,6 @@ export const reducer = (state = getInitialState(), action) => {
       });
       //sort array
       newSelectedRows.sort((a, b) => b.noteIndex - a.noteIndex);
-      console.log(newSelectedRows);
       return { ...state, selectedRows: newSelectedRows };
     }
 
@@ -223,10 +221,9 @@ export const reducer = (state = getInitialState(), action) => {
       let newSong = [...state.song];
       let selectedRows = [];
       for (let i = state.selectedRows.length - 1; i >= 0; i--) {
-        console.log(state.selectedRows[i]);
         selectedRows.push([...state.selectedRows[i].notes]);
       }
-      console.log("selectedrows:", selectedRows);
+
       newSong.splice(action.noteIndex, 0, ...selectedRows);
       return {
         ...state,
@@ -254,7 +251,6 @@ export const reducer = (state = getInitialState(), action) => {
       newSong[state.noteBarNoteIndex][state.noteBarTineIndex].tempo = parseInt(
         state.tempo
       );
-      console.log(newSong[state.noteBarNoteIndex][state.noteBarTineIndex]);
       return { ...state, song: newSong };
     }
 

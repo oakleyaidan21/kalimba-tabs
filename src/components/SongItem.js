@@ -26,7 +26,6 @@ class SongItem extends Component {
           <div
             style={styles.deleteButton}
             onClick={() => {
-              console.log("clickeroni!");
               this.props.onDeleteClicked();
             }}
           >
