@@ -524,7 +524,9 @@ class TabCreator extends Component {
                 visibleHeight={this.state.height}
               />
             ) : (
-              <ScaleLoader />
+              <div style={{ alignSelf: "center" }}>
+                <ScaleLoader />
+              </div>
             )}
           </div>
           <div style={{ flex: 1 }}></div>
@@ -643,7 +645,6 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     overflow: "scroll",
-    alignItems: "center",
   },
 };
 
