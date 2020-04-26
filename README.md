@@ -33,6 +33,7 @@ If you are on Linux and want to build for Windows, run [this](https://gist.githu
 
 ## TO-DO
 
+- [ ] Implement undo/redo in redux
 - [ ] Create dynamic export function that takes into account dimensions that aren't fullscreen
 - [x] Custom title bar instead of default OS one
 - [ ] Usage tutorial
