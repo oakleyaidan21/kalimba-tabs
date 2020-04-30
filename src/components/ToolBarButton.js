@@ -49,9 +49,12 @@ class ToolBarButton extends Component {
           this.setState({ beingClicked: true });
         }}
         onMouseUp={() => {
-          this.setState({ beingClicked: false });
+          this.setState({ beingClicked: false, hovered: false });
         }}
       >
+        {this.state.hovered && this.props.name !== undefined && (
+          <div style={styles.toolTip}>{this.props.name}</div>
+        )}
         {this.props.children}
       </div>
     );
@@ -69,6 +72,16 @@ let styles = {
     justifyContent: "center",
     alignItems: "center",
     whitespace: "nowrap",
+    position: "relative",
+  },
+  toolTip: {
+    position: "absolute",
+    top: 50,
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: "black",
+    color: "white",
+    textAlign: "center",
   },
 };
 

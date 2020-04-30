@@ -304,6 +304,7 @@ class TabCreator extends Component {
                 await delay(1);
                 this.props.history.push("/");
               }}
+              name="Home"
             >
               <FaHome size={30} />
             </ToolBarButton>
@@ -316,6 +317,7 @@ class TabCreator extends Component {
                 let kalimba = document.getElementById("kalimbaContainer");
                 kalimba.scrollTop = kalimba.scrollHeight;
               }}
+              name="New"
             >
               <FaFile size={25} />
             </ToolBarButton>
@@ -324,6 +326,7 @@ class TabCreator extends Component {
               onClick={() => {
                 this.openSong();
               }}
+              name="Open"
             >
               <FaFolderOpen size={30} />
             </ToolBarButton>
@@ -332,6 +335,7 @@ class TabCreator extends Component {
               onClick={() => {
                 this.saveSong();
               }}
+              name="Save"
             >
               <FaSave size={30} />
             </ToolBarButton>
@@ -342,6 +346,7 @@ class TabCreator extends Component {
               }}
               disabled={this.state.exporting || this.state.playing}
               selected={this.state.exporting}
+              name="Export"
             >
               {this.state.exporting ? (
                 <ClipLoader size={30} color="blue" />
@@ -359,6 +364,7 @@ class TabCreator extends Component {
                 onContextMenu={() => {
                   this.setState({ showPlayContextMenu: true });
                 }}
+                name={this.state.playing ? "Stop" : "Play"}
               >
                 {this.state.playing ? (
                   <FaStop color="red" size={30} />
@@ -443,6 +449,7 @@ class TabCreator extends Component {
               onClick={() => {
                 this.props.toggleSelectionMode();
               }}
+              name="Selection Mode"
             >
               <FaHandPointer />
             </ToolBarButton>
@@ -452,6 +459,7 @@ class TabCreator extends Component {
               onClick={() => {
                 this.props.extendSong();
               }}
+              name="Extend Song"
             >
               <FaPlus />
             </ToolBarButton>
@@ -501,6 +509,7 @@ class TabCreator extends Component {
               onClick={() => {
                 this.props.toggleTriplet();
               }}
+              name="Triplet"
             >
               -3-
             </ToolBarButton>
