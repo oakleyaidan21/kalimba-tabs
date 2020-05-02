@@ -25,6 +25,7 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 import ClipLoader from "react-spinners/ClipLoader";
 import QuarterRest from "../kalimbaImages/restImages/quarter_rest.png";
 import PlayContextMenu from "../components/PlayContextMenu";
+import ScreenWideModal from "../components/ScreenWideModal";
 
 var app = window.require("electron").remote;
 const fs = app.require("fs");
@@ -239,13 +240,12 @@ class TabCreator extends Component {
     let input = document.getElementById("kalimbaContainer");
     //scroll to the bottom
     input.scrollTop = input.scrollHeight;
-    let totalHeight = input.scrollHeight;
     let totalWidth = input.offsetWidth;
-    let margin = 15;
-    let pdfWidth = totalWidth + margin * 2;
-    let pdfHeight = input.offsetHeight + margin * 2;
-    let totalPages = Math.ceil(totalHeight / pdfHeight) - 1;
-    let pdf = new jsPDF();
+    let margin = 5;
+    let pdfWidth = totalWidth;
+    let pdfHeight = input.offsetHeight;
+    let totalPages = Math.ceil(input.scrollHeight / pdfHeight) - 1;
+    let pdf = new jsPDF("p", "px", [pdfWidth, pdfHeight]);
     for (let i = 0; i < totalPages; i++) {
       html2canvas(input).then(async (canvas) => {
         let imgData = canvas.toDataURL("image/jpeg", 1.0);
@@ -256,9 +256,11 @@ class TabCreator extends Component {
       input.scrollTop -= input.offsetHeight - 50;
       await delay(1);
     }
-
+    pdf.deletePage(1);
     pdf.save(this.props.songTitle + ".pdf");
     this.setState({ exporting: false });
+    //scroll back to the bottom
+    input.scrollTop = input.scrollHeight;
   };
 
   /**
@@ -293,6 +295,7 @@ class TabCreator extends Component {
           this.setState({ showPlayContextMenu: false });
         }}
       >
+        {this.state.exporting && <ScreenWideModal />}
         {/* TOOLBAR */}
         <div style={styles.controlPanelContainer}>
           {/* SONG CONTROL */}
@@ -591,6 +594,7 @@ const styles = {
     height: "100%",
     display: "flex",
     flexDirection: "column",
+    position: "relative",
   },
   controlPanelContainer: {
     ...divCenteredContent,

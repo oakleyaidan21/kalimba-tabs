@@ -9,6 +9,7 @@ class ToolBarButton extends Component {
       selected: false,
     };
   }
+
   render() {
     return (
       <div
