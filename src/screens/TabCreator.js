@@ -6,6 +6,7 @@ import { delay } from "q";
 import NoteButton from "../components/NoteButton";
 import AccidentalButton from "../components/AccidentalButton";
 import ToolBarButton from "../components/ToolBarButton";
+import { maximizeWindow } from "../menu-functions.js";
 import {
   FaPlay,
   FaStop,
@@ -236,29 +237,40 @@ class TabCreator extends Component {
    * the element.
    */
   exportToPDF = async () => {
+    //maximize window for best exporting results
+    maximizeWindow();
+    await delay(1);
+
     this.setState({ exporting: true });
     let input = document.getElementById("kalimbaContainer");
+
     //scroll to the bottom
-    input.scrollTop = input.scrollHeight;
-    let totalWidth = input.offsetWidth;
-    let margin = 5;
-    let pdfWidth = totalWidth;
+    input.scrollTop = 0;
+
     let pdfHeight = input.offsetHeight;
     let totalPages = Math.ceil(input.scrollHeight / pdfHeight) - 1;
-    let pdf = new jsPDF("p", "px", [pdfWidth, pdfHeight]);
-    for (let i = 0; i < totalPages; i++) {
+    let pdf = new jsPDF("p", "px", "a4");
+    let width = pdf.internal.pageSize.getWidth();
+    var height = pdf.internal.pageSize.getHeight();
+    for (let i = 0; i < totalPages + 1; i++) {
       html2canvas(input).then(async (canvas) => {
         let imgData = canvas.toDataURL("image/jpeg", 1.0);
-        pdf.addPage(pdfWidth, pdfHeight);
-        pdf.addImage(imgData, "PNG", margin, margin, 0, 0);
+        pdf.addPage("a4", "portrait");
+        pdf.addImage(imgData, "PNG", 0, 0, width, height);
       });
+
       //scroll up a page worth
-      input.scrollTop -= input.offsetHeight - 50;
-      await delay(1);
+      input.scrollTop += input.offsetHeight - 50;
+      await delay(200);
     }
+
+    //remove initial blank page
     pdf.deletePage(1);
+
+    //save pdf
     pdf.save(this.props.songTitle + ".pdf");
     this.setState({ exporting: false });
+
     //scroll back to the bottom
     input.scrollTop = input.scrollHeight;
   };
