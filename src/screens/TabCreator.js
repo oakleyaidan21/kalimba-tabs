@@ -307,7 +307,17 @@ class TabCreator extends Component {
           this.setState({ showPlayContextMenu: false });
         }}
       >
-        {this.state.exporting && <ScreenWideModal />}
+        {this.state.exporting && (
+          <ScreenWideModal>
+            <div style={styles.exportModal}>
+              <div>Exporting Song...</div>
+              <div style={{ margin: 10 }}>
+                <ClipLoader />
+              </div>
+              <div>Don't resize the window for best results.</div>
+            </div>
+          </ScreenWideModal>
+        )}
         {/* TOOLBAR */}
         <div style={styles.controlPanelContainer}>
           {/* SONG CONTROL */}
@@ -670,6 +680,10 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     overflow: "scroll",
+  },
+  exportModal: {
+    ...divCenteredContent,
+    flexDirection: "column",
   },
 };
 

@@ -8,7 +8,7 @@ class ScreenWideModal extends Component {
   render() {
     return (
       <div style={styles.mainContainer}>
-        <div style={styles.modal}>Exporting Song...</div>
+        <div style={styles.modal}>{this.props.children}</div>
       </div>
     );
   }
@@ -27,7 +27,7 @@ const styles = {
   },
   modal: {
     width: 400,
-    height: 100,
+
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -35,6 +35,7 @@ const styles = {
     border: "2px solid black",
     borderRadius: 3,
     zIndex: 1001,
+    padding: 10,
   },
 };
 
