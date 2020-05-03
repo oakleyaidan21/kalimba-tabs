@@ -241,7 +241,7 @@ class TabCreator extends Component {
 
   /**
    * Converts the kalimbaContainer element into a pdf.
-   * Needs to scroll up every time it takes a snapshot of
+   * Needs to scroll down every time it takes a snapshot of
    * the element.
    */
   exportToPDF = async () => {
@@ -250,37 +250,47 @@ class TabCreator extends Component {
     await delay(1);
 
     this.setState({ exporting: true });
-    let input = document.getElementById("kalimbaContainer");
+    let kalimbaElement = document.getElementById("kalimbaContainer");
 
-    //scroll to the bottom
-    input.scrollTop = 0;
+    //scroll to the top
+    kalimbaElement.scrollTop = 0;
 
-    let pdfHeight = input.offsetHeight;
-    let totalPages = Math.ceil(input.scrollHeight / pdfHeight) - 1;
     let pdf = new jsPDF("p", "px", "a4");
     let width = pdf.internal.pageSize.getWidth();
     var height = pdf.internal.pageSize.getHeight();
+    let pdfHeight = kalimbaElement.offsetHeight;
+
+    //add title and tempo to first page
+    pdf.setFontSize(50);
+    pdf.setFont("times", "bold");
+    pdf.text(width / 2, height / 2, this.props.songTitle, { align: "center" });
+    pdf.setFontSize(20);
+    pdf.setFont("times", "print");
+    pdf.text(width / 2, height / 2 + 50, "tempo: " + this.props.tempo, {
+      align: "center",
+    });
+    pdf.setFontSize(10);
+    //add the actual kalimba
+    let totalPages = Math.ceil(kalimbaElement.scrollHeight / pdfHeight) - 1;
     for (let i = 0; i < totalPages + 1; i++) {
-      html2canvas(input).then(async (canvas) => {
+      html2canvas(kalimbaElement).then(async (canvas) => {
         let imgData = canvas.toDataURL("image/jpeg", 1.0);
         pdf.addPage("a4", "portrait");
-        pdf.addImage(imgData, "PNG", 0, 0, width, height);
+        pdf.addImage(imgData, "PNG", 10, 0, width * 0.9, height);
+        pdf.text(width - 15, height - 10, (totalPages - i + 1).toString());
       });
 
       //scroll up a page worth
-      input.scrollTop += input.offsetHeight - 50;
+      kalimbaElement.scrollTop += kalimbaElement.offsetHeight - 50;
       await delay(200);
     }
-
-    //remove initial blank page
-    pdf.deletePage(1);
 
     //save pdf
     pdf.save(this.props.songTitle + ".pdf");
     this.setState({ exporting: false });
 
     //scroll back to the bottom
-    input.scrollTop = input.scrollHeight;
+    kalimbaElement.scrollTop = kalimbaElement.scrollHeight;
   };
 
   /**
@@ -422,7 +432,7 @@ class TabCreator extends Component {
             </div>
           </div>
           {/* TITLE INPUT */}
-          <div style={styles.titleContainer}>
+          <div style={styles.titleContainer} id="titleandtempo">
             {!this.state.editTitle ? (
               <div
                 onClick={() => {
