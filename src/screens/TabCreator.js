@@ -151,7 +151,10 @@ class TabCreator extends Component {
    * Plays the song by going through the redux song array
    * and collecting the locations with notes
    */
-  playSong = async (fromStart) => {
+  playSong = async (fromStart, noteIndex) => {
+    if (this.state.playing) {
+      return;
+    }
     this.setState({ playing: true, isStopped: false });
     let kalimbaElement = document.getElementById("kalimbaContainer");
     kalimbaElement.scrollTop = kalimbaElement.scrollHeight;
@@ -165,6 +168,11 @@ class TabCreator extends Component {
         : !fromStart
         ? this.props.song.length - 1
         : this.props.lastNoteIndex;
+
+    //if they manually chose a note to start from, start there
+    if (noteIndex !== undefined) {
+      start = noteIndex;
+    }
 
     //go through the song array and pick out only the notes that need to be played
     for (let i = start; i >= 0; i--) {
@@ -556,6 +564,9 @@ class TabCreator extends Component {
                 currentNote={this.state.currentNoteIndex}
                 playing={this.state.playing}
                 visibleHeight={this.state.height}
+                playFromNote={(index) => {
+                  this.playSong(false, index);
+                }}
               />
             ) : (
               <div style={{ alignSelf: "center" }}>

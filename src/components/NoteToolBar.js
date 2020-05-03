@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { FaMinus, FaPlus, FaPaste, FaTimes, FaStopwatch } from "react-icons/fa";
+import {
+  FaMinus,
+  FaPlus,
+  FaPaste,
+  FaTimes,
+  FaStopwatch,
+  FaPlay,
+} from "react-icons/fa";
 
 class NoteToolBar extends Component {
   constructor(props) {
@@ -38,6 +45,15 @@ class NoteToolBar extends Component {
               this.props.noteTempoChange();
               this.props.hideNoteBar();
             }}
+          />
+        </div>
+        <div style={styles.actionContainer}>
+          <FaPlay
+            onClick={() => {
+              this.props.playFromNote(this.props.noteBarNoteIndex);
+              this.props.hideNoteBar();
+            }}
+            color="blue"
           />
         </div>
         <div style={styles.actionContainer}>

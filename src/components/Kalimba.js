@@ -122,7 +122,13 @@ class Kalimba extends Component {
           ))}
         </div>
         {/* NOTE SPECIFIC TASK BAR */}
-        {this.props.showNoteBar && <NoteToolBar />}
+        {this.props.showNoteBar && (
+          <NoteToolBar
+            playFromNote={(index) => {
+              this.props.playFromNote(index);
+            }}
+          />
+        )}
         {/* NOTE SELECTOR */}
         <div style={styles.noteSelectorContainer}>
           {this.props.tineNotes.map((tine) => (
