@@ -21,8 +21,9 @@ import R_D_Eighth from "../kalimbaImages/restImages/dotted_eighth_rest.png";
 import R_D_Sixteenth from "../kalimbaImages/restImages/dotted_sixteenth_rest.png";
 
 let array = [];
+let initialKalimbaLength = 75; //the amount of rows a song starts with
 
-for (let i = 0; i < 200; i++) {
+for (let i = 0; i < initialKalimbaLength; i++) {
   array.push([]);
   for (let j = 0; j < 17; j++) {
     array[i].push({ note: "", time: 0, tripletMode: false });
@@ -41,6 +42,11 @@ for (let i = 0; i < 200; i++) {
  * @rest a boolean representing whether or not the notes added are rests
  * @tripletMode a boolean representing whether or not triplet input mode is activated
  * @lastNoteIndex an integer representing the last edited note index
+ * @selectionMode a boolean representing whether or not selection mode is active
+ * @selectedRows an array which will hold all of the rows the user selected
+ * @showNoteBar a boolean representing whether or not the note tool bar will be shown
+ * @noteBarTineIndex the tine index of the note right clicked
+ * @noteBarNoteIndex the note index of the note right clicked
  */
 export const initialState = {
   tineNotes: [

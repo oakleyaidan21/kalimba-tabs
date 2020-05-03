@@ -7,6 +7,7 @@ import {
  * Edits the song array in the redux store
  * changes values of note in the array according
  * to redux variables
+ * if an index close to the end of the song is clicked, it extends the song length
  * @param {object} state the redux state object
  * @param {object} note the note clicked
  * @return {object} the new state
@@ -61,6 +62,16 @@ const editSong = (state, note) => {
       time: timeToAdd,
       tripletMode: state.tripletMode,
     };
+    //extend song if it's close to the end
+    if (note.noteIndex < 10) {
+      let newRow = [];
+      for (let i = 0; i < 17; i++) {
+        newRow.push({ note: "", time: 0, tripletMode: false });
+      }
+      for (let i = 0; i < 25; i++) {
+        newSong.unshift([...newRow]);
+      }
+    }
   }
   return { ...state, song: newSong, lastNoteIndex: note.noteIndex };
 };
@@ -149,7 +160,7 @@ export const reducer = (state = getInitialState(), action) => {
     }
 
     case "OPEN_NEW_SONG": {
-      return { ...getInitialState() };
+      return { ...getInitialState(), song: [...initialState.song] };
     }
 
     case "TOGGLE_TRIPLET": {
