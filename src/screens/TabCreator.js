@@ -255,7 +255,7 @@ class TabCreator extends Component {
     //scroll to the top
     kalimbaElement.scrollTop = 0;
 
-    let pdf = new jsPDF("p", "px", "a4");
+    let pdf = new jsPDF("p", "px", "letter");
     let width = pdf.internal.pageSize.getWidth();
     var height = pdf.internal.pageSize.getHeight();
     let pdfHeight = kalimbaElement.offsetHeight;
@@ -275,7 +275,7 @@ class TabCreator extends Component {
     for (let i = 0; i < totalPages + 1; i++) {
       html2canvas(kalimbaElement).then(async (canvas) => {
         let imgData = canvas.toDataURL("image/jpeg", 1.0);
-        pdf.addPage("a4", "portrait");
+        pdf.addPage("letter", "portrait");
         pdf.addImage(imgData, "PNG", 10, 0, width * 0.9, height);
         pdf.text(width - 15, height - 10, (totalPages - i + 1).toString());
       });
