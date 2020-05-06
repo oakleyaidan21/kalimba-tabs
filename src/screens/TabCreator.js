@@ -286,6 +286,7 @@ class TabCreator extends Component {
     }
 
     //save pdf
+    await delay(3000);
     pdf.save(this.props.songTitle + ".pdf");
     this.setState({ exporting: false });
 
