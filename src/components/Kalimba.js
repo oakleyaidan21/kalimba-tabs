@@ -110,6 +110,10 @@ class Kalimba extends Component {
                         noteIndex,
                         tine,
                       });
+                      //if the song gets extended, scroll back to this note
+                      if (noteIndex < 10) {
+                        this.props.scrollBack(noteIndex);
+                      }
                       //play note
                       this.playNote(wasClicked, tine);
                     }}
