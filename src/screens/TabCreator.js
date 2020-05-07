@@ -577,6 +577,12 @@ class TabCreator extends Component {
                 playFromNote={(index) => {
                   this.playSong(false, index);
                 }}
+                scrollBack={() => {
+                  let kalimbaContainer = document.getElementById(
+                    "kalimbaContainer"
+                  );
+                  kalimbaContainer.scrollTop += 50 * 25;
+                }}
               />
             ) : (
               <div style={{ alignSelf: "center" }}>
