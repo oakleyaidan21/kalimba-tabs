@@ -27,6 +27,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import QuarterRest from "../kalimbaImages/restImages/quarter_rest.png";
 import PlayContextMenu from "../components/PlayContextMenu";
 import ScreenWideModal from "../components/ScreenWideModal";
+import NewSongWindow from "../components/NewSongWindow";
 
 var app = window.require("electron").remote;
 const fs = app.require("fs");
@@ -42,6 +43,7 @@ class TabCreator extends Component {
       editTitle: false,
       editTempo: false,
       exporting: false,
+      showNewSongWindow: false,
       height: window.innerHeight,
       enteredTempo: 0,
       showPlayContextMenu: false,
@@ -337,6 +339,21 @@ class TabCreator extends Component {
             </div>
           </ScreenWideModal>
         )}
+        {this.state.showNewSongWindow && (
+          <NewSongWindow
+            hide={() => {
+              this.setState({ showNewSongWindow: false });
+            }}
+            create={() => {
+              //ask if they want to save this song
+              this.props.openNewSong();
+              this.setState({ showNewSongWindow: false });
+              // //scroll to the bottom
+              let kalimba = document.getElementById("kalimbaContainer");
+              kalimba.scrollTop = kalimba.scrollHeight;
+            }}
+          />
+        )}
         {/* TOOLBAR */}
         <div style={styles.controlPanelContainer}>
           {/* SONG CONTROL */}
@@ -355,11 +372,7 @@ class TabCreator extends Component {
             {/* NEW SONG */}
             <ToolBarButton
               onClick={() => {
-                //ask if they want to save this song
-                this.props.openNewSong();
-                //scroll to the bottom
-                let kalimba = document.getElementById("kalimbaContainer");
-                kalimba.scrollTop = kalimba.scrollHeight;
+                this.setState({ showNewSongWindow: true });
               }}
               name="New"
             >
