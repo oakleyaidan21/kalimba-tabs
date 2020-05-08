@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SongItem from "../components/SongItem";
+import NewSongWindow from "../components/NewSongWindow";
 import { connect } from "react-redux";
 import { FaPlus } from "react-icons/fa";
 import { exampleSongs } from "../constants/tab_examples.js";
@@ -65,7 +66,7 @@ class HomeScreen extends Component {
   /**
    * Clears the redux song and then navigates to empty TabCreator
    */
-  newSongClicked = () => {
+  newSong = () => {
     //should probably have some type of creation modal appear first
     //where they input a title, tempo, etc
     this.props.openNewSong();
@@ -88,6 +89,16 @@ class HomeScreen extends Component {
   render() {
     return (
       <div style={styles.homeContainer}>
+        {this.state.showNewSongWindow && (
+          <NewSongWindow
+            hide={() => {
+              this.setState({ showNewSongWindow: false });
+            }}
+            create={() => {
+              this.newSong();
+            }}
+          />
+        )}
         <div style={styles.body}>
           {/* SONG LIST */}
           <div style={styles.songList}>
@@ -98,7 +109,7 @@ class HomeScreen extends Component {
               <div
                 style={styles.newSongButton}
                 onClick={() => {
-                  this.newSongClicked();
+                  this.setState({ showNewSongWindow: true });
                 }}
               >
                 <FaPlus size={70} color="black" />

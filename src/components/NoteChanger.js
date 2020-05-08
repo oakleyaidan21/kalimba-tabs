@@ -12,7 +12,7 @@ class NoteChanger extends Component {
   render() {
     return (
       <div
-        style={{ flex: 17, textAlign: "center" }}
+        style={{ flex: this.props.song[0].length, textAlign: "center" }}
         onClick={() => {
           this.setState({ showModal: !this.state.showModal });
         }}
@@ -66,7 +66,9 @@ class NoteChanger extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    song: state.song,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

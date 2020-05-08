@@ -65,7 +65,7 @@ const editSong = (state, note) => {
     //extend song if it's close to the end
     if (note.noteIndex < 10) {
       let newRow = [];
-      for (let i = 0; i < 17; i++) {
+      for (let i = 0; i < state.song[0].length; i++) {
         newRow.push({ note: "", time: 0, tripletMode: false });
       }
       for (let i = 0; i < 25; i++) {
@@ -170,7 +170,7 @@ export const reducer = (state = getInitialState(), action) => {
     case "ADD_ROW": {
       let newSong = [...state.song];
       let newRow = [];
-      for (let i = 0; i < 17; i++) {
+      for (let i = 0; i < state.song[0].length; i++) {
         newRow.push({ note: "", time: 0, tripletMode: false });
       }
       newSong.splice(action.noteIndex, 0, newRow);
@@ -186,7 +186,7 @@ export const reducer = (state = getInitialState(), action) => {
     case "EXTEND_SONG": {
       let newSong = [...state.song];
       let newRow = [];
-      for (let i = 0; i < 17; i++) {
+      for (let i = 0; i < state.song[0].length; i++) {
         newRow.push({ note: "", time: 0, tripletMode: false });
       }
       for (let i = 0; i < 50; i++) {

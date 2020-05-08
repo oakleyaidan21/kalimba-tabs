@@ -179,7 +179,7 @@ class TabCreator extends Component {
       let notesToPlay = { notes: [], time: 4 };
       let shortestInterval = -1;
       let fastestTempo = -1;
-      for (let j = 0; j < 17; j++) {
+      for (let j = 0; j < this.props.song[0].length; j++) {
         let noteToAdd = "";
         if (this.props.song[i][j].tempo !== undefined) {
           if (this.props.song[i][j].tempo > fastestTempo) {

@@ -67,7 +67,7 @@ class Kalimba extends Component {
                 backgroundColor: !coloredTines.includes(tineIndex)
                   ? "lightgrey"
                   : "#60a1fc",
-                flex: 17,
+                flex: this.props.song[0].length,
                 height:
                   50 * this.props.song.length +
                   (8 - Math.abs(8 - tineIndex)) * 10,
