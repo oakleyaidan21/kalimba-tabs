@@ -143,6 +143,10 @@ export const reducer = (state = getInitialState(), action) => {
       };
     }
 
+    case "CHANGE_NOTES": {
+      return { ...state, tineNotes: action.notes };
+    }
+
     case "CHANGE_TITLE": {
       return { ...state, songTitle: action.title };
     }
@@ -161,6 +165,23 @@ export const reducer = (state = getInitialState(), action) => {
 
     case "OPEN_NEW_SONG": {
       return { ...getInitialState(), song: [...initialState.song] };
+    }
+
+    case "NEW_SONG_FROM_PARAMETERS": {
+      let song = [];
+      for (let i = 0; i < 75; i++) {
+        song.push([]);
+        for (let j = 0; j < action.data.notes.length; j++) {
+          song[i].push({ note: "", time: 0, tripletMode: false });
+        }
+      }
+      return {
+        ...state,
+        song: song,
+        tineNotes: action.data.notes,
+        songTitle: action.data.title,
+        tempo: action.data.tempo,
+      };
     }
 
     case "TOGGLE_TRIPLET": {

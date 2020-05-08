@@ -70,7 +70,6 @@ class HomeScreen extends Component {
     //should probably have some type of creation modal appear first
     //where they input a title, tempo, etc
     this.props.openNewSong();
-    this.props.history.push("/tabcreator");
   };
 
   deleteSong = (songTitle) => {
@@ -94,8 +93,8 @@ class HomeScreen extends Component {
             hide={() => {
               this.setState({ showNewSongWindow: false });
             }}
-            create={() => {
-              this.newSong();
+            onCreate={() => {
+              this.props.history.push("/tabcreator");
             }}
           />
         )}

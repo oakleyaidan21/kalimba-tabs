@@ -344,11 +344,11 @@ class TabCreator extends Component {
             hide={() => {
               this.setState({ showNewSongWindow: false });
             }}
-            create={() => {
+            onCreate={() => {
               //ask if they want to save this song
-              this.props.openNewSong();
+
               this.setState({ showNewSongWindow: false });
-              // //scroll to the bottom
+
               let kalimba = document.getElementById("kalimbaContainer");
               kalimba.scrollTop = kalimba.scrollHeight;
             }}
@@ -491,6 +491,7 @@ class TabCreator extends Component {
                 style={styles.tempoInput}
                 type="number"
                 min="0"
+                max="500"
                 onChange={(e) => {
                   // this.props.changeTempo(e.target.value);
                   this.setState({ enteredTempo: e.target.value });
