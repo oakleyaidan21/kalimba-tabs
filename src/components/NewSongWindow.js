@@ -8,18 +8,43 @@ class NewSongWindow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      tempo: 0,
+      title: "Untitled",
+      tempo: 145,
       notes: [...initialState.tineNotes],
+      errorMessages: [],
     };
   }
 
-  addNote = (note) => {
+  checkInputs = () => {
+    this.setState({ errorMessages: [] });
+    let newErrorMessages = [];
+    if (this.state.tempo > 500) {
+      newErrorMessages.push("Tempo value must be between 0 and 500");
+    }
+    if (this.state.notes.length === 0) {
+      newErrorMessages.push("Must have at least one note on the kalimba");
+    }
+    this.setState({ errorMessages: newErrorMessages });
+    if (newErrorMessages.length > 0) {
+      return false;
+    }
+    return true;
+  };
+
+  addNote = (note, left) => {
+    this.setState({ errorMessages: [] });
     if (!note.match(/^([CDEFGAB]#?)((?:-[1-2])|[0-8])$/)) {
+      //invalid note name
+      let newErrorMessages = [];
+      newErrorMessages.push(
+        "Invalid note. Must follow the form of (Note Name)(Accidental)(Octave), i.e. C4, C#4, etc."
+      );
+      this.setState({ errorMessages: newErrorMessages });
       return;
     }
     let newNotes = [...this.state.notes];
-    newNotes.push(note);
+    left ? newNotes.unshift(note) : newNotes.push(note);
+
     this.setState({ notes: newNotes });
   };
 
@@ -54,6 +79,7 @@ class NewSongWindow extends Component {
               <div style={styles.input}>
                 <div style={{ width: 100 }}>Title</div>
                 <input
+                  placeholder="Untitled"
                   style={{ flex: 1 }}
                   onChange={(e) => {
                     this.setState({ title: e.target.value });
@@ -63,6 +89,7 @@ class NewSongWindow extends Component {
               <div style={styles.input}>
                 <div style={{ width: 100 }}>Tempo</div>
                 <input
+                  placeholder="145"
                   style={{ width: "20%" }}
                   onChange={(e) => {
                     this.setState({ tempo: e.target.value });
@@ -78,37 +105,40 @@ class NewSongWindow extends Component {
                   removeNote={(note) => {
                     this.removeNote(note);
                   }}
-                  addNote={(note) => {
-                    this.addNote(note);
+                  addNote={(note, left) => {
+                    this.addNote(note, left);
                   }}
                 />
               </div>
             </div>
           </div>
           <div style={styles.bottomButtons}>
-            <div
-              style={{ ...styles.button, backgroundColor: "#60a1fc" }}
-              onClick={() => {
-                if (
-                  this.state.title.length === 0 ||
-                  this.state.tempo === 0 ||
-                  this.state.notes.length === 0
-                ) {
-                  return;
-                }
-                this.props.openNewSongFromParameters({ ...this.state });
-                this.props.onCreate();
-              }}
-            >
-              Create
+            <div style={styles.errorMessage}>
+              {this.state.errorMessages.map((msg) => (
+                <div>{msg}</div>
+              ))}
             </div>
-            <div
-              style={{ ...styles.button, backgroundColor: "lightgrey" }}
-              onClick={() => {
-                this.props.hide();
-              }}
-            >
-              Cancel
+            <div style={{ display: "flex" }}>
+              <div
+                style={{ ...styles.button, backgroundColor: "#60a1fc" }}
+                onClick={() => {
+                  if (!this.checkInputs()) {
+                    return;
+                  }
+                  this.props.openNewSongFromParameters({ ...this.state });
+                  this.props.onCreate();
+                }}
+              >
+                Create
+              </div>
+              <div
+                style={{ ...styles.button, backgroundColor: "lightgrey" }}
+                onClick={() => {
+                  this.props.hide();
+                }}
+              >
+                Cancel
+              </div>
             </div>
           </div>
         </div>
@@ -129,9 +159,9 @@ const styles = {
     alignItems: "center",
   },
   modal: {
-    width: "70%",
+    width: "50%",
     position: "relative",
-    height: "85%",
+    height: "80%",
     borderRadius: 5,
     display: "flex",
     flexDirection: "column",
@@ -163,11 +193,16 @@ const styles = {
   },
   bottomButtons: {
     width: "100%",
-    height: 100,
+    height: 200,
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "column",
     display: "flex",
+  },
+  errorMessage: {
+    color: "red",
+    fontWeight: "bold",
   },
   button: {
     width: 100,

@@ -8,7 +8,6 @@ import D_Quarter from "../kalimbaImages/noteImages/dotted_quarter.png";
 import D_Sixteenth from "../kalimbaImages/noteImages/dotted_sixteenth_note.png";
 import D_Whole from "../kalimbaImages/noteImages/dotted_whole_note.png";
 import Whole from "../kalimbaImages/noteImages/whole_note.png";
-
 import R_Quarter from "../kalimbaImages/restImages/quarter_rest.png";
 import R_Eighth from "../kalimbaImages/restImages/eighth_rest.png";
 import R_Half from "../kalimbaImages/restImages/half_rest.png";
@@ -71,7 +70,7 @@ export const initialState = {
   song: array,
   selectedNote: 4,
   tempo: 145,
-  songTitle: "Title",
+  songTitle: "Untitled",
   selectedAccidental: "None",
   dotted: false,
   rest: false,
