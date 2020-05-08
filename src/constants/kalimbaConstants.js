@@ -32,7 +32,7 @@ for (let i = 0; i < initialKalimbaLength; i++) {
 
 /**
  * Initial state of the redux store
- * @tineNotes the note names on the bottom of the kalimba
+ * @tineNotes the 17 note names on the bottom of the kalimba
  * @song the multi dimensional array containing all of the note objects
  * @selectedNote the currently selected note timing, i.e. quarter, eighth
  * @tempo the tempo of the song in bpm

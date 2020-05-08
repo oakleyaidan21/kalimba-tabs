@@ -70,7 +70,12 @@ class Kalimba extends Component {
                 flex: this.props.song[0].length,
                 height:
                   50 * this.props.song.length +
-                  (8 - Math.abs(8 - tineIndex)) * 10,
+                  (Math.ceil(this.props.song[0].length / 2) -
+                    1 -
+                    Math.abs(
+                      Math.ceil(this.props.song[0].length / 2) - 1 - tineIndex
+                    )) *
+                    10,
                 borderBottomLeftRadius: 20,
                 borderBottomRightRadius: 20,
               }}
