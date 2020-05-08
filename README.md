@@ -6,10 +6,15 @@ A WYSIWYG editor for creating, saving, and exporting kalimba tabs.
 
 ## Latest Builds
 
+0.2.0: 
+- improved export function's consistency
+- added ability to customize the kalimba upon song creation
+- misc. bug fixes and QoL improvements
+
 - Windows
-  - exe: <a href="https://drive.google.com/file/d/18JW0JVdcZn1cboLW6MbRHQnjvMzzC2zj/view?usp=sharing" target="_blank">0.1.0</a>
+  - exe: <a href="https://drive.google.com/file/d/1xIT-xHvcAfm7CEhgPCbaTa-mNiHLpS0H/view?usp=sharing" target="_blank">0.2.0</a>
 - Linux: 
-  - deb: <a href="https://drive.google.com/file/d/1uvj0Vwdkfa_u-2nUs4LszUmvyhLVwUlq/view?usp=sharing" target="_blank">0.1.0</a>
+  - deb: <a href="https://drive.google.com/file/d/1zsLL2wCJVtvNFxrdGpNK-g51MaGBRRaZ/view?usp=sharing" target="_blank">0.2.0</a>
 - mac: 
   - no current builds for mac. You can run the source code on it, but I have not yet figured out how to configure electron-builder for OSX devices
 
