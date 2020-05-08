@@ -51,6 +51,7 @@ const styles = {
   },
   tine: {
     height: 125,
+    maxWidth: 70,
     borderRadius: 25,
     backgroundColor: "#60a1fc",
     display: "flex",
