@@ -14,7 +14,7 @@
     "fs": "0.0.1-security",
     "html2canvas": "^1.0.0-rc.5",
     "jquery": "^3.4.1",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "mobx": "^5.15.4",
     "mobx-music": "^1.1.1",
     "path": "^0.12.7",
